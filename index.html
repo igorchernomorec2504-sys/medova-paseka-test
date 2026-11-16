@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Медова Пасіка | Натуральний мед та вироби з воску</title>
+    <meta name="description" content="Купити натуральний крафтовий мед, воскові свічки ручної роботи, бджолиний пилок та прополіс напряму з сімейної пасіки. Доставка по Україні.">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --honey: #F2A516;
+            --honey-dark: #D4890A;
+            --dark: #1A1A2E;
+            --dark2: #16213E;
+            --text: #333;
+            --text-light: #666;
+            --bg: #FFF8F0;
+            --card-bg: #fff;
+            --gold-gradient: linear-gradient(135deg, #F2A516, #E8920A);
+            --border-color: #f3e8d8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(26,26,46,0.95); backdrop-filter: blur(10px);
+            padding: 15px 0; border-bottom: 1px solid rgba(242,165,22,0.2);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--honey); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: #fff; }
+        nav { display: flex; align-items: center; }
+        nav a {
+            color: #ccc; text-decoration: none; margin-left: 20px; font-size: 14px; font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--honey); }
+        .header-actions { display: flex; align-items: center; gap: 12px; margin-left: 20px; }
+        .auth-btn-header {
+            background: rgba(242,165,22,0.15); color: var(--honey); border: 1px solid rgba(242,165,22,0.4);
+            padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .auth-btn-header:hover { background: var(--honey); color: #fff; }
+
+        .lang-switcher {
+            display: inline-flex; gap: 4px; background: rgba(255,255,255,0.1);
+            padding: 3px; border-radius: 20px; margin-left: 15px;
+        }
+        .lang-btn {
+            background: none; border: none; cursor: pointer; font-weight: 700;
+            font-size: 11px; color: #aaa; padding: 4px 8px; border-radius: 50px; transition: all 0.2s ease;
+        }
+        .lang-btn.active { background: var(--honey); color: #fff; }
+
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 50%, #0F3460 100%);
+            text-align: center; padding: 120px 20px 80px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(242,165,22,0.08) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,30px)} }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero h1 {
+            font-size: 52px; font-weight: 800; color: #fff; margin-bottom: 20px; line-height: 1.2;
+        }
+        .hero h1 span { color: var(--honey); }
+        .hero p { font-size: 18px; color: #aaa; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-badge {
+            display: inline-block; background: rgba(242,165,22,0.15); color: var(--honey);
+            padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600;
+            margin-bottom: 25px; border: 1px solid rgba(242,165,22,0.3);
+        }
+        .btn {
+            display: inline-block; padding: 16px 40px; border-radius: 50px;
+            font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer;
+            transition: all 0.3s; border: none; font-family: inherit;
+        }
+        .btn-primary { background: var(--gold-gradient); color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(242,165,22,0.3); }
+
+        section { padding: 100px 0; }
+        .section-title {
+            text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 15px;
+        }
+        .section-title span { color: var(--honey); }
+        .section-subtitle {
+            text-align: center; color: var(--text-light); font-size: 16px;
+            max-width: 600px; margin: 0 auto 50px;
+        }
+
+        .category-filters {
+            display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: #fff; border: 1px solid #ddd; color: var(--text-light);
+            padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 14px; cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .filter-btn:hover { border-color: var(--honey); color: var(--honey); }
+        .filter-btn.active { background: var(--honey); color: white; border-color: var(--honey); }
+
+        .catalog { background: #fff; }
+        .products-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+        .product-card {
+            background: var(--bg); border-radius: 20px; overflow: hidden;
+            transition: all 0.3s; border: 1px solid rgba(242,165,22,0.1);
+            display: flex; flex-direction: column; justify-content: space-between; position: relative;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .product-img {
+            height: 220px; background: linear-gradient(135deg, #f5e6d3, #e8d5c0);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 64px; position: relative;
+            background-size: cover; background-position: center;
+        }
+        .product-img .badge {
+            position: absolute; top: 15px; left: 15px;
+            background: #e74c3c; color: #fff; padding: 5px 15px;
+            border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+        }
+        .product-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .product-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .product-info .desc { color: var(--text-light); font-size: 14px; margin-bottom: 15px; }
+        .product-info .price { font-size: 24px; font-weight: 800; color: var(--honey); margin-bottom: 15px; }
+        .product-info .price small { font-size: 14px; color: var(--text-light); font-weight: 500; }
+        .product-info .sizes { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+        .product-info .sizes .size-btn {
+            padding: 6px 14px; border: 1px solid #ddd; border-radius: 8px;
+            font-size: 13px; cursor: pointer; transition: all 0.2s; background: #fff;
+        }
+        .product-info .sizes .size-btn.active { border-color: var(--honey); background: rgba(242,165,22,0.1); color: var(--honey); }
+        
+        .timer-box { 
+            background: #fffbeb; border: 1px dashed var(--honey); padding: 8px; 
+            border-radius: 10px; text-align: center; font-size: 12px; font-weight: 700; 
+            color: #b45309; margin-bottom: 15px; 
+        }
+
+        .btn-order {
+            width: 100%; padding: 12px; background: var(--gold-gradient); color: #fff;
+            border: none; border-radius: 12px; font-weight: 700; font-size: 15px;
+            cursor: pointer; transition: all 0.3s; font-family: inherit;
+        }
+        .btn-order:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(242,165,22,0.3); }
+
+        .benefits { background: var(--dark); }
+        .benefits .section-title { color: #fff; }
+        .benefits .section-subtitle { color: #888; }
+        .benefits-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+        }
+        .benefit-card {
+            text-align: center; padding: 40px 25px; background: rgba(255,255,255,0.05);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s;
+        }
+        .benefit-card:hover { background: rgba(242,165,22,0.1); border-color: rgba(242,165,22,0.3); }
+        .benefit-card .icon { font-size: 48px; margin-bottom: 20px; }
+        .benefit-card h4 { color: #fff; font-size: 18px; margin-bottom: 10px; }
+        .benefit-card p { color: #888; font-size: 14px; }
+
+        .about { background: #fff; }
+        .about-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        }
+        .about-text h3 { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+        .about-text p { color: var(--text-light); margin-bottom: 15px; font-size: 15px; }
+        .about-image {
+            height: 400px; background: linear-gradient(135deg, #f5e6d3, #e8d5c0);
+            border-radius: 20px; display: flex; align-items: center; justify-content: center;
+            font-size: 80px; background-size: cover; background-position: center;
+        }
+
+        .how-to-order { background: var(--bg); }
+        .steps-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;
+        }
+        .step-card {
+            text-align: center; padding: 40px 25px; background: #fff;
+            border-radius: 20px; border: 1px solid rgba(242,165,22,0.1);
+            position: relative; transition: all 0.3s;
+        }
+        .step-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .step-number {
+            width: 50px; height: 50px; background: var(--gold-gradient); color: #fff;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 800; margin: 0 auto 20px;
+        }
+        .step-card h4 { font-size: 18px; margin-bottom: 10px; }
+        .step-card p { color: var(--text-light); font-size: 14px; }
+
+        .reviews { background: #fff; }
+        .reviews-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+        }
+        .review-card {
+            background: var(--bg); padding: 30px; border-radius: 20px;
+            border: 1px solid rgba(242,165,22,0.1); display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .review-card .stars { color: var(--honey); font-size: 18px; margin-bottom: 15px; }
+        .review-card p { color: var(--text-light); font-size: 14px; margin-bottom: 15px; font-style: italic; }
+        .review-card .author { font-weight: 700; font-size: 14px; color: var(--dark); }
+
+        .faq { background: var(--bg); }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            background: #fff; border-radius: 16px; margin-bottom: 15px;
+            border: 1px solid rgba(242,165,22,0.1); overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 25px; font-weight: 600; font-size: 16px;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.3s;
+        }
+        .faq-question:hover { background: rgba(242,165,22,0.05); }
+        .faq-question .arrow { transition: transform 0.3s; font-size: 12px; }
+        .faq-item.active .faq-question .arrow { transform: rotate(180deg); }
+        .faq-answer {
+            padding: 0 25px; max-height: 0; overflow: hidden;
+            transition: all 0.3s; color: var(--text-light); font-size: 14px;
+        }
+        .faq-item.active .faq-answer { padding: 0 25px 20px; max-height: 300px; }
+
+        footer {
+            background: var(--dark); color: #888; padding: 60px 0 30px;
+        }
+        footer .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        footer h4 { color: #fff; font-size: 18px; margin-bottom: 20px; }
+        footer a { color: #888; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        footer a:hover { color: var(--honey); }
+        .footer-bottom {
+            text-align: center; padding-top: 30px; margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1); font-size: 14px;
+        }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #fff; border-radius: 24px; padding: 40px; max-width: 500px; width: 90%;
+            position: relative; max-height: 90vh; overflow-y: auto;
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 20px; font-size: 28px;
+            cursor: pointer; background: none; border: none; color: #999;
+            transition: color 0.3s;
+        }
+        .modal-close:hover { color: #333; }
+        .modal h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px;
+            font-size: 15px; font-family: inherit; transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--honey);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .btn-submit {
+            width: 100%; padding: 14px; background: var(--gold-gradient); color: #fff;
+            border: none; border-radius: 12px; font-weight: 700; font-size: 16px;
+            cursor: pointer; transition: all 0.3s; font-family: inherit;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(242,165,22,0.3); }
+
+        .cart-fab {
+            position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            width: 60px; height: 60px; background: var(--gold-gradient); color: #fff;
+            border: none; border-radius: 50%; font-size: 24px; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(242,165,22,0.4); transition: all 0.3s;
+            display: none; align-items: center; justify-content: center;
+        }
+        .cart-fab:hover { transform: scale(1.1); }
+        .cart-fab .count {
+            position: absolute; top: -5px; right: -5px; width: 24px; height: 24px;
+            background: #e74c3c; color: #fff; border-radius: 50%; font-size: 12px;
+            display: flex; align-items: center; justify-content: center; font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 34px; }
+            .about-content { grid-template-columns: 1fr; gap: 30px; }
+            nav { display: none; }
+            section { padding: 60px 0; }
+            .section-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <a href="#" class="logo">🍯 <span id="nav-logo-text">Медова</span> Пасіка</a>
+        <nav>
+            <a href="#catalog" id="menu-catalog">Каталог</a>
+            <a href="#about" id="menu-about">Про нас</a>
+            <a href="#how-to-order" id="menu-how">Як замовити</a>
+            <a href="#faq" id="menu-faq">FAQ</a>
+            <a href="#contacts" id="menu-contacts">Контакти</a>
+            <div class="header-actions">
+                <button class="auth-btn-header" id="authBtn" onclick="openAuthModal()">👤 Вхід / Реєстрація</button>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btn-uk" onclick="setLanguage('uk')">УКР</button>
+                    <button class="lang-btn" id="btn-ru" onclick="setLanguage('ru')">РУС</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge" id="hero-badge">🐝 Натуральний мед з Одещини</div>
+        <h1 id="hero-title">Справжній мед<br>з <span>любов'ю</span> до бджіл</h1>
+        <p id="hero-desc">Мед, прополіс та інші продукти бджільництва з власної пасіки в селі Захарівка. Без домішок, без цукру — тільки чиста користь природи.</p>
+        <a href="#catalog" class="btn btn-primary" id="hero-btn">🍯 Обрати мед</a>
+    </div>
+</section>
+
+<section class="catalog" id="catalog">
+    <div class="container">
+        <h2 class="section-title"><span id="cat-title-1">Наш</span> <span id="cat-title-2">каталог</span></h2>
+        <p class="section-subtitle" id="cat-subtitle">Всі продукти зібрані на власній пасіці в екологічно чистому регіоні Одещини</p>
+
+        <div class="category-filters">
+            <button class="filter-btn active" onclick="filterProducts('all', this)" id="flt-all">Усі товари</button>
+            <button class="filter-btn" onclick="filterProducts('honey', this)" id="flt-honey">Мед</button>
+            <button class="filter-btn" onclick="filterProducts('candles', this)" id="flt-candles">Свічки</button>
+            <button class="filter-btn" onclick="filterProducts('other', this)" id="flt-other">Інше</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Соняшниковий мед -->
+            <div class="product-card" data-category="honey">
+                <div class="product-img" style="background-image: url('med.jpg');"><div class="badge">Хіт</div></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p1-title">Мед соняшниковий</h3>
+                        <p class="desc" id="p1-desc">Густий, сонячний та найсолодший мед з власної пасіки.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="250" data-size="1 л">1 л — 250 ₴</span>
+                            <span class="size-btn" data-price="500" data-size="2 л">2 л — 500 ₴</span>
+                            <span class="size-btn" data-price="700" data-size="3 л">3 л — 700 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price" data-base="250">250 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Мед соняшниковий', 250, '1 л')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Травневий мед -->
+            <div class="product-card" data-category="honey">
+                <div class="product-img" style="background-image: url('may1.jpg');"><div class="badge">Весняний збір</div></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p2-title">Мед Травневий</h3>
+                        <p class="desc" id="p2-desc">Ароматний і ніжний мед із перших весняних квітів та садів.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="350" data-size="1 л">1 л — 350 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price">350 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Мед Травневий', 350, '1 л')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Мед з горіхом -->
+            <div class="product-card" data-category="honey">
+                <div class="product-img" style="background: linear-gradient(135deg, #d4a574, #c49564);">🥜</div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p3-title">Мед з волоським горіхом</h3>
+                        <p class="desc" id="p3-desc">Відбірний мед з додаванням волоського горіха.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="150" data-size="0.25 л">0.25 л — 150 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price">150 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Мед з волоським горіхом', 150, '0.25 л')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Стільниковий мед -->
+            <div class="product-card" data-category="honey">
+                <div class="product-img" style="background-image: url('sotu.jpg');"><div class="badge">100% Еко</div></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p4-title">Стільниковий Мед</h3>
+                        <p class="desc" id="p4-desc">Найчистіший делікатес у запечатаних воскових сотах.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="150" data-size="1 кг">1 кг — 150 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price">150 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Стільниковий Мед', 150, '1 кг')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Свічки з вощини -->
+            <div class="product-card" data-category="candles">
+                <div class="product-img" style="background-image: url('svecha.jpg');"><div class="badge">Ручна робота</div></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p5-title">Свічка з вощини</h3>
+                        <p class="desc" id="p5-desc">100% чистий віск, дарують затишок та медовий аромат.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="40" data-size="1 шт">1 шт — 40 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price">40 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Свічка з вощини', 40, '1 шт')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Прополіс -->
+            <div class="product-card" data-category="other">
+                <div class="product-img" style="background-image: url('propolis1.jpg');"></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p6-title">Прополіс</h3>
+                        <p class="desc" id="p6-desc">Природний антисептик і захисник здоров'я з вулика.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="300" data-size="100 г">100 г — 300 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price">300 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Прополіс', 300, '100 г')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Бджолиний пилок -->
+            <div class="product-card" data-category="other">
+                <div class="product-img" style="background-image: url('pollen.jpg');"></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p7-title">Бджолиний пилок</h3>
+                        <p class="desc" id="p7-desc">Натуральний мікс вітамінів і амінокислот для енергії.</p>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="70" data-size="100 г">100 г — 70 ₴</span>
+                            <span class="size-btn" data-price="140" data-size="200 г">200 г — 140 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price">70 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Бджолиний пилок', 70, '100 г')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Акційний набір свічок -->
+            <div class="product-card" data-category="candles">
+                <div class="product-img" style="background-image: url('nabor3.jpg');"><div class="badge">-15% Акція</div></div>
+                <div class="product-info">
+                    <div>
+                        <h3 id="p8-title">Патріотичний набір свічок</h3>
+                        <p class="desc" id="p8-desc">Синьо-жовті свічки з вощини з ніжним ароматом.</p>
+                        <div class="timer-box" id="promoTimer">⏳ До кінця акції: 23 год 59 хв</div>
+                        <div class="sizes">
+                            <span class="size-btn active" data-price="200" data-size="Набір">Набір — 200 ₴</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price"><span style="text-decoration:line-through;color:#999;font-size:16px;">220 ₴</span> 200 <small>₴</small></div>
+                        <button class="btn-order" onclick="addToCart('Патріотичний набір свічок', 200, 'Набір')">📦 В кошик</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="benefits">
+    <div class="container">
+        <h2 class="section-title"><span id="ben-title-1">Чому</span> <span id="ben-title-2">обирають нас</span></h2>
+        <p class="section-subtitle" id="ben-subtitle">Ми дбаємо про якість на кожному етапі — від вулика до вашого столу</p>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="icon">🌻</div>
+                <h4 id="b1-t">100% натурально</h4>
+                <p id="b1-d">Жодних домішок, цукру та консервантів. Тільки чистий мед з наших вуликів.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">🌿</div>
+                <h4 id="b2-t">Екологічний регіон</h4>
+                <p id="b2-d">Пасіка розташована в селі Захарівка, далеко від промислових зон та автотрас.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">👨‍👩‍👧‍👦</div>
+                <h4 id="b3-t">Родинна справа</h4>
+                <p id="b3-d">Бджільництво — наша сімейна традиція. Кожна банка зроблена з душею.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">🚚</div>
+                <h4 id="b4-t">Доставка по Україні</h4>
+                <p id="b4-d">Відправляємо Новою Поштою в будь-яке місто. Можливий самовивіз.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h3 id="about-h">Про нашу <span style="color:var(--honey)">пасіку</span></h3>
+                <p id="about-p1">Вітаємо! Ми — родина бджолярів з села Захарівка (Роздільнянський район, Одеська область). Наша пасіка існує вже понад 10 років, і за цей час ми навчилися розуміти та дбати про наших бджіл.</p>
+                <p id="about-p2">Ми переконані, що справжній мед не потребує ніяких добавок — він сам по собі є даром природи. Саме тому ми ніколи не додаємо цукор, не змішуємо сорти та не використовуємо хімічну обробку.</p>
+                <p id="about-p3">Кожна баночка меду — це результат турботи про бджіл, любові до своєї справи та поваги до традицій.</p>
+                <p style="margin-top:20px;"><strong>📞 +380 96 898 0543</strong> — <span id="about-call">телефонуйте, будемо раді!</span></p>
+            </div>
+            <div class="about-image" style="background-image: url('yliki.jpg');"></div>
+        </div>
+    </div>
+</section>
+
+<section class="how-to-order" id="how-to-order">
+    <div class="container">
+        <h2 class="section-title"><span id="ord-title-1">Як</span> <span id="ord-title-2">замовити</span></h2>
+        <p class="section-subtitle" id="ord-subtitle">Все дуже просто — всього 4 кроки, і смачний мед вже їде до вас</p>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4 id="s1-t">Обирайте товар</h4>
+                <p id="s1-d">Перегляньте наш каталог і виберіть мед або вироби з воску.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4 id="s2-t">Оформлюйте замовлення</h4>
+                <p id="s2-d">Натисніть «В кошик» та заповніть форму замовлення.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h4 id="s3-t">Підтверджуємо</h4>
+                <p id="s3-d">Ми зв'яжемося з вами для уточнення всіх деталей.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h4 id="s4-t">Отримуєте замовлення</h4>
+                <p id="s4-d">Нова Пошта доставить посилку у ваше відділення.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="reviews">
+    <div class="container">
+        <h2 class="section-title"><span id="rev-title-1">Відгуки</span> <span id="rev-title-2">клієнтів</span></h2>
+        <p class="section-subtitle" id="rev-subtitle">Ось що кажуть ті, хто вже скуштував нашу продукцію</p>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Замовляв соняшниковий мед — дуже смачний, натуральний. Дякую!"</p>
+                </div>
+                <div class="author">— Олександр, Київ</div>
+            </div>
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Брали мед з горіхом та прополіс. Все свіже, якісне. Рекомендую!"</p>
+                </div>
+                <div class="author">— Наталія, Одеса</div>
+            </div>
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Свічки з вощини неймовірно пахнуть медом! Створюють особливий затишок."</p>
+                </div>
+                <div class="author">— Олена, Львів</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq" id="faq">
+    <div class="container">
+        <h2 class="section-title"><span id="faq-title-1">Часті</span> <span id="faq-title-2">запитання</span></h2>
+        <p class="section-subtitle" id="faq-subtitle">Відповіді на найпоширеніші питання про наш мед та замовлення</p>
+        <div class="faq-list">
+            <div class="faq-item active">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span id="q1">Як зберігати мед?</span> <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p id="a1">Мед найкраще зберігати в скляній тарі з щільно закритою кришкою, в темному та сухому місці при температурі від +5 до +20°C.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span id="q2">Як відрізнити натуральний мед?</span> <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p id="a2">Натуральний мед кристалізується (зацукровується) з часом — це головна ознака якості та зрілості.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span id="q3">Які терміни доставки?</span> <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p id="a3">Відправляємо Новою Поштою протягом 1-2 днів після підтвердження замовлення.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="contacts">
+    <div class="container">
+        <div>
+            <h4>🍯 Медова Пасіка</h4>
+            <p style="color:#888;font-size:14px;" id="foot-desc">Натуральний мед з власної пасіки. Без домішок та цукру.</p>
+        </div>
+        <div>
+            <h4 id="foot-contacts">Контакти</h4>
+            <a href="tel:+380968980543">📞 +380 96 898 0543</a>
+            <a href="https://t.me/igor_chernomorec" target="_blank">✈️ Telegram</a>
+            <a href="https://www.instagram.com/wax_candles_eco_honey" target="_blank">📸 Instagram</a>
+            <a href="mailto:igor.chernomorec2504@gmail.com">📧 igor.chernomorec2504@gmail.com</a>
+        </div>
+        <div>
+            <h4 id="foot-info">Інформація</h4>
+            <a href="#catalog" id="f-cat">Каталог</a>
+            <a href="#about" id="f-abt">Про нас</a>
+            <a href="#how-to-order" id="f-ord">Як замовити</a>
+            <a href="#faq" id="f-faq">FAQ</a>
+        </div>
+        <div>
+            <h4 id="foot-addr">Адреса пасіки</h4>
+            <p style="color:#888;font-size:14px;" id="f-addr-text">с. Захарівка, Роздільнянський р-н, Одеська обл.</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Медова Пасіка. Всі права захищені.</p>
+    </div>
+</footer>
+
+<!-- Cart Floating Action Button -->
+<button class="cart-fab" id="cartFab" onclick="openCartModal()">🛒 <span class="count" id="cartCount">0</span></button>
+
+<!-- Auth Modal (Login / Registration) -->
+<div class="modal" id="authModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+        <h3 id="authModalTitle">👤 Вхід / Реєстрація</h3>
+        <div id="authContent">
+            <form id="authForm" onsubmit="handleAuth(event)">
+                <div class="form-group" id="nameGroup" style="display:none;">
+                    <label>Ваше ім'я *</label>
+                    <input type="text" id="authName" placeholder="Введіть ваше ім'я">
+                </div>
+                <div class="form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" id="authPhone" required placeholder="+380...">
+                </div>
+                <div class="form-group">
+                    <label>Пароль *</label>
+                    <input type="password" id="authPassword" required placeholder="Пароль">
+                </div>
+                <button type="submit" class="btn-submit" id="authSubmitBtn">Увійти</button>
+            </form>
+            <p style="text-align: center; margin-top: 15px; font-size: 14px;">
+                <span id="authToggleText">Ще не маєте акаунта?</span> 
+                <a href="javascript:void(0)" onclick="toggleAuthMode()" style="color: var(--honey); font-weight: 600;" id="authToggleLink">Зареєструватися</a>
+            </p>
+        </div>
+        <div id="userProfileContent" style="display:none; text-align: center;">
+            <p style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Вітаємо, <span id="profileName" style="color: var(--honey);"></span>!</p>
+            <p style="color: var(--text-light); margin-bottom: 25px; font-size: 14px;" id="profilePhone"></p>
+            <button class="btn-submit" onclick="logoutUser()" style="background: #e74c3c;">Вийти з акаунта</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cart & Order Modal -->
+<div class="modal" id="orderModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
+        <h3 id="modal-cart-title">📋 Ваш Кошик та Замовлення</h3>
+        <div id="cartItemsList" style="margin-bottom: 15px; max-height: 200px; overflow-y: auto;"></div>
+        <div style="background: #fff3e0; padding: 12px; border-radius: 12px; margin-bottom: 20px; text-align: right;">
+            <strong id="modal-total-text">Загальна сума: <span id="cartTotalSum">0</span> ₴</strong>
+        </div>
+        <form id="orderForm" action="https://formspree.io/f/mrppbnza" method="POST" onsubmit="submitOrder(event)">
+            <input type="hidden" name="cart_details" id="formCartDetails" value="">
+            <div class="form-group">
+                <label id="lbl-name">Ваше ім'я *</label>
+                <input type="text" name="name" id="orderName" required placeholder="Як до вас звертатися?">
+            </div>
+            <div class="form-group">
+                <label id="lbl-contact">Контакт (телефон або Telegram) *</label>
+                <input type="text" name="contact" id="orderContact" required placeholder="+380 або @username">
+            </div>
+            <div class="form-group">
+                <label id="lbl-city">Місто / відділення Нової Пошти</label>
+                <input type="text" name="city" id="orderCity" placeholder="Наприклад: Одеса, відділення №1">
+            </div>
+            <div class="form-group">
+                <label id="lbl-pay">Спосіб оплати</label>
+                <select name="payment">
+                    <option value="card" id="opt-card">Картка</option>
+                    <option value="cash" id="opt-cash">Готівка при отриманні</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label id="lbl-comm">Коментар до замовлення</label>
+                <textarea name="comment" placeholder="Додаткові побажання..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit" id="btn-submit-order">📤 Відправити замовлення</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Language Dictionary
+    const translations = {
+        uk: {
+            navLogoText: "Медова",
+            menuCatalog: "Каталог",
+            menuAbout: "Про нас",
+            menuHow: "Як замовити",
+            menuFaq: "FAQ",
+            menuContacts: "Контакти",
+            heroBadge: "🐝 Натуральний мед з Одещини",
+            heroTitle: "Справжній мед<br>з <span>любов'ю</span> до бджіл",
+            heroDesc: "Мед, прополіс та інші продукти бджільництва з власної пасіки в селі Захарівка. Без домішок, без цукру — тільки чиста користь природи.",
+            heroBtn: "🍯 Обрати мед",
+            catTitle1: "Наш",
+            catTitle2: "каталог",
+            catSubtitle: "Всі продукти зібрані на власній пасіці в екологічно чистому регіоні Одещини",
+            fltAll: "Усі товари",
+            fltHoney: "Мед",
+            fltCandles: "Свічки",
+            fltOther: "Інше",
+            p1Title: "Мед соняшниковий",
+            p1Desc: "Густий, сонячний та найсолодший мед з власної пасіки.",
+            p2Title: "Мед Травневий",
+            p2Desc: "Ароматний і ніжний мед із перших весняних квітів та садів.",
+            p3Title: "Мед з волоським горіхом",
+            p3Desc: "Відбірний мед з додаванням волоського горіха.",
+            p4Title: "Стільниковий Мед",
+            p4Desc: "Найчистіший делікатес у запечатаних воскових сотах.",
+            p5Title: "Свічка з вощини",
+            p5Desc: "100% чистий віск, дарують затишок та медовий аромат.",
+            p6Title: "Прополіс",
+            p6Desc: "Природний антисептик і захисник здоров'я з вулика.",
+            p7Title: "Бджолиний пилок",
+            p7Desc: "Натуральний мікс вітамінів і амінокислот для енергії.",
+            p8Title: "Патріотичний набір свічок",
+            p8Desc: "Синьо-жовті свічки з вощини з ніжним ароматом.",
+            benTitle1: "Чому",
+            benTitle2: "обирають нас",
+            benSubtitle: "Дбаємо про якість на кожному етапі — від вулика до вашого столу",
+            b1t: "100% натурально", b1d: "Жодних домішок, цукру та консервантів. Тільки чистий мед.",
+            b2t: "Екологічний регіон", b2d: "Пасіка в с. Захарівка, далеко від промислових зон.",
+            b3t: "Родинна справа", b3d: "Бджільництво — наша сімейна традиція та турбота.",
+            b4t: "Доставка по Україні", b4d: "Відправляємо Новою Поштою в будь-яке місто.",
+            aboutH: "Про нашу <span style='color:var(--honey)'>пасіку</span>",
+            aboutP1: "Вітаємо! Ми — родина бджолярів з села Захарівка (Роздільнянський район, Одеська область). Наша пасіка існує вже понад 10 років.",
+            aboutP2: "Ми переконані, що справжній мед не потребує ніяких добавок. Саме тому ми ніколи не додаємо цукор і не використовуємо хімію.",
+            aboutP3: "Кожна баночка меду — це результат турботи про бджіл, любові до своєї справи та поваги до традицій.",
+            aboutCall: "телефонуйте, будемо раді!",
+            ordTitle1: "Як",
+            ordTitle2: "замовити",
+            ordSubtitle: "Все дуже просто — всього 4 кроки",
+            s1t: "Обирайте товар", s1d: "Перегляньте каталог і виберіть мед чи вироби.",
+            s2t: "Оформлюйте замовлення", s2d: "Натисніть «В кошик» та заповніть форму.",
+            s3t: "Підтверджуємо", s3d: "Ми зв'яжемося з вами для уточнення деталей.",
+            s4t: "Отримуєте замовлення", s4d: "Нова Пошта доставить посилку у ваше відділення.",
+            revTitle1: "Відгуки",
+            revTitle2: "клієнтів",
+            revSubtitle: "Ось що кажуть ті, хто вже скуштував нашу продукцію",
+            faqTitle1: "Часті",
+            faqTitle2: "запитання",
+            faqSubtitle: "Відповіді на найпоширеніші питання про наш мед",
+            q1: "Як зберігати мед?", a1: "Найкраще в скляній тарі з щільно закритою кришкою, в темному і сухому місці.",
+            q2: "Як відрізнити натуральний мед?", a2: "Натуральний мед кристалізується (зацукровується) з часом — це головна ознака якості.",
+            q3: "Які терміни доставки?", a3: "Відправляємо Новою Поштою протягом 1-2 днів після замовлення.",
+            footDesc: "Натуральний мед з власної пасіки. Без домішок та цукру.",
+            footContacts: "Контакти",
+            footInfo: "Інформація",
+            footAddr: "Адреса пасіки",
+            fAddrText: "с. Захарівка, Роздільнянський р-н, Одеська обл.",
+            modalCartTitle: "📋 Ваш Кошик та Замовлення",
+            modalTotalText: "Загальна сума:",
+            lblName: "Ваше ім'я *",
+            lblContact: "Контакт (телефон або Telegram) *",
+            lblCity: "Місто / відділення Нової Пошти",
+            lblPay: "Спосіб оплати",
+            optCard: "Картка",
+            optCash: "Готівка при отриманні",
+            lblComm: "Коментар до замовлення",
+            btnSubmitOrder: "📤 Відправити замовлення"
+        },
+        ru: {
+            navLogoText: "Медовая",
+            menuCatalog: "Каталог",
+            menuAbout: "О нас",
+            menuHow: "Как заказать",
+            menuFaq: "FAQ",
+            menuContacts: "Контакты",
+            heroBadge: "🐝 Натуральный мед с Одесчины",
+            heroTitle: "Настоящий мед<br>с <span>любовью</span> к пчелам",
+            heroDesc: "Мед, прополис и другие продукты пчеловодства с собственной пасеки в селе Захаровка. Без примесей, без сахара — только чистая польза природы.",
+            heroBtn: "🍯 Выбрать мед",
+            catTitle1: "Наш",
+            catTitle2: "каталог",
+            catSubtitle: "Все продукты собраны на собственной пасеке в экологически чистом регионе Одесчины",
+            fltAll: "Все товары",
+            fltHoney: "Мед",
+            fltCandles: "Свечи",
+            fltOther: "Другое",
+            p1Title: "Мед подсолнечный",
+            p1Desc: "Густой, солнечный и самый сладкий мед с собственной пасеки.",
+            p2Title: "Мед Майский",
+            p2Desc: "Ароматный и нежный мед с первых весенних цветов и садов.",
+            p3Title: "Мед с грецким орехом",
+            p3Desc: "Отборный мед с добавлением грецкого ореха.",
+            p4Title: "Сотовый Мед",
+            p4Desc: "Чистейший деликатес в запечатанных восковых сотах.",
+            p5Title: "Свеча из вощины",
+            p5Desc: "100% чистый воск, дарят уют и медовый аромат.",
+            p6Title: "Прополис",
+            p6Desc: "Природный антисептик и защитник здоровья из улья.",
+            p7Title: "Пчелиная пыльца",
+            p7Desc: "Натуральный микс витаминов и аминокислот для энергии.",
+            p8Title: "Патриотический набор свечей",
+            p8Desc: "Сине-желтые свечи из вощины с нежным ароматом.",
+            benTitle1: "Почему",
+            benTitle2: "выбирают нас",
+            benSubtitle: "Заботимся о качестве на каждом этапе — от улья до вашего стола",
+            b1t: "100% натурально", b1d: "Никаких примесей, сахара и консервантов. Только чистый мед.",
+            b2t: "Экологичный регион", b2d: "Пасека в с. Захаровка, вдали от промышленных зон.",
+            b3t: "Семейное дело", b3d: "Пчеловодство — наша семейная традиция и забота.",
+            b4t: "Доставка по Украине", b4d: "Отправляем Новой Почтой в любой город.",
+            aboutH: "О нашей <span style='color:var(--honey)'>пасеке</span>",
+            aboutP1: "Приветствуем! Мы — семья пчеловодов из села Захаровка (Раздельнянский район, Одесская область). Наша пасека существует уже более 10 лет.",
+            aboutP2: "Мы убеждены, что настоящий мед не нуждается в добавках. Именно поэтому мы никогда не добавляем сахар и не используем химию.",
+            aboutP3: "Каждая баночка меда — это результат заботы о пчелах, любви к своему делу и уважения к традициям.",
+            aboutCall: "звоните, будем рады!",
+            ordTitle1: "Как",
+            ordTitle2: "заказать",
+            ordSubtitle: "Все очень просто — всего 4 шага",
+            s1t: "Выбирайте товар", s1d: "Просмотрите каталог и выберите мед или изделия.",
+            s2t: "Оформляйте заказ", s2d: "Нажмите «В корзину» и заполните форму.",
+            s3t: "Подтверждаем", s3d: "Мы свяжемся с вами для уточнения деталей.",
+            s4t: "Получаете заказ", s4d: "Новая Почта доставит посылку в ваше отделение.",
+            revTitle1: "Отзывы",
+            revTitle2: "клиентов",
+            revSubtitle: "Вот что говорят те, кто уже отведал нашу продукцию",
+            faqTitle1: "Частые",
+            faqTitle2: "вопросы",
+            faqSubtitle: "Ответы на самые популярные вопросы о нашем меде",
+            q1: "Как хранить мед?", a1: "Лучше всего в стеклянной таре с плотно закрытой крышкой, в темном и сухом месте.",
+            q2: "Как отличить натуральный мед?", a2: "Натуральный мед кристаллизуется (засахаривается) со временем — это главный признак качества.",
+            q3: "Каковы сроки доставки?", a3: "Отправляем Новой Почтой в течение 1-2 дней после подтверждения заказа.",
+            footDesc: "Натуральный мед с собственной пасеки. Без примесей и сахара.",
+            footContacts: "Контакты",
+            footInfo: "Информация",
+            footAddr: "Адрес пасеки",
+            fAddrText: "с. Захаровка, Раздельнянский р-н, Одесская обл.",
+            modalCartTitle: "📋 Ваша Корзина и Заказ",
+            modalTotalText: "Общая сумма:",
+            lblName: "Ваше имя *",
+            lblContact: "Контакт (телефон или Telegram) *",
+            lblCity: "Город / отделение Новой Почты",
+            lblPay: "Способ оплаты",
+            optCard: "Карта",
+            optCash: "Наличные при получении",
+            lblComm: "Комментарий к заказу",
+            btnSubmitOrder: "📤 Отправить заказ"
+        }
+    };
+
+    let currentLang = 'uk';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+        
+        document.getElementById('nav-logo-text').textContent = t.navLogoText;
+        document.getElementById('menu-catalog').textContent = t.menuCatalog;
+        document.getElementById('menu-about').textContent = t.menuAbout;
+        document.getElementById('menu-how').textContent = t.menuHow;
+        document.getElementById('menu-faq').textContent = t.menuFaq;
+        document.getElementById('menu-contacts').textContent = t.menuContacts;
+
+        document.getElementById('hero-badge').textContent = t.heroBadge;
+        document.getElementById('hero-title').innerHTML = t.heroTitle;
+        document.getElementById('hero-desc').textContent = t.heroDesc;
+        document.getElementById('hero-btn').textContent = t.heroBtn;
+
+        document.getElementById('cat-title-1').textContent = t.catTitle1;
+        document.getElementById('cat-title-2').textContent = t.catTitle2;
+        document.getElementById('cat-subtitle').textContent = t.catSubtitle;
+        document.getElementById('flt-all').textContent = t.fltAll;
+        document.getElementById('flt-honey').textContent = t.fltHoney;
+        document.getElementById('flt-candles').textContent = t.fltCandles;
+        document.getElementById('flt-other').textContent = t.fltOther;
+
+        document.getElementById('p1-title').textContent = t.p1Title;
+        document.getElementById('p1-desc').textContent = t.p1Desc;
+        document.getElementById('p2-title').textContent = t.p2Title;
+        document.getElementById('p2-desc').textContent = t.p2Desc;
+        document.getElementById('p3-title').textContent = t.p3Title;
+        document.getElementById('p3-desc').textContent = t.p3Desc;
+        document.getElementById('p4-title').textContent = t.p4Title;
+        document.getElementById('p4-desc').textContent = t.p4Desc;
+        document.getElementById('p5-title').textContent = t.p5Title;
+        document.getElementById('p5-desc').textContent = t.p5Desc;
+        document.getElementById('p6-title').textContent = t.p6Title;
+        document.getElementById('p6-desc').textContent = t.p6Desc;
+        document.getElementById('p7-title').textContent = t.p7Title;
+        document.getElementById('p7-desc').textContent = t.p7Desc;
+        document.getElementById('p8-title').textContent = t.p8Title;
+        document.getElementById('p8-desc').textContent = t.p8Desc;
+
+        document.getElementById('ben-title-1').textContent = t.benTitle1;
+        document.getElementById('ben-title-2').textContent = t.benTitle2;
+        document.getElementById('ben-subtitle').textContent = t.benSubtitle;
+        document.getElementById('b1-t').textContent = t.b1t; document.getElementById('b1-d').textContent = t.b1d;
+        document.getElementById('b2-t').textContent = t.b2t; document.getElementById('b2-d').textContent = t.b2d;
+        document.getElementById('b3-t').textContent = t.b3t; document.getElementById('b3-d').textContent = t.b3d;
+        document.getElementById('b4-t').textContent = t.b4t; document.getElementById('b4-d').textContent = t.b4d;
+
+        document.getElementById('about-h').innerHTML = t.aboutH;
+        document.getElementById('about-p1').textContent = t.aboutP1;
+        document.getElementById('about-p2').textContent = t.aboutP2;
+        document.getElementById('about-p3').textContent = t.aboutP3;
+        document.getElementById('about-call').textContent = t.aboutCall;
+
+        document.getElementById('ord-title-1').textContent = t.ordTitle1;
+        document.getElementById('ord-title-2').textContent = t.ordTitle2;
+        document.getElementById('ord-subtitle').textContent = t.ordSubtitle;
+        document.getElementById('s1-t').textContent = t.s1t; document.getElementById('s1-d').textContent = t.s1d;
+        document.getElementById('s2-t').textContent = t.s2t; document.getElementById('s2-d').textContent = t.s2d;
+        document.getElementById('s3-t').textContent = t.s3t; document.getElementById('s3-d').textContent = t.s3d;
+        document.getElementById('s4-t').textContent = t.s4t; document.getElementById('s4-d').textContent = t.s4d;
+
+        document.getElementById('rev-title-1').textContent = t.revTitle1;
+        document.getElementById('rev-title-2').textContent = t.revTitle2;
+        document.getElementById('rev-subtitle').textContent = t.revSubtitle;
+
+        document.getElementById('faq-title-1').textContent = t.faqTitle1;
+        document.getElementById('faq-title-2').textContent = t.faqTitle2;
+        document.getElementById('faq-subtitle').textContent = t.faqSubtitle;
+        document.getElementById('q1').textContent = t.q1; document.getElementById('a1').textContent = t.a1;
+        document.getElementById('q2').textContent = t.q2; document.getElementById('a2').textContent = t.a2;
+        document.getElementById('q3').textContent = t.q3; document.getElementById('a3').textContent = t.a3;
+
+        document.getElementById('foot-desc').textContent = t.footDesc;
+        document.getElementById('foot-contacts').textContent = t.footContacts;
+        document.getElementById('foot-info').textContent = t.footInfo;
+        document.getElementById('foot-addr').textContent = t.footAddr;
+        document.getElementById('f-cat').textContent = t.menuCatalog;
+        document.getElementById('f-abt').textContent = t.menuAbout;
+        document.getElementById('f-ord').textContent = t.menuHow;
+        document.getElementById('f-faq').textContent = t.menuFaq;
+        document.getElementById('f-addr-text').textContent = t.fAddrText;
+
+        document.getElementById('modal-cart-title').textContent = t.modalCartTitle;
+        document.getElementById('modal-total-text').innerHTML = `${t.modalTotalText} <span id="cartTotalSum">0</span> ₴`;
+        document.getElementById('lbl-name').textContent = t.lblName;
+        document.getElementById('lbl-contact').textContent = t.lblContact;
+        document.getElementById('lbl-city').textContent = t.lblCity;
+        document.getElementById('lbl-pay').textContent = t.lblPay;
+        document.getElementById('opt-card').textContent = t.optCard;
+        document.getElementById('opt-cash').textContent = t.optCash;
+        document.getElementById('lbl-comm').textContent = t.lblComm;
+        document.getElementById('btn-submit-order').textContent = t.btnSubmitOrder;
+
+        document.getElementById('btn-uk').classList.toggle('active', lang === 'uk');
+        document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+        
+        updateCartUI();
+    }
+
+    // Category Filter
+    function filterProducts(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // FAQ Toggle
+    function toggleFaq(el) {
+        el.parentElement.classList.toggle('active');
+    }
+
+    // Modal Controls
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+
+    document.querySelectorAll('.modal').forEach(m => {
+        m.addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+        }
+    });
+
+    // Product Size Selector & Price Update
+    document.querySelectorAll('.sizes').forEach(group => {
+        group.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const card = this.closest('.product-card');
+                const priceEl = card.querySelector('.price');
+                if (priceEl.dataset.base) {
+                    priceEl.innerHTML = this.dataset.price + ' <small>₴</small>';
+                } else {
+                    priceEl.innerHTML = this.dataset.price + ' <small>₴</small>';
+                }
+            });
+        });
+    });
+
+    // Promo Timer
+    function startPromoTimer() {
+        const cycleDuration = 24 * 60 * 60 * 1000;
+        function update() {
+            const now = new Date().getTime();
+            let timeLeft = cycleDuration - (now % cycleDuration);
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            const el = document.getElementById('promoTimer');
+            if(el) {
+                el.textContent = currentLang === 'uk' 
+                    ? `⏳ До кінця акції: ${hours} год ${minutes} хв ${seconds} сек`
+                    : `⏳ До конца акции: ${hours} ч ${minutes} мин ${seconds} сек`;
+            }
+        }
+        update();
+        setInterval(update, 1000);
+    }
+
+    // Cart State & Functions
+    let cart = JSON.parse(localStorage.getItem('medova_cart')) || [];
+
+    function addToCart(productNameKey, basePrice, defaultSize) {
+        const card = Array.from(document.querySelectorAll('.product-card')).find(c => c.querySelector('h3').textContent.toLowerCase().includes(productNameKey.toLowerCase()) || c.querySelector('h3').id);
+        let price = basePrice;
+        let size = defaultSize;
+
+        if (card) {
+            const activeSizeBtn = card.querySelector('.size-btn.active');
+            if (activeSizeBtn) {
+                price = parseInt(activeSizeBtn.dataset.price);
+                size = activeSizeBtn.dataset.size;
+            }
+        }
+
+        const fullName = `${productNameKey} (${size})`;
+        const existing = cart.find(item => item.name === fullName);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ name: fullName, price: price, qty: 1 });
+        }
+
+        saveCart();
+        updateCartUI();
+        openCartModal();
+    }
+
+    function saveCart() {
+        localStorage.setItem('medova_cart', JSON.stringify(cart));
+    }
+
+    function updateCartUI() {
+        const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+        const cartCount = document.getElementById('cartCount');
+        if(cartCount) cartCount.textContent = totalQty;
+        const fab = document.getElementById('cartFab');
+        if(fab) fab.style.display = totalQty > 0 ? 'flex' : 'none';
+    }
+
+    function openCartModal() {
+        const listContainer = document.getElementById('cartItemsList');
+        const totalSumElement = document.getElementById('cartTotalSum');
+
+        if (cart.length === 0) {
+            listContainer.innerHTML = `<p style="text-align:center; color:#888;">${currentLang === 'uk' ? 'Кошик порожній' : 'Корзина пуста'}</p>`;
+            if(totalSumElement) totalSumElement.textContent = '0';
+        } else {
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                html += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed #ffe0b2; font-size:14px;">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.qty} шт. × ${item.price} ₴</small>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <strong>${item.price * item.qty} ₴</strong>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#e74c3c; cursor:pointer; font-size:16px;">✕</button>
+                        </div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+            if(totalSumElement) totalSumElement.textContent = total;
+        }
+
+        document.getElementById('formCartDetails').value = cart.map(i => `${i.name} x ${i.qty} (${i.price * i.qty} ₴)`).join(', ');
+        
+        const currentUser = JSON.parse(localStorage.getItem('medova_current_user'));
+        if (currentUser) {
+            if(document.getElementById('orderName')) document.getElementById('orderName').value = currentUser.name || '';
+            if(document.getElementById('orderContact')) document.getElementById('orderContact').value = currentUser.phone || '';
+        }
+
+        document.getElementById('orderModal').classList.add('active');
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        saveCart();
+        updateCartUI();
+        openCartModal();
+    }
+
+    function submitOrder(e) {
+        setTimeout(() => {
+            cart = [];
+            saveCart();
+            updateCartUI();
+        }, 500);
+    }
+
+    // User Authentication & Account System
+    let isRegisterMode = false;
+
+    function openAuthModal() {
+        const currentUser = JSON.parse(localStorage.getItem('medova_current_user'));
+        if (currentUser) {
+            document.getElementById('authModalTitle').textContent = currentLang === 'uk' ? "👤 Особистий кабінет" : "👤 Личный кабинет";
+            document.getElementById('authContent').style.display = 'none';
+            document.getElementById('userProfileContent').style.display = 'block';
+            document.getElementById('profileName').textContent = currentUser.name || "Клієнт";
+            document.getElementById('profilePhone').textContent = "Телефон: " + currentUser.phone;
+        } else {
+            document.getElementById('authModalTitle').textContent = currentLang === 'uk' ? "👤 Вхід в акаунт" : "👤 Вход в аккаунт";
+            document.getElementById('authContent').style.display = 'block';
+            document.getElementById('userProfileContent').style.display = 'none';
+            isRegisterMode = false;
+            updateAuthFormUI();
+        }
+        document.getElementById('authModal').classList.add('active');
+    }
+
+    function toggleAuthMode() {
+        isRegisterMode = !isRegisterMode;
+        updateAuthFormUI();
+    }
+
+    function updateAuthFormUI() {
+        if (isRegisterMode) {
+            document.getElementById('authModalTitle').textContent = currentLang === 'uk' ? "📝 Реєстрація акаунта" : "📝 Регистрация аккаунта";
+            document.getElementById('nameGroup').style.display = 'block';
+            document.getElementById('authSubmitBtn').textContent = currentLang === 'uk' ? "Зареєструватися" : "Зарегистрироваться";
+            document.getElementById('authToggleText').textContent = currentLang === 'uk' ? "Вже маєте акаунт?" : "Уже есть аккаунт?";
+            document.getElementById('authToggleLink').textContent = currentLang === 'uk' ? "Увійти" : "Войти";
+        } else {
+            document.getElementById('authModalTitle').textContent = currentLang === 'uk' ? "👤 Вхід в акаунт" : "👤 Вход в аккаунт";
+            document.getElementById('nameGroup').style.display = 'none';
+            document.getElementById('authSubmitBtn').textContent = currentLang === 'uk' ? "Увійти" : "Войти";
+            document.getElementById('authToggleText').textContent = currentLang === 'uk' ? "Ще не маєте акаунта?" : "Еще нет аккаунта?";
+            document.getElementById('authToggleLink').textContent = currentLang === 'uk' ? "Зареєструватися" : "Зарегистрироваться";
+        }
+    }
+
+    function handleAuth(e) {
+        e.preventDefault();
+        const phone = document.getElementById('authPhone').value.trim();
+        const password = document.getElementById('authPassword').value.trim();
+        const name = document.getElementById('authName').value.trim();
+
+        let users = JSON.parse(localStorage.getItem('medova_users_db')) || [];
+
+        if (isRegisterMode) {
+            const existing = users.find(u => u.phone === phone);
+            if (existing) {
+                alert(currentLang === 'uk' ? "Користувач з таким телефоном вже зареєстрований!" : "Пользователь с таким телефоном уже зарегистрирован!");
+                return;
+            }
+            const newUser = { phone, password, name: name || "Клієнт" };
+            users.push(newUser);
+            localStorage.setItem('medova_users_db', JSON.stringify(users));
+            localStorage.setItem('medova_current_user', JSON.stringify(newUser));
+            alert(currentLang === 'uk' ? "Реєстрація успішна!" : "Регистрация успешна!");
+        } else {
+            const user = users.find(u => u.phone === phone && u.password === password);
+            if (!user) {
+                alert(currentLang === 'uk' ? "Невірний телефон або пароль!" : "Неверный телефон или пароль!");
+                return;
+            }
+            localStorage.setItem('medova_current_user', JSON.stringify(user));
+            alert(currentLang === 'uk' ? "Успішний вхід!" : "Успешный вход!");
+        }
+
+        closeModal('authModal');
+        updateHeaderAuthButton();
+    }
+
+    function logoutUser() {
+        localStorage.removeItem('medova_current_user');
+        alert(currentLang === 'uk' ? "Ви вийшли з акаунта" : "Вы вышли из аккаунта");
+        closeModal('authModal');
+        updateHeaderAuthButton();
+    }
+
+    function updateHeaderAuthButton() {
+        const currentUser = JSON.parse(localStorage.getItem('medova_current_user'));
+        const authBtn = document.getElementById('authBtn');
+        if (currentUser) {
+            authBtn.textContent = `👤 ${currentUser.name || 'Кабінет'}`;
+        } else {
+            authBtn.textContent = currentLang === 'uk' ? "👤 Вхід / Реєстрація" : "👤 Вход / Регистрация";
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCartUI();
+        updateHeaderAuthButton();
+        startPromoTimer();
+    });
+</script>
+
+</body>
+</html>

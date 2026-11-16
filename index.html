@@ -82,7 +82,7 @@
         .product-img {
             height: 200px; background-size: cover; background-position: center; background-color: #f3f3f0;
             display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative;
-            text-decoration: none;
+            text-decoration: none; cursor: pointer;
         }
         .badge {
             position: absolute; top: 12px; left: 12px; background: #EF4444; color: #fff;
@@ -216,7 +216,7 @@
     </div>
 
     <div class="products-grid">
-        <!-- 1. Соняшниковий мед -->
+        <!-- 1. Соняшниковий мед (з сторінкою продукту) -->
         <div class="product-card" data-cat="honey">
             <a href="product.html?item=sunflower" class="product-img" style="background-image: url('med.jpg');"><div class="badge">Хіт</div></a>
             <div class="product-body">
@@ -236,7 +236,7 @@
             </div>
         </div>
 
-        <!-- 2. Травневий мед -->
+        <!-- 2. Травневий мед (з сторінкою продукту) -->
         <div class="product-card" data-cat="honey">
             <a href="product.html?item=may" class="product-img" style="background-image: url('may1.jpg');"><div class="badge">Весна</div></a>
             <div class="product-body">
@@ -254,12 +254,12 @@
             </div>
         </div>
 
-        <!-- 3. Мед з горіхом -->
+        <!-- 3. Мед з горіхом (пряма покупка на index) -->
         <div class="product-card" data-cat="honey">
-            <a href="product.html?item=nut" class="product-img" style="background: linear-gradient(135deg, #d4a574, #c49564);">🥜</a>
+            <div class="product-img" style="background: linear-gradient(135deg, #d4a574, #c49564);">🥜</div>
             <div class="product-body">
                 <div>
-                    <h3><a href="product.html?item=nut" id="p3-t">Мед з волоським горіхом</a></h3>
+                    <h3 id="p3-t">Мед з волоським горіхом</h3>
                     <p class="product-desc" id="p3-d">Відбірний мед з додаванням молодого горіха.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="150" data-size="0.25 л">0.25 л — 150 ₴</span>
@@ -267,17 +267,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">150 <small>₴</small></div>
-                    <a href="product.html?item=nut" class="btn-buy" id="b3-more">Детальніше</a>
+                    <button class="btn-buy" onclick="addToCart('Мед з волоським горіхом', 150, '0.25 л', this)">В кошик</button>
                 </div>
             </div>
         </div>
 
-        <!-- 4. Стільниковий мед -->
+        <!-- 4. Стільниковий мед (пряма покупка на index) -->
         <div class="product-card" data-cat="honey">
-            <a href="product.html?item=comb" class="product-img" style="background-image: url('sotu.jpg');"><div class="badge">100% Еко</div></a>
+            <div class="product-img" style="background-image: url('sotu.jpg');"><div class="badge">100% Еко</div></div>
             <div class="product-body">
                 <div>
-                    <h3><a href="product.html?item=comb" id="p4-t">Стільниковий Мед</a></h3>
+                    <h3 id="p4-t">Стільниковий Мед</h3>
                     <p class="product-desc" id="p4-d">Найчистіший делікатес у запечатаних воскових сотах.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="150" data-size="1 кг">1 кг — 150 ₴</span>
@@ -285,12 +285,12 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">150 <small>₴</small></div>
-                    <a href="product.html?item=comb" class="btn-buy" id="b4-more">Детальніше</a>
+                    <button class="btn-buy" onclick="addToCart('Стільниковий Мед', 150, '1 кг', this)">В кошик</button>
                 </div>
             </div>
         </div>
 
-        <!-- 5. Свічки з вощини -->
+        <!-- 5. Свічки з вощини (з сторінкою продукту) -->
         <div class="product-card" data-cat="candles">
             <a href="product.html?item=candles" class="product-img" style="background-image: url('svecha.jpg');"><div class="badge">Ручна робота</div></a>
             <div class="product-body">
@@ -308,7 +308,7 @@
             </div>
         </div>
 
-        <!-- 6. Прополіс -->
+        <!-- 6. Прополіс (з сторінкою продукту) -->
         <div class="product-card" data-cat="other">
             <a href="product.html?item=propolis" class="product-img" style="background-image: url('propolis1.jpg');"></a>
             <div class="product-body">
@@ -326,7 +326,7 @@
             </div>
         </div>
 
-        <!-- 7. Пилок -->
+        <!-- 7. Пилок (з сторінкою продукту) -->
         <div class="product-card" data-cat="other">
             <a href="product.html?item=pollen" class="product-img" style="background-image: url('pollen.jpg');"></a>
             <div class="product-body">
@@ -345,12 +345,12 @@
             </div>
         </div>
 
-        <!-- 8. Набір свічок -->
+        <!-- 8. Набір свічок (пряма покупка на index) -->
         <div class="product-card" data-cat="candles">
-            <a href="product.html?item=candles" class="product-img" style="background-image: url('nabor3.jpg');"><div class="badge">Акція -15%</div></a>
+            <div class="product-img" style="background-image: url('nabor3.jpg');"><div class="badge">Акція -15%</div></div>
             <div class="product-body">
                 <div>
-                    <h3><a href="product.html?item=candles" id="p8-t">Патріотичний набір свічок</a></h3>
+                    <h3 id="p8-t">Патріотичний набір свічок</h3>
                     <p class="product-desc" id="p8-desc">Синьо-жовті свічки з вощини з ніжним ароматом.</p>
                     <div class="timer-box" id="promoTimer">⏳ Акція діє: 23 год 59 хв</div>
                     <div class="sizes">
@@ -359,7 +359,7 @@
                 </div>
                 <div class="product-footer">
                     <div class="price"><span style="text-decoration:line-through;color:#999;font-size:14px;">220</span> 200 <small>₴</small></div>
-                    <a href="product.html?item=candles" class="btn-buy" id="b8-more">Детальніше</a>
+                    <button class="btn-buy" onclick="addToCart('Патріотичний набір свічок', 200, 'Набір', this)">В кошик</button>
                 </div>
             </div>
         </div>
@@ -696,6 +696,27 @@
     });
 
     let cart = JSON.parse(localStorage.getItem('medova_cart')) || [];
+
+    function addToCart(nameKey, basePrice, defaultSize, btnEl) {
+        const card = btnEl.closest('.product-card');
+        let price = basePrice;
+        let size = defaultSize;
+        const activeSize = card.querySelector('.size-btn.active');
+        if (activeSize) {
+            price = parseInt(activeSize.dataset.price);
+            size = activeSize.dataset.size;
+        }
+
+        const fullName = `${nameKey} (${size})`;
+        const existing = cart.find(i => i.name === fullName);
+        if (existing) { existing.qty += 1; } 
+        else { cart.push({ name: fullName, price: price, qty: 1 }); }
+
+        localStorage.setItem('medova_cart', JSON.stringify(cart));
+        updateCartUI();
+        openCartModal();
+    }
+
     function updateCartUI() {
         const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
         const countEl = document.getElementById('cartCount');

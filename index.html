@@ -68,6 +68,7 @@
         .filter-btn {
             background: #fff; border: 1px solid var(--border); padding: 8px 18px; border-radius: 20px;
             font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: all 0.2s;
+            text-decoration: none; display: inline-flex; align-items: center;
         }
         .filter-btn.active, .filter-btn:hover { background: var(--text); color: #fff; border-color: var(--text); }
 
@@ -81,12 +82,15 @@
         .product-img {
             height: 200px; background-size: cover; background-position: center; background-color: #f3f3f0;
             display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative;
+            text-decoration: none;
         }
         .badge {
             position: absolute; top: 12px; left: 12px; background: #EF4444; color: #fff;
             font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;
         }
         .product-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .product-body h3 a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+        .product-body h3 a:hover { color: var(--primary); }
         .product-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
         .product-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4; }
         
@@ -103,8 +107,9 @@
         .btn-buy {
             background: var(--text); color: #fff; border: none; padding: 10px 16px; border-radius: 12px;
             font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s;
+            text-decoration: none; display: inline-flex; align-items: center;
         }
-        .btn-buy:hover { background: var(--primary); }
+        .btn-buy:hover { background: var(--primary); color: #fff; }
 
         .timer-box {
             background: #FFFBEB; border: 1px dashed var(--primary); padding: 6px; border-radius: 8px;
@@ -200,20 +205,23 @@
     <h2 class="section-title" id="cat-title">Наш каталог</h2>
     <p class="section-subtitle" id="cat-sub">Екологічно чисті продукти з власної пасіки</p>
 
+    <!-- Вкладки швидкого переходу на сторінку продукту -->
     <div class="filters">
         <button class="filter-btn active" onclick="filterCat('all', this)" id="f-all">Усі товари</button>
-        <button class="filter-btn" onclick="filterCat('honey', this)" id="f-honey">Мед</button>
-        <button class="filter-btn" onclick="filterCat('candles', this)" id="f-candles">Свічки</button>
-        <button class="filter-btn" onclick="filterCat('other', this)" id="f-other">Інше</button>
+        <a href="product.html?item=may" class="filter-btn" id="f-tab-may">🌿 Травневий мед</a>
+        <a href="product.html?item=sunflower" class="filter-btn" id="f-tab-sun">🌻 Соняшниковий мед</a>
+        <a href="product.html?item=candles" class="filter-btn" id="f-tab-cand">🕯️ Свічки</a>
+        <a href="product.html?item=propolis" class="filter-btn" id="f-tab-prop">🛡️ Прополіс</a>
+        <a href="product.html?item=pollen" class="filter-btn" id="f-tab-poll">⚡ Пилок</a>
     </div>
 
     <div class="products-grid">
         <!-- 1. Соняшниковий мед -->
         <div class="product-card" data-cat="honey">
-            <div class="product-img" style="background-image: url('med.jpg');"><div class="badge">Хіт</div></div>
+            <a href="product.html?item=sunflower" class="product-img" style="background-image: url('med.jpg');"><div class="badge">Хіт</div></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p1-t">Мед соняшниковий</h3>
+                    <h3><a href="product.html?item=sunflower" id="p1-t">Мед соняшниковий</a></h3>
                     <p class="product-desc" id="p1-d">Густий, сонячний та найсолодший мед з власним ароматом.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="250" data-size="1 л">1 л — 250 ₴</span>
@@ -223,17 +231,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">250 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Мед соняшниковий', 250, '1 л', this)">В кошик</button>
+                    <a href="product.html?item=sunflower" class="btn-buy" id="b1-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 2. Травневий мед -->
         <div class="product-card" data-cat="honey">
-            <div class="product-img" style="background-image: url('may1.jpg');"><div class="badge">Весна</div></div>
+            <a href="product.html?item=may" class="product-img" style="background-image: url('may1.jpg');"><div class="badge">Весна</div></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p2-t">Мед Травневий</h3>
+                    <h3><a href="product.html?item=may" id="p2-t">Мед Травневий</a></h3>
                     <p class="product-desc" id="p2-d">Ароматний і ніжний мед із перших весняних квітів.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="350" data-size="1 л">1 л — 350 ₴</span>
@@ -241,17 +249,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">350 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Мед Травневий', 350, '1 л', this)">В кошик</button>
+                    <a href="product.html?item=may" class="btn-buy" id="b2-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 3. Мед з горіхом -->
         <div class="product-card" data-cat="honey">
-            <div class="product-img" style="background: linear-gradient(135deg, #d4a574, #c49564);">🥜</div>
+            <a href="product.html?item=nut" class="product-img" style="background: linear-gradient(135deg, #d4a574, #c49564);">🥜</a>
             <div class="product-body">
                 <div>
-                    <h3 id="p3-t">Мед з волоським горіхом</h3>
+                    <h3><a href="product.html?item=nut" id="p3-t">Мед з волоським горіхом</a></h3>
                     <p class="product-desc" id="p3-d">Відбірний мед з додаванням молодого горіха.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="150" data-size="0.25 л">0.25 л — 150 ₴</span>
@@ -259,17 +267,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">150 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Мед з волоським горіхом', 150, '0.25 л', this)">В кошик</button>
+                    <a href="product.html?item=nut" class="btn-buy" id="b3-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 4. Стільниковий мед -->
         <div class="product-card" data-cat="honey">
-            <div class="product-img" style="background-image: url('sotu.jpg');"><div class="badge">100% Еко</div></div>
+            <a href="product.html?item=comb" class="product-img" style="background-image: url('sotu.jpg');"><div class="badge">100% Еко</div></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p4-t">Стільниковий Мед</h3>
+                    <h3><a href="product.html?item=comb" id="p4-t">Стільниковий Мед</a></h3>
                     <p class="product-desc" id="p4-d">Найчистіший делікатес у запечатаних воскових сотах.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="150" data-size="1 кг">1 кг — 150 ₴</span>
@@ -277,17 +285,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">150 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Стільниковий Мед', 150, '1 кг', this)">В кошик</button>
+                    <a href="product.html?item=comb" class="btn-buy" id="b4-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 5. Свічки з вощини -->
         <div class="product-card" data-cat="candles">
-            <div class="product-img" style="background-image: url('svecha.jpg');"><div class="badge">Ручна робота</div></div>
+            <a href="product.html?item=candles" class="product-img" style="background-image: url('svecha.jpg');"><div class="badge">Ручна робота</div></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p5-t">Свічка з вощини</h3>
+                    <h3><a href="product.html?item=candles" id="p5-t">Свічка з вощини</a></h3>
                     <p class="product-desc" id="p5-d">100% чистий віск, дарують затишок та аромат.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="40" data-size="1 шт">1 шт — 40 ₴</span>
@@ -295,17 +303,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">40 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Свічка з вощини', 40, '1 шт', this)">В кошик</button>
+                    <a href="product.html?item=candles" class="btn-buy" id="b5-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 6. Прополіс -->
         <div class="product-card" data-cat="other">
-            <div class="product-img" style="background-image: url('propolis1.jpg');"></div>
+            <a href="product.html?item=propolis" class="product-img" style="background-image: url('propolis1.jpg');"></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p6-t">Прополіс</h3>
+                    <h3><a href="product.html?item=propolis" id="p6-t">Прополіс</a></h3>
                     <p class="product-desc" id="p6-d">Природний антисептик та захисник здоров'я.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="300" data-size="100 г">100 г — 300 ₴</span>
@@ -313,17 +321,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">300 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Прополіс', 300, '100 г', this)">В кошик</button>
+                    <a href="product.html?item=propolis" class="btn-buy" id="b6-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 7. Пилок -->
         <div class="product-card" data-cat="other">
-            <div class="product-img" style="background-image: url('pollen.jpg');"></div>
+            <a href="product.html?item=pollen" class="product-img" style="background-image: url('pollen.jpg');"></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p7-t">Бджолиний пилок</h3>
+                    <h3><a href="product.html?item=pollen" id="p7-t">Бджолиний пилок</a></h3>
                     <p class="product-desc" id="p7-d">Мікс вітамінів та амінокислот для енергії.</p>
                     <div class="sizes">
                         <span class="size-btn active" data-price="70" data-size="100 г">100 г — 70 ₴</span>
@@ -332,17 +340,17 @@
                 </div>
                 <div class="product-footer">
                     <div class="price">70 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Бджолиний пилок', 70, '100 г', this)">В кошик</button>
+                    <a href="product.html?item=pollen" class="btn-buy" id="b7-more">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <!-- 8. Набір свічок -->
         <div class="product-card" data-cat="candles">
-            <div class="product-img" style="background-image: url('nabor3.jpg');"><div class="badge">Акція -15%</div></div>
+            <a href="product.html?item=candles" class="product-img" style="background-image: url('nabor3.jpg');"><div class="badge">Акція -15%</div></a>
             <div class="product-body">
                 <div>
-                    <h3 id="p8-t">Патріотичний набір свічок</h3>
+                    <h3><a href="product.html?item=candles" id="p8-t">Патріотичний набір свічок</a></h3>
                     <p class="product-desc" id="p8-desc">Синьо-жовті свічки з вощини з ніжним ароматом.</p>
                     <div class="timer-box" id="promoTimer">⏳ Акція діє: 23 год 59 хв</div>
                     <div class="sizes">
@@ -351,7 +359,7 @@
                 </div>
                 <div class="product-footer">
                     <div class="price"><span style="text-decoration:line-through;color:#999;font-size:14px;">220</span> 200 <small>₴</small></div>
-                    <button class="btn-buy" onclick="addToCart('Патріотичний набір свічок', 200, 'Набір', this)">В кошик</button>
+                    <a href="product.html?item=candles" class="btn-buy" id="b8-more">Детальніше</a>
                 </div>
             </div>
         </div>
@@ -521,7 +529,6 @@
 </div>
 
 <script>
-    // Dictionary for UA / RU
     const dict = {
         uk: {
             lLogo: "Медова Пасіка", mCat: "Каталог", mAbout: "Про нас", mDel: "Доставка", mFAQ: "FAQ",
@@ -530,7 +537,7 @@
             hDesc: "Крафтовий мед, воскові свічки та продукти бджільництва напряму з сімейної пасіки в селі Захарівка. Без домішок і цукру.",
             hBtn: "🍯 Обрати продукцію",
             catTitle: "Наш каталог", catSub: "Екологічно чисті продукти з власної пасіки",
-            fAll: "Усі товари", fHoney: "Мед", fCandles: "Свічки", fOther: "Інше",
+            fAll: "Усі товари", fTabMay: "🌿 Травневий мед", fTabSun: "🌻 Соняшниковий мед", fTabCand: "🕯️ Свічки", fTabProp: "🛡️ Прополіс", fTabPoll: "⚡ Пилок",
             p1t: "Мед соняшниковий", p1d: "Густий, сонячний та найсолодший мед з власним ароматом.",
             p2t: "Мед Травневий", p2d: "Ароматний і ніжний мед із перших весняних квітів.",
             p3t: "Мед з волоським горіхом", p3d: "Відбірний мед з додаванням молодого горіха.",
@@ -565,7 +572,7 @@
             hDesc: "Крафтовый мед, восковые свечи и продукты пчеловодства напрямую с семейной пасеки в селе Захаровка. Без примесей и сахара.",
             hBtn: "🍯 Выбрать продукцию",
             catTitle: "Наш каталог", catSub: "Экологически чистые продукты с собственной пасеки",
-            fAll: "Все товары", fHoney: "Мед", fCandles: "Свечи", fOther: "Другое",
+            fAll: "Все товары", fTabMay: "🌿 Майский мед", fTabSun: "🌻 Подсолнечный мед", fTabCand: "🕯️ Свечи", fTabProp: "🛡️ Прополис", fTabPoll: "⚡ Пыльца",
             p1t: "Мед подсолнечный", p1d: "Густой, солнечный и самый сладкий мед с ароматом.",
             p2t: "Мед Майский", p2d: "Ароматный и нежный мед с первых весенних цветов.",
             p3t: "Мед с грецким орехом", p3d: "Отборный мед с добавлением ореха.",
@@ -611,9 +618,11 @@
         document.getElementById('cat-title').textContent = t.catTitle;
         document.getElementById('cat-sub').textContent = t.catSub;
         document.getElementById('f-all').textContent = t.fAll;
-        document.getElementById('f-honey').textContent = t.fHoney;
-        document.getElementById('f-candles').textContent = t.fCandles;
-        document.getElementById('f-other').textContent = t.fOther;
+        document.getElementById('f-tab-may').textContent = t.fTabMay;
+        document.getElementById('f-tab-sun').textContent = t.fTabSun;
+        document.getElementById('f-tab-cand').textContent = t.fTabCand;
+        document.getElementById('f-tab-prop').textContent = t.fTabProp;
+        document.getElementById('f-tab-poll').textContent = t.fTabPoll;
 
         document.getElementById('p1-t').textContent = t.p1t; document.getElementById('p1-d').textContent = t.p1d;
         document.getElementById('p2-t').textContent = t.p2t; document.getElementById('p2-d').textContent = t.p2d;
@@ -622,7 +631,7 @@
         document.getElementById('p5-t').textContent = t.p5t; document.getElementById('p5-d').textContent = t.p5d;
         document.getElementById('p6-t').textContent = t.p6t; document.getElementById('p6-d').textContent = t.p6d;
         document.getElementById('p7-t').textContent = t.p7t; document.getElementById('p7-d').textContent = t.p7d;
-        document.getElementById('p8-t').textContent = t.p8t; document.getElementById('p8-d').textContent = t.p8d;
+        document.getElementById('p8-t').textContent = t.p8t; document.getElementById('p8-desc').textContent = t.p8d;
 
         document.getElementById('f1-t').textContent = t.f1t; document.getElementById('f1-d').textContent = t.f1d;
         document.getElementById('f2-t').textContent = t.f2t; document.getElementById('f2-d').textContent = t.f2d;
@@ -659,10 +668,9 @@
         updateCartUI();
     }
 
-    // Category filter
     function filterCat(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        document.querySelectorAll('.filter-btn').forEach(b => { if(!b.getAttribute('href')) b.classList.remove('active'); });
+        if(btn && !btn.getAttribute('href')) btn.classList.add('active');
         document.querySelectorAll('.product-card').forEach(card => {
             if (cat === 'all' || card.dataset.cat === cat) {
                 card.style.display = 'flex';
@@ -672,15 +680,9 @@
         });
     }
 
-    // FAQ Accordion
-    function toggleFaq(el) {
-        el.parentElement.classList.toggle('active');
-    }
-
-    // Modal Control
+    function toggleFaq(el) { el.parentElement.classList.toggle('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    // Size Selection & Price Update
     document.querySelectorAll('.sizes').forEach(group => {
         group.querySelectorAll('.size-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -688,36 +690,12 @@
                 this.classList.add('active');
                 const card = this.closest('.product-card');
                 const priceEl = card.querySelector('.price');
-                priceEl.innerHTML = this.dataset.price + ' <small>₴</small>';
+                if(priceEl) priceEl.innerHTML = this.dataset.price + ' <small>₴</small>';
             });
         });
     });
 
-    // Cart Management
     let cart = JSON.parse(localStorage.getItem('medova_cart')) || [];
-
-    function addToCart(nameKey, basePrice, defaultSize, btnEl) {
-        const card = btnEl.closest('.product-card');
-        let price = basePrice;
-        let size = defaultSize;
-        const activeSize = card.querySelector('.size-btn.active');
-        if (activeSize) {
-            price = parseInt(activeSize.dataset.price);
-            size = activeSize.dataset.size;
-        }
-
-        const fullName = `${nameKey} (${size})`;
-        const existing = cart.find(i => i.name === fullName);
-        if (existing) { existing.qty += 1; } 
-        else { cart.push({ name: fullName, price: price, qty: 1 }); }
-
-        saveCart();
-        updateCartUI();
-        openCartModal();
-    }
-
-    function saveCart() { localStorage.setItem('medova_cart', JSON.stringify(cart)); }
-
     function updateCartUI() {
         const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
         const countEl = document.getElementById('cartCount');
@@ -751,23 +729,16 @@
             list.innerHTML = html;
             sumEl.textContent = total;
         }
-
-        const user = JSON.parse(localStorage.getItem('medova_current_user'));
-        if(user) {
-            document.getElementById('orderName').value = user.name || '';
-            document.getElementById('orderContact').value = user.phone || '';
-        }
         document.getElementById('orderModal').classList.add('active');
     }
 
     function removeFromCart(idx) {
         cart.splice(idx, 1);
-        saveCart();
+        localStorage.setItem('medova_cart', JSON.stringify(cart));
         updateCartUI();
         openCartModal();
     }
 
-    // Direct Telegram Bot Fetch
     async function sendOrderToTelegram(e) {
         e.preventDefault();
         const BOT_TOKEN = '8812886094:AAFdw7NkHOSRB0If8ZMAME4tEbhwq1XCAZA';
@@ -776,7 +747,7 @@
         const name = document.getElementById('orderName').value.trim();
         const contact = document.getElementById('orderContact').value.trim();
         const city = document.getElementById('orderCity').value.trim();
-        const pay = document.getElementById('orderPayment').value === 'card' ? 'Картка' : 'Готівка при отриманні';
+        const pay = document.getElementById('orderPayment').value === 'card' ? 'Картка' : 'Готівка';
         const comm = document.getElementById('orderComment').value.trim();
 
         if (cart.length === 0) return;
@@ -788,18 +759,14 @@
             return `• ${i.name} — ${i.qty} шт. (${sub} ₴)`;
         }).join('\n');
 
-        const text = `<b>🛒 Нове замовлення (uly.in стиль)!</b>\n\n` +
+        const text = `<b>🛒 Нове замовлення з сайту!</b>\n\n` +
                      `<b>👤 Ім'я:</b> ${name}\n` +
                      `<b>📞 Контакт:</b> ${contact}\n` +
-                     `<b>🏙️ Місто/Відділення:</b> ${city}\n` +
+                     `<b>🏙️ Місто:</b> ${city}\n` +
                      `<b>💳 Оплата:</b> ${pay}\n` +
                      `<b>💬 Коментар:</b> ${comm || 'Відсутній'}\n\n` +
                      `<b>📦 Товари:</b>\n${itemsList}\n\n` +
                      `💰 <b>Загальна сума:</b> <b>${total} ₴</b>`;
-
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.textContent = currentLang === 'uk' ? 'Відправляємо... ⏳' : 'Отправляем... ⏳';
 
         try {
             const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -809,52 +776,38 @@
             });
             const data = await res.json();
             if(data.ok) {
-                alert(currentLang === 'uk' ? '✅ Замовлення успішно відправлено у Telegram!' : '✅ Заказ успешно отправлен в Telegram!');
+                alert(currentLang === 'uk' ? '✅ Замовлення успішно відправлено!' : '✅ Заказ успешно отправлен!');
                 cart = [];
-                saveCart();
+                localStorage.setItem('medova_cart', JSON.stringify(cart));
                 updateCartUI();
                 closeModal('orderModal');
-            } else {
-                throw new Error(data.description);
             }
         } catch(err) {
-            alert(currentLang === 'uk' ? '❌ Помилка відправки. Спробуйте ще раз.' : '❌ Ошибка отправки. Попробуйте еще раз.');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = currentLang === 'uk' ? '📤 Підтвердити та відправити' : '📤 Подтвердить и отправить';
+            alert('Помилка відправки!');
         }
     }
 
-    // Auth logic
-    let isReg = false;
     function openAuthModal() {
         const user = JSON.parse(localStorage.getItem('medova_current_user'));
         if(user) {
-            document.getElementById('authTitle').textContent = currentLang === 'uk' ? "👤 Особистий кабінет" : "👤 Личный кабинет";
+            document.getElementById('authTitle').textContent = "👤 Кабінет";
             document.getElementById('authFormDiv').style.display = 'none';
             document.getElementById('userProfileDiv').style.display = 'block';
             document.getElementById('profileName').textContent = user.name || "Клієнт";
             document.getElementById('profilePhone').textContent = "Телефон: " + user.phone;
         } else {
-            document.getElementById('authTitle').textContent = currentLang === 'uk' ? "👤 Вхід в акаунт" : "👤 Вход в аккаунт";
             document.getElementById('authFormDiv').style.display = 'block';
             document.getElementById('userProfileDiv').style.display = 'none';
-            isReg = false;
-            updateAuthUI();
         }
         document.getElementById('authModal').classList.add('active');
     }
 
     function toggleAuthMode() {
         isReg = !isReg;
-        updateAuthUI();
-    }
-
-    function updateAuthUI() {
         document.getElementById('nameGroup').style.display = isReg ? 'block' : 'none';
-        document.getElementById('authSubmitBtn').textContent = isReg ? (currentLang === 'uk' ? 'Зареєструватися' : 'Зарегистрироваться') : (currentLang === 'uk' ? 'Увійти' : 'Войти');
     }
 
+    let isReg = false;
     function handleAuth(e) {
         e.preventDefault();
         const phone = document.getElementById('regPhone').value.trim();
@@ -863,38 +816,27 @@
         let users = JSON.parse(localStorage.getItem('medova_users_db')) || [];
 
         if(isReg) {
-            if(users.find(u => u.phone === phone)) { alert("Телефон вже зареєстрований!"); return; }
             const u = { phone, pass, name: name || "Клієнт" };
             users.push(u);
             localStorage.setItem('medova_users_db', JSON.stringify(users));
             localStorage.setItem('medova_current_user', JSON.stringify(u));
             alert("Реєстрація успішна!");
         } else {
-            const u = users.find(u => u.phone === phone && u.pass === pass);
-            if(!u) { alert("Невірний телефон або пароль!"); return; }
+            const u = users.find(x => x.phone === phone && x.pass === pass);
+            if(!u) { alert("Невірні дані!"); return; }
             localStorage.setItem('medova_current_user', JSON.stringify(u));
-            alert("Успішний вхід!");
+            alert("Вхід успішний!");
         }
         closeModal('authModal');
-        updateAuthBtnText();
     }
 
     function logoutUser() {
         localStorage.removeItem('medova_current_user');
         closeModal('authModal');
-        updateAuthBtnText();
-    }
-
-    function updateAuthBtnText() {
-        const user = JSON.parse(localStorage.getItem('medova_current_user'));
-        const btn = document.getElementById('authBtn');
-        if(user) btn.textContent = `👤 ${user.name || 'Кабінет'}`;
-        else btn.textContent = currentLang === 'uk' ? "👤 Вхід" : "👤 Вход";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
-        updateAuthBtnText();
     });
 </script>
 

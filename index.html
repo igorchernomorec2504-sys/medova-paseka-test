@@ -182,6 +182,7 @@
             <a href="#catalog" id="m-cat">Каталог</a>
             <a href="#about" id="m-about">Про нас</a>
             <a href="#delivery" id="m-del">Доставка</a>
+            <a href="#contacts" id="m-cont">Контакти</a>
             <a href="#faq" id="m-faq">FAQ</a>
         </div>
         <div class="header-actions">
@@ -205,7 +206,7 @@
     <h2 class="section-title" id="cat-title">Наш каталог</h2>
     <p class="section-subtitle" id="cat-sub">Екологічно чисті продукти з власної пасіки</p>
 
-    <!-- Вкладки швидкого переходу на сторінку продукту -->
+    <!-- Вкладки швидкого переходу -->
     <div class="filters">
         <button class="filter-btn active" onclick="filterCat('all', this)" id="f-all">Усі товари</button>
         <a href="product.html?item=may" class="filter-btn" id="f-tab-may">🌿 Травневий мед</a>
@@ -216,7 +217,7 @@
     </div>
 
     <div class="products-grid">
-        <!-- 1. Соняшниковий мед (переходить на product.html) -->
+        <!-- 1. Соняшниковий мед -->
         <div class="product-card" data-cat="honey">
             <a href="product.html?item=sunflower" class="product-img" style="background-image: url('med.jpg');"><div class="badge">Хіт</div></a>
             <div class="product-body">
@@ -236,7 +237,7 @@
             </div>
         </div>
 
-        <!-- 2. Травневий мед (переходить на product.html) -->
+        <!-- 2. Травневий мед -->
         <div class="product-card" data-cat="honey">
             <a href="product.html?item=may" class="product-img" style="background-image: url('may1.jpg');"><div class="badge">Весна</div></a>
             <div class="product-body">
@@ -254,7 +255,7 @@
             </div>
         </div>
 
-        <!-- 3. Мед з горіхом (пряма покупка на index.html) -->
+        <!-- 3. Мед з горіхом -->
         <div class="product-card" data-cat="honey">
             <div class="product-img" style="background: linear-gradient(135deg, #d4a574, #c49564);">🥜</div>
             <div class="product-body">
@@ -272,7 +273,7 @@
             </div>
         </div>
 
-        <!-- 4. Стільниковий Мед (пряма покупка на index.html) -->
+        <!-- 4. Стільниковий Мед -->
         <div class="product-card" data-cat="honey">
             <div class="product-img" style="background-image: url('sotu.jpg');"><div class="badge">100% Еко</div></div>
             <div class="product-body">
@@ -290,7 +291,7 @@
             </div>
         </div>
 
-        <!-- 5. Свічка з вощини (переходить на product.html) -->
+        <!-- 5. Свічка з вощини -->
         <div class="product-card" data-cat="candles">
             <a href="product.html?item=candles" class="product-img" style="background-image: url('svecha.jpg');"><div class="badge">Ручна робота</div></a>
             <div class="product-body">
@@ -308,7 +309,7 @@
             </div>
         </div>
 
-        <!-- 6. Прополіс (переходить на product.html) -->
+        <!-- 6. Прополіс -->
         <div class="product-card" data-cat="other">
             <a href="product.html?item=propolis" class="product-img" style="background-image: url('propolis1.jpg');"></a>
             <div class="product-body">
@@ -326,7 +327,7 @@
             </div>
         </div>
 
-        <!-- 7. Бджолиний пилок (переходить на product.html) -->
+        <!-- 7. Бджолиний пилок -->
         <div class="product-card" data-cat="other">
             <a href="product.html?item=pollen" class="product-img" style="background-image: url('pollen.jpg');"></a>
             <div class="product-body">
@@ -345,7 +346,7 @@
             </div>
         </div>
 
-        <!-- 8. Патріотичний набір свічок (пряма покупка на index.html) -->
+        <!-- 8. Патріотичний набір свічок -->
         <div class="product-card" data-cat="candles">
             <div class="product-img" style="background-image: url('nabor3.jpg');"><div class="badge">Акція -15%</div></div>
             <div class="product-body">
@@ -360,6 +361,44 @@
                 <div class="product-footer">
                     <div class="price"><span style="text-decoration:line-through;color:#999;font-size:14px;">220</span> 200 <small>₴</small></div>
                     <button class="btn-buy" onclick="addToCart('Патріотичний набір свічок', 200, 'Набір', this)">В кошик</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. Набір «Медовий затишок» -->
+        <div class="product-card" data-cat="candles">
+            <div class="product-img" style="background-image: url('svechi-podarok.jpg');"><div class="badge">Акція</div></div>
+            <div class="product-body">
+                <div>
+                    <h3 id="p9-t">Набір «Медовий затишок»</h3>
+                    <p class="product-desc" id="p9-d">Чудовий комплект свічок ручної роботи. Розміри свічок: 20×3 см.</p>
+                    <div class="timer-box">⏳ Акція діє: 23 год 59 хв</div>
+                    <div class="sizes">
+                        <span class="size-btn active" data-price="250" data-size="Набір">Набір — 250 ₴</span>
+                    </div>
+                </div>
+                <div class="product-footer">
+                    <div class="price"><span style="text-decoration:line-through;color:#999;font-size:14px;">300</span> 250 <small>₴</small></div>
+                    <button class="btn-buy" onclick="addToCart('Набір «Медовий затишок»', 250, 'Набір', this)">В кошик</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. Набір з натуральної вощини -->
+        <div class="product-card" data-cat="candles">
+            <div class="product-img" style="background-image: url('svecha3.jpg');"><div class="badge">-15%</div></div>
+            <div class="product-body">
+                <div>
+                    <h3 id="p10-t">Набір з натуральної вощини</h3>
+                    <p class="product-desc" id="p10-d">З медовим запахом та ніжним природним ароматом.</p>
+                    <div class="timer-box">⏳ Акція діє: 23 год 59 хв</div>
+                    <div class="sizes">
+                        <span class="size-btn active" data-price="170" data-size="Набір">Набір — 170 ₴</span>
+                    </div>
+                </div>
+                <div class="product-footer">
+                    <div class="price"><span style="text-decoration:line-through;color:#999;font-size:14px;">200</span> 170 <small>₴</small></div>
+                    <button class="btn-buy" onclick="addToCart('Набір з натуральної вощини', 170, 'Набір', this)">В кошик</button>
                 </div>
             </div>
         </div>
@@ -392,6 +431,7 @@
         </div>
     </section>
 
+    <!-- Секція "Про нас" -->
     <section id="about">
         <div class="about-box">
             <div class="about-text">
@@ -401,6 +441,26 @@
                 <p style="margin-top: 10px;"><strong>📞 +380 96 898 0543</strong></p>
             </div>
             <div class="about-img" style="background-image: url('yliki.jpg');"></div>
+        </div>
+    </section>
+
+    <!-- Секція "Контакти" -->
+    <section id="contacts" style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; margin-top: 20px;">
+        <h2 class="section-title" id="cont-title">Контакти та зв'язок</h2>
+        <p class="section-subtitle" id="cont-sub">Зв'яжіться з нами будь-яким зручним способом</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: center; margin-top: 20px;">
+            <div style="padding: 20px; background: var(--bg); border-radius: 14px;">
+                <h4>📞 Телефон</h4>
+                <p style="margin-top: 8px;"><a href="tel:+380968980543" style="color: var(--primary); font-weight: 700; text-decoration: none;">+380 96 898 0543</a></p>
+            </div>
+            <div style="padding: 20px; background: var(--bg); border-radius: 14px;">
+                <h4>✈️ Telegram</h4>
+                <p style="margin-top: 8px;"><a href="https://t.me/igor_chernomorec" target="_blank" style="color: var(--primary); font-weight: 700; text-decoration: none;">Написати в Telegram</a></p>
+            </div>
+            <div style="padding: 20px; background: var(--bg); border-radius: 14px;">
+                <h4>📸 Instagram</h4>
+                <p style="margin-top: 8px;"><a href="https://www.instagram.com/wax_candles_eco_honey" target="_blank" style="color: var(--primary); font-weight: 700; text-decoration: none;">Переглянути Instagram</a></p>
+            </div>
         </div>
     </section>
 
@@ -531,7 +591,7 @@
 <script>
     const dict = {
         uk: {
-            lLogo: "Медова Пасіка", mCat: "Каталог", mAbout: "Про нас", mDel: "Доставка", mFAQ: "FAQ",
+            lLogo: "Медова Пасіка", mCat: "Каталог", mAbout: "Про нас", mDel: "Доставка", mCont: "Контакти", mFAQ: "FAQ",
             hTag: "🐝 Натуральний мед з Одещини",
             hTitle: "Справжній мед <span>з любов'ю</span> до бджіл",
             hDesc: "Крафтовий мед, воскові свічки та продукти бджільництва напряму з сімейної пасіки в селі Захарівка. Без домішок і цукру.",
@@ -546,15 +606,18 @@
             p6t: "Прополіс", p6d: "Природний антисептик та захисник здоров'я.",
             p7t: "Бджолиний пилок", p7d: "Мікс вітамінів та амінокислот для енергії.",
             p8t: "Патріотичний набір свічок", p8d: "Синьо-жовті свічки з вощини з ніжним ароматом.",
+            p9t: "Набір «Медовий затишок»", p9d: "Чудовий комплект свічок ручної роботи. Розміри свічок: 20×3 см.",
+            p10t: "Набір з натуральної вощини", p10d: "З медовим запахом та ніжним природним ароматом.",
             f1t: "100% натурально", f1d: "Жодних домішок, цукру та консервантів.",
             f2t: "Екологічний регіон", f2d: "Пасіка в с. Захарівка, далеко від трас.",
             f3t: "Родинна пасіка", f3d: "Сімейна справа з багаторічним досвідом.",
             f4t: "Швидка доставка", f4d: "Відправляємо Новою Поштою щодня.",
             abT: "Про нашу пасіку",
-            abD1: "Ми — родина бджолярів з села Захарівка (Роздільнянський район, Одещина). Наша пасіка налічує десятки вуликів у чистій місцевості.",
-            abD2: "Ми не використовуємо хімію чи штучні добавки. Весь мед качаємо самостійно, дбаючи про збереження всіх властивостей природи.",
+            abD1: "Ми — родина бджолярів з села Захарівка (Роздільнянський район, Одещина). Наша пасіка налічує десятки вуликів, розташованих у мальовничій та чистій місцевості.",
+            abD2: "Ми не використовуємо хімію чи штучні добавки. Весь мед качаємо самостійно, дбаючи про те, щоб зберегти всі цілющі властивості природи.",
+            contTitle: "Контакти та зв'язок", contSub: "Зв'яжіться з нами будь-яким зручним способом",
             faqTitle: "Часті запитання",
-            q1: "Як правильно зберігати мед?", a1: "У скляній тарі з щільно закритою кришкою, в темному та сухому місці.",
+            q1: "Як правильно зберігати мед?", a1: "У скляній тарі з щільно закритою кришкою, в темному та сухому місці при кімнатній температурі.",
             q2: "Чому мед кристалізується?", a2: "Це природний процес для якісного натурального меду, який свідчить про його зрілість.",
             q3: "Які умови доставки?", a3: "Відправка Новою Поштою по всій Україні за тарифами перевізника.",
             ftDesc: "Натуральний мед та вироби з воску напряму з пасіки.",
@@ -566,7 +629,7 @@
             mBtnSend: "📤 Підтвердити та відправити"
         },
         ru: {
-            lLogo: "Медовая Пасека", mCat: "Каталог", mAbout: "О нас", mDel: "Доставка", mFAQ: "FAQ",
+            lLogo: "Медовая Пасека", mCat: "Каталог", mAbout: "О нас", mDel: "Доставка", mCont: "Контакты", mFAQ: "FAQ",
             hTag: "🐝 Натуральный мед с Одесчины",
             hTitle: "Настоящий мед <span>с любовью</span> к пчелам",
             hDesc: "Крафтовый мед, восковые свечи и продукты пчеловодства напрямую с семейной пасеки в селе Захаровка. Без примесей и сахара.",
@@ -581,6 +644,8 @@
             p6t: "Прополис", p6d: "Природный антисептик и защитник здоровья.",
             p7t: "Пчелиная пыльца", p7d: "Микс витаминов и аминокислот для энергии.",
             p8t: "Патриотический набор свечей", p8d: "Сине-желтые свечи из вощины с нежным ароматом.",
+            p9t: "Набор «Медовый уют»", p9d: "Прекрасный комплект свечей ручной работы. Размеры свечей: 20×3 см.",
+            p10t: "Набор из натуральной вощины", p10d: "С медовым запахом и нежным природным ароматом.",
             f1t: "100% натурально", f1d: "Никаких примесей, сахара и консервантов.",
             f2t: "Экологичный регион", f2d: "Пасека в с. Захаровка, вдали от трасс.",
             f3t: "Семейная пасека", f3d: "Семейное дело с многолетним опытом.",
@@ -588,6 +653,7 @@
             abT: "О нашей пасеке",
             abD1: "Мы — семья пчеловодов из села Захаровка (Раздельнянский район, Одесщина). Наша пасека насчитывает десятки ульев в чистой местности.",
             abD2: "Мы не используем химию или искусственные добавки. Весь мед качаем самостоятельно, сохраняя природную пользу.",
+            contTitle: "Контакты и связь", contSub: "Свяжитесь с нами любым удобным способом",
             faqTitle: "Частые вопросы",
             q1: "Как правильно хранить мед?", a1: "В стеклянной таре с плотно закрытой крышкой, в темном и сухом месте.",
             q2: "Почему мед кристаллизуется?", a2: "Это естественный процесс для качественного меда, подтверждающий его зрелость.",
@@ -610,6 +676,7 @@
         document.getElementById('m-cat').textContent = t.mCat;
         document.getElementById('m-about').textContent = t.mAbout;
         document.getElementById('m-del').textContent = t.mDel;
+        document.getElementById('m-cont').textContent = t.mCont;
         document.getElementById('m-faq').textContent = t.mFAQ;
         document.getElementById('h-tag').textContent = t.hTag;
         document.getElementById('h-title').innerHTML = t.hTitle;
@@ -632,6 +699,8 @@
         document.getElementById('p6-t').textContent = t.p6t; document.getElementById('p6-d').textContent = t.p6d;
         document.getElementById('p7-t').textContent = t.p7t; document.getElementById('p7-d').textContent = t.p7d;
         document.getElementById('p8-t').textContent = t.p8t; document.getElementById('p8-desc').textContent = t.p8d;
+        document.getElementById('p9-t').textContent = t.p9t; document.getElementById('p9-d').textContent = t.p9d;
+        document.getElementById('p10-t').textContent = t.p10t; document.getElementById('p10-d').textContent = t.p10d;
 
         document.getElementById('f1-t').textContent = t.f1t; document.getElementById('f1-d').textContent = t.f1d;
         document.getElementById('f2-t').textContent = t.f2t; document.getElementById('f2-d').textContent = t.f2d;
@@ -641,6 +710,8 @@
         document.getElementById('ab-t').textContent = t.abT;
         document.getElementById('ab-d1').textContent = t.abD1;
         document.getElementById('ab-d2').textContent = t.abD2;
+        document.getElementById('cont-title').textContent = t.contTitle;
+        document.getElementById('cont-sub').textContent = t.contSub;
         document.getElementById('faq-title').textContent = t.faqTitle;
         document.getElementById('q1').textContent = t.q1; document.getElementById('a1').textContent = t.a1;
         document.getElementById('q2').textContent = t.q2; document.getElementById('a2').textContent = t.a2;
@@ -790,12 +861,13 @@
                      `💰 <b>Загальна сума:</b> <b>${total} ₴</b>`;
 
         try {
-            const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            const res = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const response = await fetch(res, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
             });
-            const data = await res.json();
+            const data = await response.json();
             if(data.ok) {
                 alert(currentLang === 'uk' ? '✅ Замовлення успішно відправлено!' : '✅ Заказ успешно отправлен!');
                 cart = [];

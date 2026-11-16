@@ -40,7 +40,6 @@
             font-size: 0.92rem;
         }
 
-        /* Компактный блок для кнопок, чтобы они не растягивались */
         .top-nav-bar {
             display: flex;
             justify-content: space-between;
@@ -124,7 +123,9 @@
 
         .product-detail-card { background: var(--bg-card); border-radius: 20px; padding: 22px 18px; box-shadow: var(--card-shadow); border: 1.5px solid var(--border-color); }
         
-        .gallery-main { width: 100%; height: 280px; object-fit: cover; border-radius: 14px; border: 1.5px solid var(--border-color); margin-bottom: 10px; }
+        /* Збільшена висота головного фото */
+        .gallery-main { width: 100%; height: 380px; object-fit: cover; border-radius: 14px; border: 1.5px solid var(--border-color); margin-bottom: 10px; }
+        
         .gallery-thumbs { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap; }
         .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1.5px solid var(--border-color); cursor: pointer; transition: 0.2s; }
         .thumb-img:hover, .thumb-img.active { border-color: var(--primary-amber); transform: scale(1.05); }
@@ -297,7 +298,7 @@
         }
 
         const productsData = {
-            'sunflower-honey': {
+            'sunflower': {
                 title: "Мед Соняшниковий",
                 description: "Свіжий, густий та сонячний мед з власної пасіки. Натуральна кристалізація — знак якості та зрілості.",
                 extendedDescription: "Соняшниковий мед має яскраво-жовтий колір, насичений солодкий смак та приємний легкий аромат. Він містить велику кількість глюкози, завдяки чому швидко кристалізується, утворюючи дрібнозернисту структуру. Чудово підходить для повсякденного вживання, випічки та підтримки енергії.",
@@ -309,7 +310,7 @@
                     { name: "3 л", price: 700 }
                 ]
             },
-            'may-honey': {
+            'may': {
                 title: "Мед Травневий",
                 description: "Ароматний, духмяний та ніжний травневий мед зібраний під час першого весняного медозбору.",
                 extendedDescription: "Травневий мед вважається одним із найцінніших та найелітніших видів меду. Бджоли збирають його з перших весняних квіток та плодових дерев. Мед має прозорий золотавий відтінок, неймовірно ніжний м'який смак без гіркоти та багатий вітамінний комплекс.",
@@ -321,7 +322,7 @@
                     { name: "3 л", price: 1000 }
                 ]
             },
-            'candle': {
+            'candles': {
                 title: "Свічки з вощини",
                 description: "100% натуральний пасічний віск. Ручна робота, дарують затишок та природний аромат.",
                 extendedDescription: "Свічки виготовлені виключно з натуральної бджолиної вощини без хімічних домішок. При горінні вони виділяють легкий медово-прополисний аромат, м'яко очищають повітря в кімнаті від пилу та створюють надзвичайно затишну й теплу атмосферу в домі.",
@@ -345,12 +346,23 @@
                     { name: "200 г", price: 600 },
                     { name: "300 г", price: 900 }
                 ]
+            },
+            'pollen': {
+                title: "Бджолиний пилок",
+                description: "Мікс вітамінів та амінокислот для енергії та імунітету.",
+                extendedDescription: "Бджолиний пилок (обніжжя) — це унікальний природний полівітамінний комплекс. Він підвищує життєвий тонус, покращує роботу серцево-судинної та нервової систем, допомагає швидко відновлювати сили.",
+                images: ["pollen.jpg"],
+                hasVolumes: true,
+                volumes: [
+                    { name: "100 г", price: 70 },
+                    { name: "200 г", price: 140 }
+                ]
             }
         };
 
         const urlParams = new URLSearchParams(window.location.search);
-        const itemKey = urlParams.get('id') || 'may-honey';
-        const product = productsData[itemKey] || productsData['may-honey'];
+        const itemKey = urlParams.get('item') || 'may';
+        const product = productsData[itemKey] || productsData['may'];
 
         let selectedPrice = product.hasVolumes || product.isCandle ? product.volumes[0].price : product.price;
         let selectedVariantName = product.hasVolumes || product.isCandle ? product.volumes[0].name : '';
@@ -492,6 +504,7 @@
             }
             saveCart();
             document.getElementById('prodQty').value = 1;
+            openCartModal();
         }
 
         function removeFromCart(index) {

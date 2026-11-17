@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Медова Пасіка | Натуральний мед та продукти бджільництва</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Підключення Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --bg: #FAFAF7;
@@ -48,6 +50,7 @@
         .btn-auth, .lang-btn {
             background: #fff; border: 1px solid var(--border); padding: 6px 14px; border-radius: 30px;
             font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text); transition: all 0.2s;
+            text-decoration: none; display: inline-flex; align-items: center;
         }
         .btn-auth:hover, .lang-btn:hover { border-color: var(--primary); color: var(--primary); }
         .lang-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
@@ -142,7 +145,6 @@
         }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
         
-        /* Высота фото увеличена до 300px */
         .product-img {
             height: 300px; background-size: cover; background-position: center; background-color: #f3f3f0;
             display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative;
@@ -240,10 +242,9 @@
 </head>
 <body>
 
-<!-- Шапка сайта с кнопкой меню слева у логотипа -->
+<!-- Шапка сайта -->
 <header>
     <div class="nav-container">
-        <!-- Блок слева: бургер-кнопка + логотип -->
         <div class="logo-area">
             <button class="menu-burger-btn" onclick="openDrawer()">☰</button>
             <a href="index.html" class="logo">🍯 <span id="l-logo">Медова Пасіка</span></a>
@@ -258,7 +259,8 @@
         </div>
 
         <div class="header-actions">
-            <button class="btn-auth" id="authBtn" onclick="openAuthModal()">👤 Вхід</button>
+            <!-- Ссылка на личный кабинет account.html -->
+            <a href="account.html" class="btn-auth" id="authBtn">👤 Вхід</a>
             <div style="display: flex; gap: 4px;">
                 <button class="lang-btn active" id="b-uk" onclick="setLang('uk')">UA</button>
                 <button class="lang-btn" id="b-ru" onclick="setLang('ru')">RU</button>
@@ -267,10 +269,9 @@
     </div>
 </header>
 
-<!-- Затемнение экрана при открытой шторке -->
+<!-- Шторка-меню -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 
-<!-- Боковая шторка в стиле Apix -->
 <aside class="side-drawer" id="sideDrawer">
     <div class="drawer-header">
         <div class="brand">🍯 <span id="dr-title">Медова Пасіка</span></div>
@@ -278,39 +279,19 @@
     </div>
 
     <div class="drawer-section">
-        <a href="product.html?item=sunflower" class="drawer-item">
-            <span id="dr-p1">🌻 Мед соняшниковий</span> <span class="arrow">›</span>
-        </a>
-        <a href="product.html?item=may" class="drawer-item">
-            <span id="dr-p2">🌿 Мед травневий</span> <span class="arrow">›</span>
-        </a>
-        <a href="product.html?item=walnut" class="drawer-item">
-            <span id="dr-p3">🥜 Мед з волоським горіхом</span> <span class="arrow">›</span>
-        </a>
-        <a href="#catalog" onclick="filterCat('honey'); closeDrawer()" class="drawer-item">
-            <span id="dr-p4">🍯 Стільниковий мед</span> <span class="arrow">›</span>
-        </a>
-        <a href="product.html?item=candles" class="drawer-item">
-            <span id="dr-p5">🕯️ Свічки з вощини</span> <span class="arrow">›</span>
-        </a>
-        <a href="product.html?item=propolis" class="drawer-item">
-            <span id="dr-p6">🛡️ Прополіс</span> <span class="arrow">›</span>
-        </a>
-        <a href="product.html?item=pollen" class="drawer-item">
-            <span id="dr-p7">⚡ Бджолиний пилок</span> <span class="arrow">›</span>
-        </a>
+        <a href="product.html?item=sunflower" class="drawer-item"><span id="dr-p1">🌻 Мед соняшниковий</span> <span class="arrow">›</span></a>
+        <a href="product.html?item=may" class="drawer-item"><span id="dr-p2">🌿 Мед травневий</span> <span class="arrow">›</span></a>
+        <a href="product.html?item=walnut" class="drawer-item"><span id="dr-p3">🥜 Мед з волоським горіхом</span> <span class="arrow">›</span></a>
+        <a href="#catalog" onclick="filterCat('honey'); closeDrawer()" class="drawer-item"><span id="dr-p4">🍯 Стільниковий мед</span> <span class="arrow">›</span></a>
+        <a href="product.html?item=candles" class="drawer-item"><span id="dr-p5">🕯️ Свічки з вощини</span> <span class="arrow">›</span></a>
+        <a href="product.html?item=propolis" class="drawer-item"><span id="dr-p6">🛡️ Прополіс</span> <span class="arrow">›</span></a>
+        <a href="product.html?item=pollen" class="drawer-item"><span id="dr-p7">⚡ Бджолиний пилок</span> <span class="arrow">›</span></a>
     </div>
 
     <div class="drawer-section">
-        <a href="#about" onclick="closeDrawer()" class="drawer-item">
-            <span id="dr-about">Про нас</span> <span class="arrow">›</span>
-        </a>
-        <a href="#delivery" onclick="closeDrawer()" class="drawer-item">
-            <span id="dr-delivery">Оплата і доставка</span> <span class="arrow">›</span>
-        </a>
-        <a href="#contacts" onclick="closeDrawer()" class="drawer-item">
-            <span id="dr-contacts">Контакти</span> <span class="arrow">›</span>
-        </a>
+        <a href="#about" onclick="closeDrawer()" class="drawer-item"><span id="dr-about">Про нас</span> <span class="arrow">›</span></a>
+        <a href="#delivery" onclick="closeDrawer()" class="drawer-item"><span id="dr-delivery">Оплата і доставка</span> <span class="arrow">›</span></a>
+        <a href="#contacts" onclick="closeDrawer()" class="drawer-item"><span id="dr-contacts">Контакти</span> <span class="arrow">›</span></a>
     </div>
 
     <div class="drawer-info-block">
@@ -327,9 +308,7 @@
     </div>
 
     <div class="drawer-section">
-        <a href="javascript:void(0)" onclick="closeDrawer(); openAuthModal();" class="drawer-item">
-            <span id="dr-profile">👤 Мій профіль / Вхід</span> <span class="arrow">›</span>
-        </a>
+        <a href="account.html" class="drawer-item"><span id="dr-profile">👤 Мій профіль / Вхід</span> <span class="arrow">›</span></a>
     </div>
 </aside>
 
@@ -344,7 +323,6 @@
     <h2 class="section-title" id="cat-title">Наш каталог</h2>
     <p class="section-subtitle" id="cat-sub">Екологічно чисті продукти з власної пасіки</p>
 
-    <!-- Вкладки швидкого переходу -->
     <div class="filters">
         <button class="filter-btn active" onclick="filterCat('all', this)" id="f-all">Усі товари</button>
         <a href="product.html?item=may" class="filter-btn" id="f-tab-may">🌿 Травневий мед</a>
@@ -572,7 +550,6 @@
         </div>
     </section>
 
-    <!-- Секція "Про нас" -->
     <section id="about">
         <div class="about-box">
             <div class="about-text">
@@ -585,7 +562,6 @@
         </div>
     </section>
 
-    <!-- Секція "Контакти" -->
     <section id="contacts" style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; margin-top: 20px;">
         <h2 class="section-title" id="cont-title">Контакти та зв'язок</h2>
         <p class="section-subtitle" id="cont-sub">Зв'яжіться з нами будь-яким зручним способом</p>
@@ -657,79 +633,50 @@
 <!-- Floating Cart Button -->
 <button class="cart-fab" id="cartFab" onclick="openCartModal()">🛒 <span class="count" id="cartCount">0</span></button>
 
-<!-- Auth Modal -->
-<div class="modal" id="authModal">
-    <div class="modal-box">
-        <button class="close-modal" onclick="closeModal('authModal')">✕</button>
-        <h3 id="authTitle" style="margin-bottom: 20px;">👤 Вхід в акаунт</h3>
-        <div id="authFormDiv">
-            <form onsubmit="handleAuth(event)">
-                <div class="form-group" id="nameGroup" style="display:none;">
-                    <label id="lbl-name-reg">Ваше ім'я</label>
-                    <input type="text" id="regName" placeholder="Іван">
-                </div>
-                <div class="form-group">
-                    <label id="lbl-phone">Телефон</label>
-                    <input type="tel" id="regPhone" required placeholder="+380...">
-                </div>
-                <div class="form-group">
-                    <label id="lbl-pass">Пароль</label>
-                    <input type="password" id="regPass" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn-submit" id="authSubmitBtn">Увійти</button>
-            </form>
-            <p style="text-align: center; margin-top: 15px; font-size: 13px;">
-                <span id="authToggleText">Ще не маєте акаунта?</span> 
-                <a href="javascript:void(0)" onclick="toggleAuthMode()" style="color: var(--primary); font-weight: 700;" id="authToggleLink">Зареєструватися</a>
-            </p>
-        </div>
-        <div id="userProfileDiv" style="display:none; text-align: center;">
-            <p style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Вітаємо, <span id="profileName" style="color: var(--primary);"></span>!</p>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;" id="profilePhone"></p>
-            <button class="btn-submit" onclick="logoutUser()" style="background: #EF4444;">Вийти з акаунта</button>
-        </div>
-    </div>
-</div>
-
 <!-- Cart / Order Modal -->
 <div class="modal" id="orderModal">
     <div class="modal-box">
         <button class="close-modal" onclick="closeModal('orderModal')">✕</button>
         <h3 id="m-title" style="margin-bottom: 15px;">📋 Кошик замовлення</h3>
         <div id="cartItemsList" style="margin-bottom: 15px; max-height: 180px; overflow-y: auto;"></div>
+        
+        <div id="deliveryProgressBox" style="background: #fef3c7; border: 1px dashed var(--primary); padding: 10px; border-radius: 10px; margin-bottom: 12px; font-size: 0.85rem; text-align: center; color: var(--primary-dark); font-weight: 600; display: none;"></div>
+
         <div style="background: #FFFBEB; padding: 10px; border-radius: 10px; margin-bottom: 15px; text-align: right; font-weight: 700;">
             <span id="m-tot">Загальна сума:</span> <span id="cartTotalSum">0</span> ₴
         </div>
+        
         <form onsubmit="sendOrderToTelegram(event)">
             <div class="form-group">
-                <label id="m-l-name">Ваше ім'я *</label>
-                <input type="text" id="orderName" required placeholder="Іван">
+                <label id="m-l-name">Ваше ім'я та Прізвище *</label>
+                <input type="text" id="orderName" required placeholder="Іван Іванов">
             </div>
             <div class="form-group">
-                <label id="m-l-phone">Номер телефону або Telegram *</label>
-                <input type="text" id="orderContact" required placeholder="+380...">
+                <label id="m-l-phone">Номер телефону *</label>
+                <input type="tel" id="orderContact" required placeholder="+380XXXXXXXXX">
             </div>
             <div class="form-group">
-                <label id="m-l-city">Місто та відділення Нової Пошти *</label>
-                <input type="text" id="orderCity" required placeholder="Одеса, відділення №1">
+                <label id="m-l-city">Спосіб та адреса доставки (Нова пошта / Укрпошта) *</label>
+                <input type="text" id="orderCity" required placeholder="м. Одеса, Нова Пошта №5">
             </div>
             <div class="form-group">
-                <label id="m-l-pay">Спосіб оплати</label>
-                <select id="orderPayment">
-                    <option value="card" id="m-opt-card">Картка</option>
-                    <option value="cash" id="m-opt-cash">Готівка при отриманні</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label id="m-l-comm">Коментар</label>
+                <label id="m-l-comm">Коментар до замовлення</label>
                 <textarea id="orderComment" placeholder="Побажання до замовлення..."></textarea>
             </div>
             <button type="submit" class="btn-submit" id="m-btn-send">📤 Підтвердити та відправити</button>
+            <div id="orderStatus" style="margin-top: 10px; text-align: center; font-weight: 600; font-size: 0.9rem;"></div>
         </form>
     </div>
 </div>
 
 <script>
+    const BOT_TOKEN = '8812886094:AAFdw7NkHOSRB0If8ZMAME4tEbhwq1XCAZA';
+    const CHAT_ID = '1763769244';
+    const SUPABASE_URL = "https://qqfnbzfmjemknxivfktb.supabase.co";
+    const SUPABASE_KEY = "sb_publishable__wWNK3PiFLCj29ofrP_jbw_jWGIv3-1";
+
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     // Управление шторкой
     function openDrawer() {
         document.getElementById('sideDrawer').classList.add('open');
@@ -779,9 +726,9 @@
             ftDesc: "Натуральний мед та вироби з воску напряму з пасіки.",
             ftCon: "Контакти", ftInf: "Навігація", ftAdr: "Адреса", ftAdrT: "с. Захарівка, Роздільнянський р-н, Одеська обл.",
             mTitle: "📋 Кошик замовлення", mTot: "Загальна сума:",
-            mLName: "Ваше ім'я *", mLPhone: "Номер телефону або Telegram *",
-            mLCity: "Місто та відділення Нової Пошти *", mLPay: "Спосіб оплати",
-            mOptCard: "Картка", mOptCash: "Готівка при отриманні", mLComm: "Коментар",
+            mLName: "Ваше ім'я та Прізвище *", mLPhone: "Номер телефону *",
+            mLCity: "Спосіб та адреса доставки (Нова пошта / Укрпошта) *",
+            mLComm: "Коментар до замовлення",
             mBtnSend: "📤 Підтвердити та відправити"
         },
         ru: {
@@ -821,9 +768,9 @@
             ftDesc: "Натуральный мед и изделия из воска напрямую с пасеки.",
             ftCon: "Контакты", ftInf: "Навигация", ftAdr: "Адрес", ftAdrT: "с. Захаровка, Раздельнянский р-н, Одесская обл.",
             mTitle: "📋 Корзина заказа", mTot: "Общая сумма:",
-            mLName: "Ваше имя *", mLPhone: "Номер телефона или Telegram *",
-            mLCity: "Город и отделение Новой Поты *", mLPay: "Способ оплаты",
-            mOptCard: "Карта", mOptCash: "Наличные при получении", mLComm: "Комментарий",
+            mLName: "Ваше имя и Фамилия *", mLPhone: "Номер телефона *",
+            mLCity: "Способ и адрес доставки (Новая почта / Укрпочта) *",
+            mLComm: "Комментарий к заказу",
             mBtnSend: "📤 Подтвердить и отправить"
         }
     };
@@ -966,9 +913,12 @@
     function openCartModal() {
         const list = document.getElementById('cartItemsList');
         const sumEl = document.getElementById('cartTotalSum');
+        const progressBox = document.getElementById('deliveryProgressBox');
+
         if (cart.length === 0) {
             list.innerHTML = `<p style="text-align:center; color:#888; font-size:13px;">${currentLang === 'uk' ? 'Кошик порожній' : 'Корзина пуста'}</p>`;
             sumEl.textContent = '0';
+            progressBox.style.display = 'none';
         } else {
             let html = '';
             let total = 0;
@@ -987,6 +937,21 @@
             });
             list.innerHTML = html;
             sumEl.textContent = total;
+
+            const threshold = 1000;
+            progressBox.style.display = 'block';
+            if (total >= threshold) {
+                progressBox.innerHTML = currentLang === 'uk' ? '🎉 Ура! У вас безкоштовна доставка!' : '🎉 Ура! У вас бесплатная доставка!';
+                progressBox.style.color = '#059669';
+                progressBox.style.borderColor = '#059669';
+            } else {
+                const diff = threshold - total;
+                progressBox.innerHTML = currentLang === 'uk' 
+                    ? `🚚 До безкоштовної доставки не вистачає: <b>${diff} ₴</b>` 
+                    : `🚚 До бесплатной доставки не хватает: <b>${diff} ₴</b>`;
+                progressBox.style.color = 'var(--primary-dark)';
+                progressBox.style.borderColor = 'var(--primary)';
+            }
         }
         document.getElementById('orderModal').classList.add('active');
     }
@@ -1000,14 +965,11 @@
 
     async function sendOrderToTelegram(e) {
         e.preventDefault();
-        const BOT_TOKEN = '8812886094:AAFdw7NkHOSRB0If8ZMAME4tEbhwq1XCAZA';
-        const CHAT_ID = '1763769244';
-
         const name = document.getElementById('orderName').value.trim();
         const contact = document.getElementById('orderContact').value.trim();
         const city = document.getElementById('orderCity').value.trim();
-        const pay = document.getElementById('orderPayment').value === 'card' ? 'Картка' : 'Готівка';
         const comm = document.getElementById('orderComment').value.trim();
+        const statusDiv = document.getElementById('orderStatus');
 
         if (cart.length === 0) return;
 
@@ -1018,91 +980,72 @@
             return `• ${i.name} — ${i.qty} шт. (${sub} ₴)`;
         }).join('\n');
 
-        const text = `<b>🛒 Нове замовлення з сайту!</b>\n\n` +
-                     `<b>👤 Ім'я:</b> ${name}\n` +
-                     `<b>📞 Контакт:</b> ${contact}\n` +
-                     `<b>🏙️ Місто:</b> ${city}\n` +
-                     `<b>💳 Оплата:</b> ${pay}\n` +
-                     `<b>💬 Коментар:</b> ${comm || 'Відсутній'}\n\n` +
-                     `<b>📦 Товари:</b>\n${itemsList}\n\n` +
-                     `💰 <b>Загальна сума:</b> <b>${total} ₴</b>`;
+        const fullItemsStr = cart.map(item => `${item.name} (${item.qty} шт.)`).join(', ');
+
+        statusDiv.style.color = 'var(--primary)';
+        statusDiv.innerText = currentLang === 'uk' ? 'Відправка...' : 'Отправка...';
 
         try {
-            const res = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            const response = await fetch(res, {
+            // 1. Сохранение в базу Supabase в таблицу orders
+            const orderPayload = {
+                id: 'ord_' + Date.now(),
+                customer_name: name,
+                phone: contact,
+                city_post: city,
+                items: fullItemsStr,
+                total_price: total,
+                comment: comm || ''
+            };
+
+            const dbResponse = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify(orderPayload)
+            });
+
+            if (!dbResponse.ok) {
+                console.error("Ошибка сохранения в базу Supabase");
+            }
+
+            // 2. Отправка в Telegram
+            const text = `<b>🛒 Нове замовлення з сайту!</b>\n\n` +
+                         `<b>👤 Ім'я:</b> ${name}\n` +
+                         `<b>📞 Телефон:</b> ${contact}\n` +
+                         `<b>🏙️ Доставка:</b> ${city}\n` +
+                         `<b>💬 Коментар:</b> ${comm || 'Відсутній'}\n\n` +
+                         `<b>📦 Товари:</b>\n${itemsList}\n\n` +
+                         `💰 <b>Загальна сума:</b> <b>${total} ₴</b>`;
+
+            const resUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const response = await fetch(resUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
             });
             const data = await response.json();
+            
             if(data.ok) {
-                alert(currentLang === 'uk' ? '✅ Замовлення успішно відправлено!' : '✅ Заказ успешно отправлен!');
+                statusDiv.style.color = '#059669';
+                statusDiv.innerText = currentLang === 'uk' ? '✅ Замовлення успішно відправлено та збережено!' : '✅ Заказ успешно отправлен и сохранен!';
                 cart = [];
                 localStorage.setItem('medova_cart', JSON.stringify(cart));
                 updateCartUI();
-                closeModal('orderModal');
+                setTimeout(() => {
+                    closeModal('orderModal');
+                    statusDiv.innerText = '';
+                }, 2500);
+            } else {
+                throw new Error("Telegram error");
             }
         } catch(err) {
-            alert('Помилка відправки!');
+            statusDiv.style.color = '#EF4444';
+            statusDiv.innerText = currentLang === 'uk' ? '❌ Помилка відправки!' : '❌ Ошибка отправки!';
         }
-    }
-
-    function openAuthModal() {
-        const user = JSON.parse(localStorage.getItem('medova_current_user'));
-        if(user) {
-            document.getElementById('authTitle').textContent = "👤 Кабінет";
-            document.getElementById('authFormDiv').style.display = 'none';
-            document.getElementById('userProfileDiv').style.display = 'block';
-            document.getElementById('profileName').textContent = user.name || "Клієнт";
-            document.getElementById('profilePhone').textContent = "Телефон: " + user.phone;
-        } else {
-            document.getElementById('authFormDiv').style.display = 'block';
-            document.getElementById('userProfileDiv').style.display = 'none';
-        }
-        document.getElementById('authModal').classList.add('active');
-    }
-
-    function toggleAuthMode() {
-        isReg = !isReg;
-        document.getElementById('nameGroup').style.display = isReg ? 'block' : 'none';
-    }
-
-    let isReg = false;
-    function handleAuth(e) {
-        e.preventDefault();
-        const phone = document.getElementById('regPhone').value.trim();
-        const pass = document.getElementById('regPass').value.trim();
-        const name = document.getElementById('regName').value.trim();
-        let users = JSON.parse(localStorage.getItem('medova_users_db')) || [];
-
-        if(isReg) {
-            const u = { phone, pass, name: name || "Клієнт" };
-            users.push(u);
-            localStorage.setItem('medova_users_db', JSON.stringify(users));
-            localStorage.setItem('medova_current_user', JSON.stringify(u));
-            alert("Реєстрація успішна!");
-        } else {
-            const u = users.find(x => x.phone === phone && x.pass === pass);
-            if(!u) { alert("Невірні дані!"); return; }
-            localStorage.setItem('medova_current_user', JSON.stringify(u));
-            alert("Вхід успішний!");
-        }
-        closeModal('authModal');
-    }
-
-    function logoutUser() {
-        localStorage.removeItem('medova_current_user');
-        closeModal('authModal');
-    }
-
-    function openDrawer() {
-        document.getElementById('sideDrawer').classList.add('open');
-        document.getElementById('drawerOverlay').classList.add('open');
-    }
-
-    function closeDrawer() {
-        document.getElementById('sideDrawer').classList.remove('open');
-        document.getElementById('drawerOverlay').classList.remove('open');
     }
 
     document.addEventListener('DOMContentLoaded', () => {

@@ -1,1 +1,482 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель співробітників та адміністратора — Медова Пасіка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-amber: #ff9800;
+            --dark-amber: #e65100;
+            --bg-gradient: linear-gradient(135deg, #fff9e6 0%, #ffecb3 50%, #ffe082 100%);
+            --card-shadow: 0 8px 20px rgba(216, 112, 147, 0.08), 0 4px 10px rgba(230, 81, 0, 0.1);
+            --text-main: #3e2723;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+        body { background: var(--bg-gradient); background-attachment: fixed; color: var(--text-main); min-height: 100vh; padding: 20px; font-size: 0.9rem; }
+        .container { max-width: 1050px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 25px; box-shadow: var(--card-shadow); border: 1.5px solid #fff3e0; }
+        h1, h2 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--dark-amber); }
+        .form-control { width: 100%; padding: 10px 12px; border: 1.5px solid #ffe0b2; border-radius: 8px; font-size: 0.9rem; background: #fff9e6; outline: none; }
+        .btn { background: linear-gradient(135deg, #ff9800 0%, #e65100 100%); color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; }
+        .btn-secondary { background: #795548; margin-top: 20px; }
+        .btn-success { background: #2e7d32; padding: 5px 10px; font-size: 0.75rem; border-radius: 5px; color: white; border: none; cursor: pointer; font-weight: 600; margin-right: 4px; }
+        .btn-danger { background: #d32f2f; padding: 5px 10px; font-size: 0.75rem; border-radius: 5px; color: white; border: none; cursor: pointer; font-weight: 600; }
+        .btn-password { background: #795548; padding: 5px 10px; font-size: 0.75rem; border-radius: 5px; color: white; border: none; cursor: pointer; font-weight: 600; margin-left: 4px; }
+        .card { background: #fff9e6; border: 1px solid #ffe0b2; border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; background: #fff; }
+        .table th, .table td { border: 1px solid #ffe0b2; padding: 8px; text-align: left; vertical-align: middle; }
+        .table th { background: #fff3e0; color: var(--dark-amber); }
+        .nav-links { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .nav-links a { color: var(--dark-amber); text-decoration: none; font-weight: 700; }
 
+        /* Стилі для трьох колонок-вкладок */
+        .admin-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            background: #fff3e0;
+            border: 2px solid #ffe0b2;
+            color: var(--dark-amber);
+            padding: 12px 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover {
+            background: #ffe0b2;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ff9800 0%, #e65100 100%);
+            color: white;
+            border-color: #e65100;
+            box-shadow: 0 4px 10px rgba(230, 81, 0, 0.2);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .admin-tabs { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a href="index.html">← На головну сайту</a>
+            <span id="currentUserInfo" style="font-weight: 600;"></span>
+        </div>
+
+        <!-- ФОРМА ВХОДУ ДЛЯ ПЕРСОНАЛУ -->
+        <div id="loginSection">
+            <h1>🛠️ Вхід для співробітників</h1>
+            <div class="card" style="max-width: 400px; margin: 0 auto;">
+                <form onsubmit="handleStaffLogin(event)">
+                    <div class="form-group">
+                        <label>Логін:</label>
+                        <input type="text" id="staffLogin" class="form-control" required placeholder="Логін">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль:</label>
+                        <input type="password" id="staffPass" class="form-control" required placeholder="Пароль">
+                    </div>
+                    <button type="submit" class="btn">Увійти в систему</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ПАНЕЛЬ АДМІНІСТРАТОРА -->
+        <div id="adminPanel" style="display: none;">
+            <h1>👑 Панель Адміністратора</h1>
+            
+            <!-- Навігаційні 3 колонки (вкладки) -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab(0)">1. Зареєстровані клієнти</button>
+                <button class="tab-btn" onclick="switchTab(1)">2. Створити співробітника</button>
+                <button class="tab-btn" onclick="switchTab(2)">3. Співробітники та замовлення</button>
+            </div>
+
+            <!-- Вкладка 1: Зареєстровані клієнти -->
+            <div class="tab-content active" id="tab0">
+                <div class="card">
+                    <h2>👥 Зареєстровані клієнти (з бази Supabase)</h2>
+                    <div id="registeredUsersList">Завантаження клієнтів з бази...</div>
+                </div>
+            </div>
+
+            <!-- Вкладка 2: Створити співробітника -->
+            <div class="tab-content" id="tab1">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="card">
+                        <h2>Створити співробітника</h2>
+                        <form onsubmit="createEmployee(event)">
+                            <div class="form-group">
+                                <label>ПІБ співробітника:</label>
+                                <input type="text" id="empName" class="form-control" required placeholder="Іван Іванов">
+                            </div>
+                            <div class="form-group">
+                                <label>Посада:</label>
+                                <input type="text" id="empRole" class="form-control" required placeholder="Пасічник">
+                            </div>
+                            <div class="form-group">
+                                <label>Логін:</label>
+                                <input type="text" id="empLogin" class="form-control" required placeholder="login">
+                            </div>
+                            <div class="form-group">
+                                <label>Пароль:</label>
+                                <input type="password" id="empPass" class="form-control" required placeholder="пароль">
+                            </div>
+                            <button type="submit" class="btn">Створити</button>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h2>Інформація про систему</h2>
+                        <p style="font-size: 0.9rem; line-height: 1.5; color: #5d4037;">
+                            Тут ви можете керувати персоналом пасіки. Клієнтські замовлення надходять автоматично в загальний список із бази даних Supabase при їх оформленні на сайті.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вкладка 3: Список співробітників та замовлень -->
+            <div class="tab-content" id="tab2">
+                <div class="card">
+                    <h2>📋 Список співробітників</h2>
+                    <div id="allEmployeesList"></div>
+                </div>
+                <div class="card" style="margin-top: 15px;">
+                    <h2>📦 Усі замовлення клієнтів (з бази Supabase)</h2>
+                    <div id="allOrdersList">Завантаження замовлень...</div>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary" onclick="logoutStaff()">Вийти з аккаунта</button>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://qqfnbzfmjemknxivfktb.supabase.co";
+        const SUPABASE_KEY = "sb_publishable__wWNK3PiFLCj29ofrP_jbw_jWGIv3-1";
+
+        let db = JSON.parse(localStorage.getItem('medova_staff_db')) || {
+            employees: [
+                { id: 'admin', name: 'Головний Адмін', role: 'Адміністратор', login: 'admin1', pass: 'admin123', isAdmin: true }
+            ]
+        };
+
+        function saveDb() {
+            localStorage.setItem('medova_staff_db', JSON.stringify(db));
+        }
+
+        let currentStaff = JSON.parse(localStorage.getItem('medova_current_staff')) || null;
+
+        function initStaffApp() {
+            const loginSec = document.getElementById('loginSection');
+            const adminSec = document.getElementById('adminPanel');
+            const info = document.getElementById('currentUserInfo');
+
+            if (!currentStaff) {
+                loginSec.style.display = 'block';
+                adminSec.style.display = 'none';
+                info.innerText = '';
+            } else if (currentStaff.isAdmin) {
+                loginSec.style.display = 'none';
+                adminSec.style.display = 'block';
+                info.innerText = `Ви увійшли як: Адміністратор`;
+                renderAdminData();
+            }
+        }
+
+        function handleStaffLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('staffLogin').value.trim();
+            const pass = document.getElementById('staffPass').value.trim();
+
+            const found = db.employees.find(emp => emp.login === login && emp.pass === pass);
+            if (found) {
+                currentStaff = found;
+                localStorage.setItem('medova_current_staff', JSON.stringify(currentStaff));
+                initStaffApp();
+            } else {
+                alert('Невірний логін або пароль!');
+            }
+        }
+
+        function logoutStaff() {
+            currentStaff = null;
+            localStorage.removeItem('medova_current_staff');
+            initStaffApp();
+        }
+
+        function switchTab(index) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            buttons.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === index);
+            });
+
+            contents.forEach((content, idx) => {
+                content.classList.toggle('active', idx === index);
+            });
+        }
+
+        // ПРИМУСОВА ЗМІНА ПАРОЛЯ КОРИСТУВАЧА АДМІНІСТРАТОРОМ
+        async function adminChangePassword(userId, userLogin) {
+            const inputField = document.getElementById(`admin_new_pass_${userId}`);
+            if (!inputField) return;
+
+            const newPassword = inputField.value.trim();
+            if (newPassword.length < 4) {
+                alert('Пароль занадто короткий! Мінімум 4 символи.');
+                return;
+            }
+
+            if (!confirm(`Ви дійсно хочете змінити пароль для користувача: ${userLogin}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${userId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({ pass: newPassword })
+                });
+
+                if (!response.ok) throw new Error("Помилка оновлення пароля");
+
+                alert(`Пароль для користувача ${userLogin} успішно оновлено!`);
+                inputField.value = '';
+                renderAdminData();
+            } catch (err) {
+                console.error(err);
+                alert("Помилка зв'язку з базою даних при зміні пароля.");
+            }
+        }
+
+        // ВИДАЛЕННЯ КОРИСТУВАЧА З БАЗИ SUPABASE
+        async function deleteClientUser(userId) {
+            if (confirm('Ви впевнені, що хочете видалити цього користувача з хмарної бази даних?')) {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${userId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+
+                    if (!response.ok) throw new Error("Помилка видалення");
+
+                    alert('Користувача успішно видалено з бази!');
+                    renderAdminData();
+                } catch (err) {
+                    console.error(err);
+                    alert("Помилка зв'язку з базою даних при видаленні.");
+                }
+            }
+        }
+
+        // ЗМІНА СТАТУСУ ЗАМОВЛЕННЯ НА "completed" (ВИКОНАНО)
+        async function markOrderCompleted(orderId) {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?id=eq.${orderId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify({ status: 'completed' })
+                });
+
+                if (!response.ok) throw new Error("Помилка при виконанні");
+                renderAdminData();
+            } catch (err) {
+                console.error(err);
+                alert("Помилка оновлення статусу замовлення.");
+            }
+        }
+
+        // ПОВНЕ ВИДАЛЕННЯ ЗАМОВЛЕННЯ З БАЗИ SUPABASE
+        async function deleteOrder(orderId) {
+            if (confirm('Ви впевнені, що хочете остаточно видалити це замовлення?')) {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?id=eq.${orderId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+
+                    if (!response.ok) throw new Error("Помилка видалення замовлення");
+                    renderAdminData();
+                } catch (err) {
+                    console.error(err);
+                    alert("Помилка при видаленні замовлення.");
+                }
+            }
+        }
+
+        function createEmployee(e) {
+            e.preventDefault();
+            const name = document.getElementById('empName').value.trim();
+            const role = document.getElementById('empRole').value.trim();
+            const login = document.getElementById('empLogin').value.trim();
+            const pass = document.getElementById('empPass').value.trim();
+
+            if (db.employees.some(emp => emp.login === login)) {
+                alert('Співробітник з таким логіном вже існує!');
+                return;
+            }
+
+            db.employees.push({ id: 'emp_' + Date.now(), name, role, login, pass, isAdmin: false });
+            saveDb();
+            alert('Співробітника успішно зареєстровано!');
+            e.target.reset();
+            renderAdminData();
+        }
+
+        // ЗАВАНТАЖЕННЯ ДАНИХ ТА ЗАМОВЛЕНЬ ІЗ SUPABASE
+        async function renderAdminData() {
+            const usersContainer = document.getElementById('registeredUsersList');
+            const ordersContainer = document.getElementById('allOrdersList');
+            
+            usersContainer.innerHTML = 'Завантаження клієнтів...';
+            ordersContainer.innerHTML = 'Завантаження замовлень з бази...';
+
+            // 1. Загрузка пользователей
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?select=*`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+
+                if (!response.ok) throw new Error("Помилка завантаження");
+                const allUsers = await response.json();
+
+                if (!allUsers || allUsers.length === 0) {
+                    usersContainer.innerHTML = '<p style="font-size: 0.85rem; color: #666;">Поки немає зареєстрованих покупців у базі.</p>';
+                } else {
+                    let html = '<table class="table"><tr><th>№</th><th>Логін (Телефон / Email)</th><th>ПІБ</th><th>Адреса</th><th>Змінити пароль</th><th>Дія</th></tr>';
+                    
+                    allUsers.forEach((u, index) => {
+                        const isGoogleUser = u.pass === 'google_oauth_secure';
+                        const passwordSection = isGoogleUser 
+                            ? '<span style="color: #888; font-size: 0.75rem;">Google акаунт</span>'
+                            : `<div style="display: flex; gap: 4px; align-items: center;">
+                                 <input type="text" id="admin_new_pass_${u.id}" placeholder="Новий пароль" class="form-control" style="padding: 5px; font-size: 0.8rem; width: 110px;">
+                                 <button class="btn-password" onclick="adminChangePassword('${u.id}', '${u.login}')">Змінити</button>
+                               </div>`;
+
+                        html += `<tr>
+                            <td style="text-align: center; font-weight: bold;">${index + 1}</td>
+                            <td><b>${u.login || u.phone || '-'}</b></td>
+                            <td>${u.full_name || u.name || 'Не вказано'}</td>
+                            <td>${u.address || 'Не вказано'}</td>
+                            <td>${passwordSection}</td>
+                            <td><button class="btn-danger" onclick="deleteClientUser('${u.id}')">🗑️ Видалити</button></td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                    usersContainer.innerHTML = html;
+                }
+            } catch (err) {
+                console.error(err);
+                usersContainer.innerHTML = '<p style="font-size: 0.85rem; color: #d32f2f;">Помилка завантаження користувачів із бази даних.</p>';
+            }
+
+            // 2. Загрузка заказов из таблицы "orders" в Supabase
+            try {
+                const ordResponse = await fetch(`${SUPABASE_URL}/rest/v1/orders?select=*&order=created_at.desc`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+
+                if (!ordResponse.ok) throw new Error("Помилка завантаження замовлень");
+                const allOrders = await ordResponse.json();
+
+                if (!allOrders || allOrders.length === 0) {
+                    ordersContainer.innerHTML = '<p style="font-size: 0.85rem; color: #666;">У базі даних поки немає замовлень (0 замовлень).</p>';
+                } else {
+                    let ordHtml = '<table class="table"><tr><th>Дата</th><th>Клієнт</th><th>Телефон</th><th>Місто / Пошта</th><th>Товари</th><th>Сума</th><th>Статус</th><th>Дії</th></tr>';
+                    
+                    allOrders.forEach(ord => {
+                        let formattedDate = 'Не вказано';
+                        if (ord.created_at) {
+                            const d = new Date(ord.created_at);
+                            formattedDate = d.toLocaleDateString('uk-UA') + ' ' + d.toLocaleTimeString('uk-UA', {hour: '2-digit', minute:'2-digit'});
+                        }
+
+                        const isCompleted = ord.status === 'completed';
+                        const statusBadge = isCompleted 
+                            ? `<span style="background: #c8e6c9; color: #2e7d32; padding: 2px 6px; border-radius: 4px; font-weight: 700;">✅ Виконано</span>`
+                            : `<span style="background: #ffe0b2; color: #e65100; padding: 2px 6px; border-radius: 4px; font-weight: 700;">🆕 Нове</span>`;
+
+                        const completeBtn = isCompleted 
+                            ? '' 
+                            : `<button class="btn-success" onclick="markOrderCompleted('${ord.id}')">✅ Виконано</button>`;
+
+                        ordHtml += `<tr style="${isCompleted ? 'background: #f1f8e9;' : ''}">
+                            <td>${formattedDate}</td>
+                            <td><b>${ord.customer_name || '-'}</b></td>
+                            <td>${ord.phone || '-'}</td>
+                            <td>${ord.city_post || '-'}</td>
+                            <td>${ord.items || '-'}</td>
+                            <td><b>${ord.total_price || 0} грн</b></td>
+                            <td>${statusBadge}</td>
+                            <td style="white-space: nowrap;">
+                                ${completeBtn}
+                                <button class="btn-danger" onclick="deleteOrder('${ord.id}')">🗑️ Видалити</button>
+                            </td>
+                        </tr>`;
+                    });
+                    ordHtml += '</table>';
+                    ordersContainer.innerHTML = ordHtml;
+                }
+            } catch (err) {
+                console.error(err);
+                ordersContainer.innerHTML = '<p style="font-size: 0.85rem; color: #d32f2f;">Помилка завантаження замовлень з бази даних.</p>';
+            }
+
+            // Список співробітників
+            let empHtml = '<h3>Список співробітників:</h3><ul style="margin-left: 20px; font-size: 0.85rem; margin-top: 8px;">';
+            db.employees.filter(e => !e.isAdmin).forEach(emp => {
+                empHtml += `<li style="margin-bottom: 4px;"><b>${emp.name}</b> — ${emp.role} (Логін: <code>${emp.login}</code>)</li>`;
+            });
+            empHtml += '</ul>';
+            if(db.employees.filter(e => !e.isAdmin).length === 0) {
+                empHtml = '<p style="font-size: 0.85rem; color: #666;">Ще немає створених співробітників.</p>';
+            }
+            document.getElementById('allEmployeesList').innerHTML = empHtml;
+        }
+
+        document.addEventListener('DOMContentLoaded', initStaffApp);
+    </script>
+</body>
+</html>

@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Медова Пасіка — Товар</title>
-    <meta name="description" content="Купити натуральний крафтовий мед, свічки з бджолиного воску, пилок та прополіс напряму з пасіки.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +11,7 @@
         :root {
             --bg: #FDFBF7; --card: #FFFFFF; --primary: #D97706; --primary-dark: #92400E;
             --accent: #F59E0B; --text: #2B1D0E; --muted: #7A6A52; --border: #E8DCC8;
-            --radius: 16px; --shadow: 0 4px 20px rgba(43,29,14,.05); --shadow-h: 0 12px 32px rgba(217,119,6,.12);
+            --radius: 16px; --shadow: 0 4px 20px rgba(43,29,14,.05);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior:smooth; }
@@ -22,7 +21,7 @@
         button { font-family:inherit; cursor:pointer; }
         img { max-width:100%; display:block; }
 
-        header { position:fixed; top:0; left:0; width:100%; z-index:100; background:rgba(253,251,247,.9); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid rgba(232,220,200,.6); padding:14px 0; }
+        header { position:fixed; top:0; left:0; width:100%; z-index:100; background:rgba(253,251,247,.92); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid rgba(232,220,200,.6); padding:14px 0; }
         .navc { max-width:1140px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
         .logoarea { display:flex; align-items:center; gap:12px; min-width:0; }
         .back-btn { width:40px; height:40px; border-radius:50%; background:var(--card); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:18px; transition:.25s; flex-shrink:0; }
@@ -40,7 +39,6 @@
 
         .pdp { display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start; }
 
-        /* галерея: заглушка ВСЕГДИ під фото — порожнього екрана не буде */
         .galcol { position:sticky; top:96px; }
         .galmain { position:relative; aspect-ratio:1/1; min-height:280px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow);
             background:linear-gradient(140deg,#FEF3C7 0%,#FDE68A 55%,#F5C56B 100%); }
@@ -295,69 +293,69 @@
 <div class="toasts" id="toasts"></div>
 
 <script>
-    // ІМЕНА ФОТО = ТІ ФАЙЛИ, ЩО РЕАЛЬНО ЛЕЖАТЬ НА GitHub (як в index.html)
+    // ТОЧНІ ІМЕНА ФАЙЛІВ З GITHUB
     const productsData = {
         'sunflower': {
             title:"Мед Соняшниковий", emoji:"🌻", cat:"🍯 Мед",
             description:"Свіжий, густий та сонячний мед з власної пасіки. Натуральна кристалізація — знак якості та зрілості.",
             extendedDescription:"Соняшниковий мед має яскраво-жовтий колір, насичений солодкий смак та приємний легкий аромат. Він містить велику кількість глюкози, завдяки чому швидко кристалізується, утворюючи дрібнозернисту структуру. Чудово підходить для повсякденного вживання, випічки та підтримки енергії.",
-            images:["med.jpg","sotu.jpg"], hasVolumes:true,
+            images:["med-sonyashnykovyi.jpg","med.jpg"], hasVolumes:true,
             volumes:[{name:"1 л",price:250},{name:"2 л",price:500},{name:"3 л",price:700}]
         },
         'may': {
             title:"Мед Травневий", emoji:"🌿", cat:"🍯 Мед",
             description:"Ароматний, духмяний та ніжний травневий мед зібраний під час першого весняного медозбору.",
             extendedDescription:"Травневий мед вважається одним із найцінніших та найелітніших видів меду. Бджоли збирають його з перших весняних квіток та плодових дерев. Мед має прозорий золотавий відтінок, неймовірно ніжний м'який смак без гіркоти та багатий вітамінний комплекс.",
-            images:["may1.jpg","sotu.jpg"], hasVolumes:true,
+            images:["may1.jpg","may2.jpg","may3.jpg"], hasVolumes:true,
             volumes:[{name:"1 л",price:350},{name:"2 л",price:700},{name:"3 л",price:1000}]
         },
         'walnut': {
             title:"Мед з волоським горіхом", emoji:"🥜", cat:"🍯 Мед",
             description:"Відбірний натуральний мед з додаванням добірного волоського горіха. Неймовірно смачне та корисне поєднання.",
             extendedDescription:"Це справжній вибух вітамінів та користі! Добірні ядра волоських горіхів залиті натуральним медом з нашої пасіки. Такий делікатес чудово живить мозок, додає сил, підвищує імунітет та дарує неперевершене смакове задоволення.",
-            images:["med-voloskyi.jpg","med.jpg"], hasVolumes:true,
+            images:["med-voloskyi.jpg"], hasVolumes:true,
             volumes:[{name:"0.25 л",price:150},{name:"0.5 л",price:280},{name:"1 л",price:500}]
         },
         'comb': {
             title:"Стільниковий Мед", emoji:"🍯", cat:"🍯 Мед",
             description:"Найчистіший делікатес у запечатаних воскових сотах — мед, який неможливо підробити.",
             extendedDescription:"Стільниковий мед — це мед у його первозданному вигляді. Бджоли самі запечатують соти восковою кришечкою, і всередині зберігається все: пилок, прополіс, ферменти та аромат поля. Соти можна жувати як жуйку — це корисно для ясен.",
-            images:["sotu.jpg","med.jpg"], hasVolumes:true,
+            images:["sotu.jpg"], hasVolumes:true,
             volumes:[{name:"1 кг",price:150}]
         },
         'candles': {
             title:"Свічки з вощини", emoji:"🕯️", cat:"🕯️ Свічки",
             description:"100% натуральний пасічний віск. Ручна робота, дарують затишок та природний аромат.",
             extendedDescription:"Свічки виготовлені виключно з натуральної бджолиної вощини без хімічних домішок. При горінні вони виділяють легкий медово-прополисний аромат, м'яко очищають повітря в кімнаті від пилу та створюють надзвичайно затишну й теплу атмосферу в домі.",
-            images:["svecha.jpg","svecha3.jpg","nabor3.jpg"], isCandle:true,
+            images:["svecha.jpg","svecha1.jpg","svecha2.jpg","svecha4.jpg","swecha.jpg"], isCandle:true,
             volumes:[{name:"3×10 см",price:40},{name:"3×20 см",price:80},{name:"4×10 см",price:50},{name:"4×20 см",price:100}]
         },
         'propolis': {
             title:"Натуральний бджолиний прополіс", emoji:"🛡️", cat:"🛡️ Прополіс",
             description:"Унікальний природний антибіотик та потужний антисептик напряму з пасіки.",
             extendedDescription:"Прополіс — це унікальний смолистий продукт життєдіяльності бджіл, яким вони захищають вулик від бактерій. Це потужний природний імуностимулятор, який допомагає організму боротися із запаленнями, прискорює загоєння та підтримує захисні сили організму.",
-            images:["propolis1.jpg"], hasVolumes:true,
+            images:["propolis1.jpg","propolis2.jpg"], hasVolumes:true,
             volumes:[{name:"100 г",price:300},{name:"200 г",price:600},{name:"300 г",price:900}]
         },
         'pollen': {
             title:"Бджолиний пилок", emoji:"⚡", cat:"⚡ Пилок",
             description:"Мікс вітамінів та амінокислот для енергії та імунітету.",
             extendedDescription:"Бджолиний пилок (обніжжя) — це унікальний природний полівітамінний комплекс. Він підвищує життєвий тонус, покращує роботу серцево-судинної та нервової систем, допомагає швидко відновлювати сили.",
-            images:["pollen.jpg"], hasVolumes:true,
+            images:["pollen.jpg","pollen-title.jpg"], hasVolumes:true,
             volumes:[{name:"100 г",price:70},{name:"200 г",price:140}]
         },
         'patriot': {
             title:"Патріотичний набір свічок", emoji:"🇺🇦", cat:"🕯️ Свічки",
             description:"Синьо-жовті свічки з вощини з ніжним медовим ароматом — гарний патріотичний подарунок.",
             extendedDescription:"Набір із двох свічок ручної роботи у синьо-жовтих кольорах. Віск натуральний, фарбування харчовими барвниками, тому свічки горять так само чисто, як і нефарбовані. Пакуємо в крафт зі стрічкою — можна одразу дарувати.",
-            images:["nabor3.jpg","svecha.jpg"], isCandle:true,
+            images:["nabor3.jpg"], isCandle:true,
             volumes:[{name:"Набір",price:200}]
         },
         'cozy': {
             title:"Набір «Медовий затишок»", emoji:"🎁", cat:"🕯️ Свічки",
             description:"Чудовий комплект свічок ручної роботи у теплих медових відтінках. Розмір: 20×3 см.",
             extendedDescription:"Три свічки з натуральної вощини у теплих медових відтінках. Створюють м'яке світло і наповнюють дім ароматом пасіки — ідеально для вечора з книжкою. Комплектуємо подарунковою коробкою з крафту.",
-            images:["svechi-podarok.jpg","svecha3.jpg"], isCandle:true,
+            images:["svechi-podarok.jpg"], isCandle:true,
             volumes:[{name:"Набір",price:250}]
         },
         'waxset': {
@@ -518,7 +516,7 @@
         let total = 0;
         const itemsList = cart.map(i=>{ const s=i.price*i.qty; total+=s; return `• ${i.name} — ${i.qty} шт. (${s} грн)`; }).join('\n');
 
-        const text = `🛒 <b>НОВЕ ЗАМОВЛЕННЯ З СТОРІНКИ ТОВАРУ!</b>\n\n` +
+        const text = `🛒 <b>НОВЕ ЗАМОВЛЕННЯ!</b>\n\n` +
             `👤 <b>ПІБ:</b> ${pib}\n📞 <b>Телефон:</b> ${phone}\n🚚 <b>Доставка:</b> ${delivery}\n💬 <b>Коментар:</b> ${comment||'немає'}\n\n` +
             `📦 <b>Товари:</b>\n${itemsList}\n\n💰 <b>Загальна сума:</b> ${total} грн`;
 

@@ -100,6 +100,14 @@
         .btn-callback { margin-top: 12px; width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; color: var(--text); transition: all 0.25s; }
         .btn-callback:hover { border-color: var(--primary); color: var(--primary); background: #FFFBEB; }
 
+        /* ===== МЕССЕНДЖЕРЫ В ШТОРКЕ ===== */
+        .drawer-messengers { display: flex; gap: 8px; margin-top: 10px; }
+        .drawer-phones .msg-btn { display: inline-flex; flex: 1; align-items: center; justify-content: center; gap: 6px; padding: 10px; border-radius: 12px; font-size: 13px; font-weight: 700; text-decoration: none; color: #fff; margin-bottom: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.25s; }
+        .drawer-phones .msg-btn.viber { background: #7360F2; }
+        .drawer-phones .msg-btn.viber:hover { background: #5D48E0; color: #fff; }
+        .drawer-phones .msg-btn.whatsapp { background: #25D366; }
+        .drawer-phones .msg-btn.whatsapp:hover { background: #1EBE57; color: #fff; }
+
         /* ===== HERO ===== */
         .hero { position: relative; overflow: hidden; padding: 90px 24px 80px; max-width: 900px; margin: 0 auto; text-align: center; }
         .hero::before {
@@ -201,6 +209,19 @@
         .btn-consult { width: 100%; background: #059669; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.25s; font-family: 'Plus Jakarta Sans', sans-serif; }
         .btn-consult:hover { background: #047857; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3); }
 
+        /* ===== ДОСТАВКА ТА ОПЛАТА ===== */
+        .delivery-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 50px 40px; box-shadow: var(--shadow-soft); }
+        .delivery-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+        .delivery-sub { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 28px; max-width: 780px; }
+        .delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .delivery-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+        .delivery-card h4 { color: var(--primary-dark); font-size: 22px; font-weight: 700; margin-bottom: 14px; }
+        .delivery-card ul { list-style: none; }
+        .delivery-card li { position: relative; padding-left: 16px; margin-bottom: 10px; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+        .delivery-card li::before { content: '•'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+        .delivery-card li b { color: var(--text); }
+        .delivery-free { margin-top: 14px; font-style: italic; font-weight: 600; color: var(--primary-dark); font-size: 14px; }
+
         .faq-list { max-width: 750px; margin: 0 auto; }
         .faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: all 0.3s; }
         .faq-item:hover { border-color: #FDE68A; }
@@ -215,10 +236,6 @@
         .footer-grid a { display: block; color: #A8A29E; text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: all 0.2s; }
         .footer-grid a:hover { color: var(--accent); transform: translateX(4px); }
         .footer-copy { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; font-size: 14px; }
-
-        .cart-fab { position: fixed; bottom: 30px; right: 30px; z-index: 99; background: var(--primary); color: #fff; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; cursor: pointer; box-shadow: 0 8px 25px rgba(217,119,6,0.4); display: none; align-items: center; justify-content: center; transition: all 0.3s; }
-        .cart-fab:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 12px 30px rgba(217,119,6,0.5); }
-        .cart-fab .count { position: absolute; top: -2px; right: -2px; background: #EF4444; color: #fff; width: 24px; height: 24px; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg); }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(43, 29, 14, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
         .modal.active { display: flex; }
@@ -300,7 +317,15 @@
             .consult-info h3 { font-size: 24px; }
             .consult-form { padding: 20px 16px; }
 
-            .cart-fab { width: 54px; height: 54px; font-size: 21px; bottom: 20px; right: 16px; }
+            .delivery-box { padding: 26px 18px; border-radius: 18px; }
+            .delivery-title { font-size: 20px; }
+            .delivery-sub { font-size: 13px; margin-bottom: 20px; }
+            .delivery-grid { grid-template-columns: 1fr; gap: 14px; }
+            .delivery-card { padding: 20px 16px; }
+            .delivery-card h4 { font-size: 19px; margin-bottom: 10px; }
+            .delivery-card li { font-size: 13px; }
+            .delivery-free { font-size: 13px; }
+
             .modal-box { padding: 26px 20px; }
         }
 
@@ -381,6 +406,10 @@
     <div class="drawer-phones">
         <a href="tel:+380968980543">+380 96 898 0543</a>
         <button class="btn-callback" onclick="closeDrawer(); location.href='tel:+380968980543';" id="dr-callback">Замовити дзвінок</button>
+        <div class="drawer-messengers">
+            <a href="viber://chat?number=%2B380968980543" class="msg-btn viber">💜 Viber</a>
+            <a href="https://wa.me/380968980543" target="_blank" class="msg-btn whatsapp">💚 WhatsApp</a>
+        </div>
     </div>
 
     <div class="drawer-section">
@@ -677,21 +706,56 @@
         </div>
     </section>
 
+    <!-- ===== ДОСТАВКА ТА ОПЛАТА ===== -->
+    <section id="delivery">
+        <div class="delivery-box">
+            <h3 class="delivery-title" id="del-title">🚚 Доставка та оплата</h3>
+            <p class="delivery-sub" id="del-sub">Ми дбаємо про те, щоб ваше замовлення прибуло швидко та в ідеальному стані. Оберіть зручний для себе спосіб доставки та оплати:</p>
+            <div class="delivery-grid">
+                <div class="delivery-card">
+                    <h4 id="del-d-title">📦 Способи доставки</h4>
+                    <ul>
+                        <li id="del-d1"><b>Нова Пошта</b> (щоденна відправка за тарифами перевізника).</li>
+                        <li id="del-d2"><b>Укрпошта</b> (доставка 2–4 дні).</li>
+                        <li id="del-d3"><b>Самовивіз</b> (з нашої пасіки за попередньою домовленістю).</li>
+                    </ul>
+                    <p class="delivery-free" id="del-free">✨ Безкоштовна доставка замовлень на суму від 1000 грн!</p>
+                </div>
+                <div class="delivery-card">
+                    <h4 id="del-p-title">💳 Варіанти оплати</h4>
+                    <ul>
+                        <li id="del-p1"><b>Visa / Mastercard</b> (оплата онлайн або на банківський рахунок).</li>
+                        <li id="del-p2"><b>Передоплата</b> (зручний розрахунок перед відправкою посилки).</li>
+                        <li id="del-p3"><b>Накладений платіж</b> (оплата готівкою або карткою при отриманні на пошті).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="contacts" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 50px 40px; margin-top: 20px; box-shadow: var(--shadow-soft);">
         <h2 class="section-title" id="cont-title">Контакти та зв'язок</h2>
         <p class="section-subtitle" id="cont-sub">Зв'яжіться з нами будь-яким зручним способом</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: center; margin-top: 30px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; text-align: center; margin-top: 30px;">
             <div style="padding: 24px; background: var(--bg); border-radius: 16px; border: 1px solid var(--border);">
                 <h4 style="font-size: 20px; margin-bottom: 8px;">📞 Телефон</h4>
                 <p style="margin-top: 8px;"><a href="tel:+380968980543" style="color: var(--primary); font-weight: 700; text-decoration: none; font-size: 17px;">+380 96 898 0543</a></p>
             </div>
             <div style="padding: 24px; background: var(--bg); border-radius: 16px; border: 1px solid var(--border);">
                 <h4 style="font-size: 20px; margin-bottom: 8px;">✈️ Telegram</h4>
-                <p style="margin-top: 8px;"><a href="https://t.me/igor_chernomorec" target="_blank" style="color: var(--primary); font-weight: 700; text-decoration: none;">Написати в Telegram</a></p>
+                <p style="margin-top: 8px;"><a href="https://t.me/igor_chernomorec" target="_blank" id="cont-tg" style="color: var(--primary); font-weight: 700; text-decoration: none;">Написати в Telegram</a></p>
+            </div>
+            <div style="padding: 24px; background: var(--bg); border-radius: 16px; border: 1px solid var(--border);">
+                <h4 style="font-size: 20px; margin-bottom: 8px;">💜 Viber</h4>
+                <p style="margin-top: 8px;"><a href="viber://chat?number=%2B380968980543" id="cont-viber" style="color: #7360F2; font-weight: 700; text-decoration: none;">Написати у Viber</a></p>
+            </div>
+            <div style="padding: 24px; background: var(--bg); border-radius: 16px; border: 1px solid var(--border);">
+                <h4 style="font-size: 20px; margin-bottom: 8px;">💚 WhatsApp</h4>
+                <p style="margin-top: 8px;"><a href="https://wa.me/380968980543" target="_blank" id="cont-wa" style="color: #1DA851; font-weight: 700; text-decoration: none;">Написати у WhatsApp</a></p>
             </div>
             <div style="padding: 24px; background: var(--bg); border-radius: 16px; border: 1px solid var(--border);">
                 <h4 style="font-size: 20px; margin-bottom: 8px;">📸 Instagram</h4>
-                <p style="margin-top: 8px;"><a href="https://www.instagram.com/wax_candles_eco_honey" target="_blank" style="color: var(--primary); font-weight: 700; text-decoration: none;">Переглянути Instagram</a></p>
+                <p style="margin-top: 8px;"><a href="https://www.instagram.com/wax_candles_eco_honey" target="_blank" id="cont-ig" style="color: var(--primary); font-weight: 700; text-decoration: none;">Переглянути Instagram</a></p>
             </div>
         </div>
     </section>
@@ -709,13 +773,13 @@
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)"><span id="q3">Які умови доставки?</span> <span>▼</span></div>
-                <div class="faq-a"><p id="a3">Відправка Новою Поштою по всій Україні за тарифами перевізника.</p></div>
+                <div class="faq-a"><p id="a3">Відправка Новою Поштою по всій Україні за тарифами перевізника. Безкоштовна доставка від 1000 грн.</p></div>
             </div>
         </div>
     </section>
 </div>
 
-<footer id="delivery">
+<footer>
     <div class="container">
         <div class="footer-grid">
             <div>
@@ -726,12 +790,15 @@
                 <h4 id="ft-con">Контакти</h4>
                 <a href="tel:+380968980543">📞 +380 96 898 0543</a>
                 <a href="https://t.me/igor_chernomorec" target="_blank">✈️ Telegram</a>
+                <a href="viber://chat?number=%2B380968980543">💜 Viber</a>
+                <a href="https://wa.me/380968980543" target="_blank">💚 WhatsApp</a>
                 <a href="https://www.instagram.com/wax_candles_eco_honey" target="_blank">📸 Instagram</a>
             </div>
             <div>
                 <h4 id="ft-inf">Навігація</h4>
                 <a href="#catalog" id="ft-c">Каталог</a>
                 <a href="#about" id="ft-a">Про нас</a>
+                <a href="#delivery">Доставка</a>
                 <a href="#faq" id="ft-f">FAQ</a>
             </div>
             <div>
@@ -744,8 +811,6 @@
         </div>
     </div>
 </footer>
-
-<button class="cart-fab" id="cartFab" onclick="openCartModal()">🛒 <span class="count" id="cartCount">0</span></button>
 
 <div class="modal" id="orderModal">
     <div class="modal-box">
@@ -837,11 +902,24 @@
             cBtn: "💬 Надіслати запит бджоляру",
             cPhName: "Іван Іванов", cPhPhone: "+380XXXXXXXXX",
             cPhQ: "Який мед краще обрати для дитини? / питання по доставці...",
+            delTitle: "🚚 Доставка та оплата",
+            delSub: "Ми дбаємо про те, щоб ваше замовлення прибуло швидко та в ідеальному стані. Оберіть зручний для себе спосіб доставки та оплати:",
+            delDTitle: "📦 Способи доставки",
+            delD1: "<b>Нова Пошта</b> (щоденна відправка за тарифами перевізника).",
+            delD2: "<b>Укрпошта</b> (доставка 2–4 дні).",
+            delD3: "<b>Самовивіз</b> (з нашої пасіки за попередньою домовленістю).",
+            delFree: "✨ Безкоштовна доставка замовлень на суму від 1000 грн!",
+            delPTitle: "💳 Варіанти оплати",
+            delP1: "<b>Visa / Mastercard</b> (оплата онлайн або на банківський рахунок).",
+            delP2: "<b>Передоплата</b> (зручний розрахунок перед відправкою посилки).",
+            delP3: "<b>Накладений платіж</b> (оплата готівкою або карткою при отриманні на пошті).",
             contTitle: "Контакти та зв'язок", contSub: "Зв'яжіться з нами будь-яким зручним способом",
+            contTg: "Написати в Telegram", contIg: "Переглянути Instagram",
+            contViber: "Написати у Viber", contWa: "Написати у WhatsApp",
             faqTitle: "Часті запитання",
             q1: "Як правильно зберігати мед?", a1: "У скляній тарі з щільно закритою кришкою, в темному та сухому місці при кімнатній температурі.",
             q2: "Чому мед кристалізується?", a2: "Це природний процес для якісного натурального меду, який свідчить про його зрілість.",
-            q3: "Які умови доставки?", a3: "Відправка Новою Поштою по всій Україні за тарифами перевізника.",
+            q3: "Які умови доставки?", a3: "Відправка Новою Поштою по всій Україні за тарифами перевізника. Безкоштовна доставка від 1000 грн.",
             ftDesc: "Натуральний мед та вироби з воску напряму з пасіки.",
             ftCon: "Контакти", ftInf: "Навігація", ftAdr: "Адреса", ftAdrT: "с. Захарівка, Роздільнянський р-н, Одеська обл.",
             mTitle: "📋 Кошик замовлення", mTot: "Загальна сума:",
@@ -889,11 +967,24 @@
             cBtn: "💬 Отправить запрос пчеловоду",
             cPhName: "Иван Иванов", cPhPhone: "+380XXXXXXXXX",
             cPhQ: "Какой мед лучше выбрать для ребенка? / вопрос по доставке...",
+            delTitle: "🚚 Доставка и оплата",
+            delSub: "Мы заботимся о том, чтобы ваш заказ прибыл быстро и в идеальном состоянии. Выберите удобный для себя способ доставки и оплаты:",
+            delDTitle: "📦 Способы доставки",
+            delD1: "<b>Новая Почта</b> (ежедневная отправка по тарифам перевозчика).",
+            delD2: "<b>Укрпочта</b> (доставка 2–4 дня).",
+            delD3: "<b>Самовывоз</b> (с нашей пасеки по предварительной договоренности).",
+            delFree: "✨ Бесплатная доставка заказов на сумму от 1000 грн!",
+            delPTitle: "💳 Варианты оплаты",
+            delP1: "<b>Visa / Mastercard</b> (оплата онлайн или на банковский счёт).",
+            delP2: "<b>Предоплата</b> (удобный расчёт перед отправкой посылки).",
+            delP3: "<b>Наложенный платёж</b> (оплата наличными или картой при получении на почте).",
             contTitle: "Контакты и связь", contSub: "Свяжитесь с нами любым удобным способом",
+            contTg: "Написать в Telegram", contIg: "Посмотреть Instagram",
+            contViber: "Написать в Viber", contWa: "Написать в WhatsApp",
             faqTitle: "Частые вопросы",
             q1: "Как правильно хранить мед?", a1: "В стеклянной таре с плотно закрытой крышкой, в темном и сухом месте.",
             q2: "Почему мед кристаллизуется?", a2: "Это естественный процесс для качественного меда, подтверждающий его зрелость.",
-            q3: "Каковы условия доставки?", a3: "Отправка Новой Почтой по всей Украине по тарифам перевозчика.",
+            q3: "Каковы условия доставки?", a3: "Отправка Новой Почтой по всей Украине по тарифам перевозчика. Бесплатная доставка от 1000 грн.",
             ftDesc: "Натуральный мед и изделия из воска напрямую с пасеки.",
             ftCon: "Контакты", ftInf: "Навигация", ftAdr: "Адрес", ftAdrT: "с. Захаровка, Раздельнянский р-н, Одесская обл.",
             mTitle: "📋 Корзина заказа", mTot: "Общая сумма:",
@@ -980,8 +1071,25 @@
         document.getElementById('consPhone').placeholder = t.cPhPhone;
         document.getElementById('consQuestion').placeholder = t.cPhQ;
 
+        document.getElementById('del-title').textContent = t.delTitle;
+        document.getElementById('del-sub').textContent = t.delSub;
+        document.getElementById('del-d-title').textContent = t.delDTitle;
+        document.getElementById('del-d1').innerHTML = t.delD1;
+        document.getElementById('del-d2').innerHTML = t.delD2;
+        document.getElementById('del-d3').innerHTML = t.delD3;
+        document.getElementById('del-free').textContent = t.delFree;
+        document.getElementById('del-p-title').textContent = t.delPTitle;
+        document.getElementById('del-p1').innerHTML = t.delP1;
+        document.getElementById('del-p2').innerHTML = t.delP2;
+        document.getElementById('del-p3').innerHTML = t.delP3;
+
         document.getElementById('cont-title').textContent = t.contTitle;
         document.getElementById('cont-sub').textContent = t.contSub;
+        document.getElementById('cont-tg').textContent = t.contTg;
+        document.getElementById('cont-ig').textContent = t.contIg;
+        document.getElementById('cont-viber').textContent = t.contViber;
+        document.getElementById('cont-wa').textContent = t.contWa;
+
         document.getElementById('faq-title').textContent = t.faqTitle;
         document.getElementById('q1').textContent = t.q1; document.getElementById('a1').textContent = t.a1;
         document.getElementById('q2').textContent = t.q2; document.getElementById('a2').textContent = t.a2;
@@ -1058,10 +1166,6 @@
 
     function updateCartUI() {
         const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
-        const countEl = document.getElementById('cartCount');
-        if(countEl) countEl.textContent = totalQty;
-        const fab = document.getElementById('cartFab');
-        if(fab) fab.style.display = totalQty > 0 ? 'flex' : 'none';
         const headerCount = document.getElementById('cartCountHeader');
         if(headerCount) {
             headerCount.textContent = totalQty;
@@ -1266,4 +1370,4 @@
 </script>
 
 </body>
-    </html>
+            </html>

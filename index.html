@@ -57,7 +57,21 @@
         .btn-auth:hover, .lang-btn:hover { border-color: var(--primary); color: var(--primary); background: #FFFBEB; }
         .lang-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); }
 
-        /* ===== ШТОРКА — ТЕПЕРЬ СЛЕВА ===== */
+        /* ===== КОРЗИНА В ШАПКЕ ===== */
+        .btn-cart-header {
+            position: relative; background: var(--card-bg); border: 1px solid var(--border);
+            width: 40px; height: 40px; border-radius: 50%; font-size: 17px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; color: var(--text);
+            transition: all 0.25s ease; flex-shrink: 0;
+        }
+        .btn-cart-header:hover { border-color: var(--primary); background: #FFFBEB; transform: scale(1.05); }
+        .btn-cart-header .count {
+            position: absolute; top: -5px; right: -5px; background: #EF4444; color: #fff;
+            min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; font-size: 11px; font-weight: 700;
+            display: none; align-items: center; justify-content: center; border: 2px solid var(--bg);
+        }
+
+        /* ===== ШТОРКА — СЛЕВА ===== */
         .drawer-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(43, 29, 14, 0.4); backdrop-filter: blur(4px); z-index: 998; opacity: 0; transition: opacity 0.3s ease; }
         .drawer-overlay.open { display: block; opacity: 1; }
         .side-drawer {
@@ -137,7 +151,7 @@
         .btn-buy:hover { background: var(--primary); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); }
         .timer-box { background: #FFFBEB; border: 1px dashed var(--primary); padding: 8px; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; }
 
-        /* ===== ПРЕИМУЩЕСТВА: ровная сетка, БЕЗ пустот ===== */
+        /* ===== ПРЕИМУЩЕСТВА ===== */
         .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
         .feature-card { background: var(--card-bg); border: 1px solid var(--border); padding: 32px 24px; border-radius: var(--radius); text-align: center; transition: all 0.3s; }
         .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); border-color: #FDE68A; }
@@ -218,6 +232,10 @@
         .btn-submit { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.25s; }
         .btn-submit:hover { background: #B45309; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); }
 
+        /* ===== КНОПКА «ПРОДОВЖИТИ ПОКУПКИ» ===== */
+        .btn-continue { width: 100%; margin-top: 10px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 13px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.25s; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .btn-continue:hover { border-color: var(--primary); color: var(--primary); background: #FFFBEB; }
+
         /* ===== ПЛАНШЕТ ===== */
         @media (max-width: 1024px) {
             .features-grid { grid-template-columns: repeat(2, 1fr); }
@@ -236,6 +254,7 @@
             .btn-auth { padding: 8px 11px; font-size: 15px; }
             .btn-auth .auth-text { display: none; }
             .lang-btn { padding: 7px 11px; font-size: 12px; }
+            .btn-cart-header { width: 34px; height: 34px; font-size: 15px; }
             .nav-links { display: none; }
 
             .hero { padding: 44px 16px 48px; }
@@ -259,8 +278,9 @@
             .product-desc { font-size: 12px; margin-bottom: 12px; }
             .size-btn { font-size: 11px; padding: 5px 8px; }
             .sizes { gap: 5px; margin-bottom: 14px; }
-            .price { font-size: 18px; }
-            .btn-buy { padding: 8px 12px; font-size: 12px; border-radius: 9px; }
+            .product-footer { flex-direction: column; align-items: stretch; gap: 8px; }
+            .price { font-size: 18px; white-space: nowrap; }
+            .btn-buy { padding: 9px 12px; font-size: 12px; border-radius: 9px; width: 100%; justify-content: center; }
             .badge { font-size: 9px; padding: 4px 10px; top: 10px; left: 10px; }
             .timer-box { font-size: 10px; padding: 6px; margin-bottom: 12px; }
 
@@ -283,6 +303,16 @@
             .cart-fab { width: 54px; height: 54px; font-size: 21px; bottom: 20px; right: 16px; }
             .modal-box { padding: 26px 20px; }
         }
+
+        /* ===== ОЧЕНЬ УЗКИЕ ЭКРАНЫ (до 380px) ===== */
+        @media (max-width: 380px) {
+            .nav-container { padding: 0 10px; gap: 6px; }
+            .logo { font-size: 14px; }
+            .header-actions { gap: 4px; }
+            .btn-auth { padding: 7px 9px; }
+            .lang-btn { padding: 6px 8px; font-size: 11px; }
+            .menu-burger-btn, .btn-cart-header { width: 32px; height: 32px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
@@ -292,7 +322,7 @@
     <div class="nav-container">
         <div class="logo-area">
             <button class="menu-burger-btn" onclick="openDrawer()">☰</button>
-            <a href="index.html" class="logo">🍯 <span id="l-logo">Медова Пасіка</span></a>
+            <a href="index.html" class="logo"><span id="l-logo">Медова Пасіка</span></a>
         </div>
 
         <div class="nav-links">
@@ -309,6 +339,7 @@
                 <button class="lang-btn active" id="b-uk" onclick="setLang('uk')">UA</button>
                 <button class="lang-btn" id="b-ru" onclick="setLang('ru')">RU</button>
             </div>
+            <button class="btn-cart-header" onclick="openCartModal()" aria-label="Кошик">🛒<span class="count" id="cartCountHeader">0</span></button>
         </div>
     </div>
 </header>
@@ -745,6 +776,7 @@
             <button type="submit" class="btn-submit" id="m-btn-send">📤 Підтвердити та відправити</button>
             <div id="orderStatus" style="margin-top: 16px; text-align: center; font-weight: 600; font-size: 14px;"></div>
         </form>
+        <button type="button" class="btn-continue" id="m-btn-continue" onclick="closeModal('orderModal')">Продовжити покупки</button>
     </div>
 </div>
 
@@ -816,7 +848,8 @@
             mLName: "Ваше ім'я та Прізвище *", mLPhone: "Номер телефону *",
             mLCity: "Спосіб та адреса доставки (Нова пошта / Укрпошта) *",
             mLComm: "Коментар до замовлення",
-            mBtnSend: "📤 Підтвердити та відправити"
+            mBtnSend: "📤 Підтвердити та відправити",
+            mBtnContinue: "Продовжити покупки"
         },
         ru: {
             lLogo: "Медовая Пасека", mCat: "Каталог", mAbout: "О нас", mDel: "Доставка", mCont: "Контакты", mFAQ: "FAQ",
@@ -867,7 +900,8 @@
             mLName: "Ваше имя и Фамилия *", mLPhone: "Номер телефона *",
             mLCity: "Способ и адрес доставки (Новая почта / Укрпочта) *",
             mLComm: "Комментарий к заказу",
-            mBtnSend: "📤 Подтвердить и отправить"
+            mBtnSend: "📤 Подтвердить и отправить",
+            mBtnContinue: "Продолжить покупки"
         }
     };
 
@@ -959,6 +993,15 @@
         document.getElementById('ft-adr').textContent = t.ftAdr;
         document.getElementById('ft-adr-t').textContent = t.ftAdrT;
 
+        document.getElementById('m-title').textContent = t.mTitle;
+        document.getElementById('m-tot').textContent = t.mTot;
+        document.getElementById('m-l-name').textContent = t.mLName;
+        document.getElementById('m-l-phone').textContent = t.mLPhone;
+        document.getElementById('m-l-city').textContent = t.mLCity;
+        document.getElementById('m-l-comm').textContent = t.mLComm;
+        document.getElementById('m-btn-send').textContent = t.mBtnSend;
+        document.getElementById('m-btn-continue').textContent = t.mBtnContinue;
+
         document.getElementById('b-uk').classList.toggle('active', lang === 'uk');
         document.getElementById('b-ru').classList.toggle('active', lang === 'ru');
         updateCartUI();
@@ -1019,12 +1062,19 @@
         if(countEl) countEl.textContent = totalQty;
         const fab = document.getElementById('cartFab');
         if(fab) fab.style.display = totalQty > 0 ? 'flex' : 'none';
+        const headerCount = document.getElementById('cartCountHeader');
+        if(headerCount) {
+            headerCount.textContent = totalQty;
+            headerCount.style.display = totalQty > 0 ? 'flex' : 'none';
+        }
     }
 
     function openCartModal() {
         const list = document.getElementById('cartItemsList');
         const sumEl = document.getElementById('cartTotalSum');
         const progressBox = document.getElementById('deliveryProgressBox');
+        const orderForm = document.querySelector('#orderModal form');
+        if (orderForm) orderForm.style.display = cart.length === 0 ? 'none' : 'block';
 
         if (cart.length === 0) {
             list.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:14px;">${currentLang === 'uk' ? 'Кошик порожній' : 'Корзина пуста'}</p>`;
@@ -1157,7 +1207,7 @@
         }
     }
 
-    /* ===== НОВОЕ: отправка запроса на консультацию бджоляру в Telegram ===== */
+    /* ===== Отправка запроса на консультацию бджоляру в Telegram ===== */
     async function sendConsultToTelegram(e) {
         e.preventDefault();
         const name = document.getElementById('consName').value.trim();
@@ -1202,7 +1252,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         updateCartUI();
 
-        /* Запасной красивый фон для фото, которые не загрузились (например yliki.jpg) */
+        /* Запасной красивый фон для фото, которые не загрузились */
         document.querySelectorAll('.product-img, .about-img').forEach(el => {
             const bg = el.style.backgroundImage || '';
             const m = bg.match(/url\(["']?([^"')]+)["']?\)/);
@@ -1216,4 +1266,4 @@
 </script>
 
 </body>
-</html>
+    </html>

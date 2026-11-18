@@ -245,9 +245,10 @@
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; font-size: 15px; outline: none; background: var(--bg); transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
-        .btn-submit { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.25s; }
-        .btn-submit:hover { background: #B45309; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
+        .form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237A6A52' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+        .btn-submit { width: 100%; background: #059669; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.25s; }
+        .btn-submit:hover { background: #047857; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
 
         /* ===== КНОПКА «ПРОДОВЖИТИ ПОКУПКИ» ===== */
         .btn-continue { width: 100%; margin-top: 10px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 13px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.25s; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -823,25 +824,36 @@
         </div>
         <form onsubmit="sendOrderToTelegram(event)">
             <div class="form-group">
-                <label id="m-l-name">Ваше ім'я та Прізвище *</label>
-                <input type="text" id="orderName" required placeholder="Іван Іванов">
+                <label id="m-l-name">ПІБ (Прізвище та Ім'я) *</label>
+                <input type="text" id="orderName" required placeholder="Іванов Іван">
             </div>
             <div class="form-group">
                 <label id="m-l-phone">Номер телефону *</label>
-                <input type="tel" id="orderContact" required placeholder="+380XXXXXXXXX">
+                <input type="tel" id="orderContact" required placeholder="+380XXXXXXXXXX">
             </div>
             <div class="form-group">
-                <label id="m-l-city">Спосіб та адреса доставки (Нова пошта / Укрпошта) *</label>
-                <input type="text" id="orderCity" required placeholder="м. Одеса, Нова Пошта №5">
+                <label id="m-l-email">Email (необов'язково)</label>
+                <input type="email" id="orderEmail" placeholder="example@gmail.com">
+            </div>
+            <div class="form-group">
+                <label id="m-l-delivery">Спосіб доставки *</label>
+                <select id="orderDelivery" required>
+                    <option value="" disabled selected id="del-opt-default">Оберіть спосіб доставки</option>
+                    <option value="nova_poshta" id="del-opt-np">Нова Пошта</option>
+                    <option value="ukr_poshta" id="del-opt-up">Укрпошта</option>
+                    <option value="pickup" id="del-opt-pickup">Самовивіз</option>
+                </select>
             </div>
             <div class="form-group">
                 <label id="m-l-comm">Коментар до замовлення</label>
-                <textarea id="orderComment" rows="3" placeholder="Побажання до замовлення..."></textarea>
+                <textarea id="orderComment" rows="3" placeholder="Номер відділення, побажання тощо..."></textarea>
             </div>
-            <button type="submit" class="btn-submit" id="m-btn-send">📤 Підтвердити та відправити</button>
+            <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn-continue" style="flex: 1; margin-top: 0;" onclick="closeModal('orderModal')" id="m-btn-close">Закрити</button>
+                <button type="submit" class="btn-submit" style="flex: 2;" id="m-btn-send">📤 Надіслати замовлення</button>
+            </div>
             <div id="orderStatus" style="margin-top: 16px; text-align: center; font-weight: 600; font-size: 14px;"></div>
         </form>
-        <button type="button" class="btn-continue" id="m-btn-continue" onclick="closeModal('orderModal')">Продовжити покупки</button>
     </div>
 </div>
 
@@ -923,11 +935,17 @@
             ftDesc: "Натуральний мед та вироби з воску напряму з пасіки.",
             ftCon: "Контакти", ftInf: "Навігація", ftAdr: "Адреса", ftAdrT: "с. Захарівка, Роздільнянський р-н, Одеська обл.",
             mTitle: "📋 Кошик замовлення", mTot: "Загальна сума:",
-            mLName: "Ваше ім'я та Прізвище *", mLPhone: "Номер телефону *",
-            mLCity: "Спосіб та адреса доставки (Нова пошта / Укрпошта) *",
+            mLName: "ПІБ (Прізвище та Ім'я) *", mLPhone: "Номер телефону *",
+            mLEmail: "Email (необов'язково)",
+            mLDelivery: "Спосіб доставки *",
+            mDelOptDefault: "Оберіть спосіб доставки",
+            mDelOptNP: "Нова Пошта",
+            mDelOptUP: "Укрпошта",
+            mDelOptPickup: "Самовивіз",
             mLComm: "Коментар до замовлення",
-            mBtnSend: "📤 Підтвердити та відправити",
-            mBtnContinue: "Продовжити покупки"
+            mBtnClose: "Закрити",
+            mBtnSend: "📤 Надіслати замовлення",
+            mPhName: "Іванов Іван", mPhPhone: "+380XXXXXXXXXX", mPhEmail: "example@gmail.com", mPhComm: "Номер відділення, побажання тощо..."
         },
         ru: {
             lLogo: "Медовая Пасека", mCat: "Каталог", mAbout: "О нас", mDel: "Доставка", mCont: "Контакты", mFAQ: "FAQ",
@@ -988,11 +1006,17 @@
             ftDesc: "Натуральный мед и изделия из воска напрямую с пасеки.",
             ftCon: "Контакты", ftInf: "Навигация", ftAdr: "Адрес", ftAdrT: "с. Захаровка, Раздельнянский р-н, Одесская обл.",
             mTitle: "📋 Корзина заказа", mTot: "Общая сумма:",
-            mLName: "Ваше имя и Фамилия *", mLPhone: "Номер телефона *",
-            mLCity: "Способ и адрес доставки (Новая почта / Укрпочта) *",
+            mLName: "ФИО (Фамилия и Имя) *", mLPhone: "Номер телефона *",
+            mLEmail: "Email (необязательно)",
+            mLDelivery: "Способ доставки *",
+            mDelOptDefault: "Выберите способ доставки",
+            mDelOptNP: "Новая Почта",
+            mDelOptUP: "Укрпочта",
+            mDelOptPickup: "Самовывоз",
             mLComm: "Комментарий к заказу",
-            mBtnSend: "📤 Подтвердить и отправить",
-            mBtnContinue: "Продолжить покупки"
+            mBtnClose: "Закрыть",
+            mBtnSend: "📤 Отправить заказ",
+            mPhName: "Иванов Иван", mPhPhone: "+380XXXXXXXXXX", mPhEmail: "example@gmail.com", mPhComm: "Номер отделения, пожелания и т.д..."
         }
     };
 
@@ -1105,10 +1129,19 @@
         document.getElementById('m-tot').textContent = t.mTot;
         document.getElementById('m-l-name').textContent = t.mLName;
         document.getElementById('m-l-phone').textContent = t.mLPhone;
-        document.getElementById('m-l-city').textContent = t.mLCity;
+        document.getElementById('m-l-email').textContent = t.mLEmail;
+        document.getElementById('m-l-delivery').textContent = t.mLDelivery;
+        document.getElementById('del-opt-default').textContent = t.mDelOptDefault;
+        document.getElementById('del-opt-np').textContent = t.mDelOptNP;
+        document.getElementById('del-opt-up').textContent = t.mDelOptUP;
+        document.getElementById('del-opt-pickup').textContent = t.mDelOptPickup;
         document.getElementById('m-l-comm').textContent = t.mLComm;
+        document.getElementById('m-btn-close').textContent = t.mBtnClose;
         document.getElementById('m-btn-send').textContent = t.mBtnSend;
-        document.getElementById('m-btn-continue').textContent = t.mBtnContinue;
+        document.getElementById('orderName').placeholder = t.mPhName;
+        document.getElementById('orderContact').placeholder = t.mPhPhone;
+        document.getElementById('orderEmail').placeholder = t.mPhEmail;
+        document.getElementById('orderComment').placeholder = t.mPhComm;
 
         document.getElementById('b-uk').classList.toggle('active', lang === 'uk');
         document.getElementById('b-ru').classList.toggle('active', lang === 'ru');
@@ -1232,7 +1265,9 @@
         e.preventDefault();
         const name = document.getElementById('orderName').value.trim();
         const contact = document.getElementById('orderContact').value.trim();
-        const city = document.getElementById('orderCity').value.trim();
+        const email = document.getElementById('orderEmail').value.trim();
+        const deliverySelect = document.getElementById('orderDelivery');
+        const deliveryText = deliverySelect.options[deliverySelect.selectedIndex].text;
         const comm = document.getElementById('orderComment').value.trim();
         const statusDiv = document.getElementById('orderStatus');
 
@@ -1255,7 +1290,8 @@
                 id: 'ord_' + Date.now(),
                 customer_name: name,
                 phone: contact,
-                city_post: city,
+                email: email || '',
+                delivery_method: deliveryText,
                 items: fullItemsStr,
                 total_price: total,
                 comment: comm || ''
@@ -1277,9 +1313,10 @@
             }
 
             const text = `<b>🛒 Нове замовлення з сайту!</b>\n\n` +
-                         `<b>👤 Ім'я:</b> ${name}\n` +
+                         `<b>👤 ПІБ:</b> ${name}\n` +
                          `<b>📞 Телефон:</b> ${contact}\n` +
-                         `<b>🏙️ Доставка:</b> ${city}\n` +
+                         (email ? `<b>📧 Email:</b> ${email}\n` : '') +
+                         `<b>🚚 Доставка:</b> ${deliveryText}\n` +
                          `<b>💬 Коментар:</b> ${comm || 'Відсутній'}\n\n` +
                          `<b>📦 Товари:</b>\n${itemsList}\n\n` +
                          `💰 <b>Загальна сума:</b> <b>${total} ₴</b>`;
@@ -1370,4 +1407,4 @@
 </script>
 
 </body>
-            </html>
+                            </html>

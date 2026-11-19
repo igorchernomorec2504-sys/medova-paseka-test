@@ -17,118 +17,571 @@
             --text-secondary: #5d4037;
             --sidebar-width: 260px;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-        
-        body { 
-            background: var(--bg-gradient); 
-            background-attachment: fixed; 
-            color: var(--text-main); 
-            min-height: 100vh; 
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
             font-size: 0.95rem;
         }
 
-        /* --- Стили для страниц авторизации --- */
+        /* --- Уведомления вместо alert --- */
+        .toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            left: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            pointer-events: auto;
+            max-width: 460px;
+            width: 100%;
+            background: #fff;
+            color: var(--text-main);
+            border-left: 5px solid var(--primary-amber);
+            border-radius: 14px;
+            padding: 14px 18px;
+            box-shadow: 0 10px 28px rgba(62, 39, 35, 0.18);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            animation: toastIn 0.25s ease;
+        }
+
+        .toast.success { border-left-color: #2e7d32; background: #f1f8e9; color: #1b5e20; }
+        .toast.error { border-left-color: #c62828; background: #ffebee; color: #b71c1c; }
+        .toast.info { border-left-color: var(--dark-amber); background: #fff8e1; color: var(--text-main); }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: inherit;
+            opacity: 0.7;
+            padding: 0 4px;
+        }
+        .toast-close:hover { opacity: 1; }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Верхняя панель в личном кабинете --- */
+        .top-bar {
+            display: none;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 2px solid #ffe082;
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar.active {
+            display: block;
+        }
+
+        .top-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: var(--dark-amber);
+            background: #fff8e1;
+            border: 2px solid #ffd54f;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            background: #ffe082;
+            transform: translateY(-1px);
+        }
+
+        .shop-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%);
+            padding: 9px 16px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(245, 124, 0, 0.25);
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .shop-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px rgba(245, 124, 0, 0.35);
+        }
+
+        /* --- Авторизация --- */
         .auth-wrapper {
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .auth-container { 
-            max-width: 450px; width: 100%; background: #ffffff; border-radius: 24px; 
-            padding: 35px; box-shadow: var(--card-shadow); border: 2px solid #ffecb3; 
+
+        .auth-wrapper.hidden {
+            display: none;
         }
-        .auth-container h1 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); text-align: center; margin-bottom: 25px; font-size: 1.5rem; }
-        
-        /* --- Стили для Личного кабинета (Dashboard) --- */
+
+        .auth-container {
+            max-width: 450px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: var(--card-shadow);
+            border: 2px solid #ffecb3;
+        }
+
+        .auth-container h1 {
+            font-family: 'Comfortaa', cursive;
+            color: var(--dark-amber);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .auth-home-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 18px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .auth-home-link:hover {
+            color: var(--dark-amber);
+            text-decoration: underline;
+        }
+
+        /* --- Кабинет --- */
         .dashboard-wrapper {
-            display: none; /* Скрыто по умолчанию */
-            max-width: 1200px; margin: 0 auto; padding: 30px 20px;
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px 20px 40px;
             gap: 30px;
         }
+
+        .dashboard-wrapper.active {
+            display: flex;
+            flex-direction: column;
+        }
+
         @media (min-width: 768px) {
-            .dashboard-wrapper { display: flex; } /* Показываем как flex только если это dashboard и экран широкий */
+            .dashboard-wrapper.active {
+                flex-direction: row;
+                align-items: flex-start;
+            }
         }
 
-        /* Боковое меню */
         .sidebar {
-            width: 100%; max-width: var(--sidebar-width); background: #fff; border-radius: 20px;
-            padding: 25px; box-shadow: var(--card-shadow); border: 2px solid #ffecb3;
-            height: fit-content; position: sticky; top: 20px;
+            width: 100%;
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            border: 2px solid #ffecb3;
+            height: fit-content;
         }
-        .sidebar-header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px dashed #ffe0b2; }
-        .sidebar-header h2 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); font-size: 1.3rem; margin-bottom: 5px; }
-        .sidebar-header p { font-size: 0.85rem; color: var(--text-secondary); word-break: break-all; }
-        
-        .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                max-width: var(--sidebar-width);
+                position: sticky;
+                top: 78px;
+            }
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+            border-bottom: 2px dashed #ffe0b2;
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Comfortaa', cursive;
+            color: var(--dark-amber);
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            word-break: break-all;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         .nav-item {
-            padding: 12px 16px; border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--text-secondary);
-            transition: all 0.2s ease; display: flex; align-items: center; gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .nav-item:hover { background: var(--light-amber); color: var(--dark-amber); }
-        .nav-item.active { background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%); color: white; box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3); }
-        .nav-item.logout { margin-top: 15px; color: #d32f2f; }
-        .nav-item.logout:hover { background: #ffebee; color: #b71c1c; }
 
-        /* Область контента */
-        .content-area { flex: 1; min-width: 0; }
-        .tab-content { display: none; animation: fadeIn 0.3s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-item:hover {
+            background: var(--light-amber);
+            color: var(--dark-amber);
+        }
 
-        .card { background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: var(--card-shadow); border: 1px solid #ffecb3; }
-        .card h2 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .nav-item.active {
+            background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+        }
 
-        /* Формы */
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--text-secondary); font-size: 0.9rem; }
-        .form-control { width: 100%; padding: 12px 16px; border: 2px solid #ffe0b2; border-radius: 12px; font-size: 0.95rem; background: #fffde7; outline: none; transition: all 0.3s ease; }
-        .form-control:focus { border-color: var(--primary-amber); background: #fff; box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.15); }
-        .form-control:disabled { background: #f5f5f5; color: #9e9e9e; cursor: not-allowed; }
+        .nav-item.logout {
+            margin-top: 12px;
+            color: #d32f2f;
+        }
 
-        .btn { background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; font-size: 1rem; box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(245, 124, 0, 0.4); }
-        .btn-secondary { background: #8d6e63; margin-top: 10px; }
-        .btn-google { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: #fff; color: #333; border: 2px solid #ffe0b2; margin-top: 15px; transition: all 0.2s; }
-        .btn-google:hover { background: #fffde7; transform: translateY(-2px); }
-        
-        .divider { text-align: center; margin: 20px 0; position: relative; color: #8d6e63; font-size: 0.85rem; font-weight: 600; }
-        .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 2px; background: #ffe0b2; }
-        .divider::before { left: 0; } .divider::after { right: 0; }
-        .switch-mode { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666; }
-        .switch-mode a { color: var(--dark-amber); font-weight: 700; cursor: pointer; text-decoration: underline; }
+        .nav-item.logout:hover {
+            background: #ffebee;
+            color: #b71c1c;
+        }
 
-        /* Карточки заказов */
-        .order-card { background: var(--light-amber); border: 1px solid #ffe082; border-radius: 12px; padding: 16px; margin-bottom: 15px; transition: all 0.2s; }
-        .order-card:hover { box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15); }
-        .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
-        .order-date { font-weight: 700; color: var(--dark-amber); }
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; background: #e0f2f1; color: #00796b; }
-        .order-total { font-size: 1.1rem; font-weight: 700; color: var(--text-main); }
-        .btn-details { background: none; border: 2px solid var(--primary-amber); color: var(--dark-amber); padding: 6px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.85rem; margin-top: 10px; transition: all 0.2s; }
-        .btn-details:hover { background: var(--primary-amber); color: white; }
-        .order-details { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ffcc80; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
-        .order-details.show { display: block; animation: fadeIn 0.3s ease; }
+        .content-area {
+            flex: 1;
+            min-width: 0;
+            width: 100%;
+        }
 
-        /* Список желаний */
-        .wishlist-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: #fff; border-radius: 10px; margin-bottom: 10px; border: 1px solid #ffe0b2; }
-        .wishlist-icon { font-size: 1.5rem; }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
 
-        /* Адаптив для мобильных */
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #ffecb3;
+        }
+
+        .card h2 {
+            font-family: 'Comfortaa', cursive;
+            color: var(--dark-amber);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #ffe0b2;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: #fffde7;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-amber);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.15);
+        }
+
+        .form-control:disabled {
+            background: #f5f5f5;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 124, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: #8d6e63;
+            margin-top: 10px;
+        }
+
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: #fff;
+            color: #333;
+            border: 2px solid #ffe0b2;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-google:hover {
+            background: #fffde7;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            color: #8d6e63;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 2px;
+            background: #ffe0b2;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .switch-mode {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .switch-mode a {
+            color: var(--dark-amber);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Заказы */
+        .order-card {
+            background: var(--light-amber);
+            border: 1px solid #ffe082;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-date {
+            font-weight: 700;
+            color: var(--dark-amber);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background: #e0f2f1;
+            color: #00796b;
+        }
+
+        .order-total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .btn-details {
+            background: none;
+            border: 2px solid var(--primary-amber);
+            color: var(--dark-amber);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-details:hover {
+            background: var(--primary-amber);
+            color: white;
+        }
+
+        .order-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ffcc80;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .order-details.show {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ffe0b2;
+        }
+
+        .wishlist-icon {
+            font-size: 1.5rem;
+        }
+
         @media (max-width: 767px) {
-            .dashboard-wrapper { flex-direction: column; padding: 15px; }
-            .sidebar { position: relative; top: 0; margin-bottom: 20px; }
-            .nav-menu { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
-            .nav-item { white-space: nowrap; font-size: 0.85rem; padding: 10px 14px; }
-            .nav-item.logout { margin-top: 0; margin-left: auto; }
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 6px;
+            }
+            .nav-item {
+                white-space: nowrap;
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+            .nav-item.logout {
+                margin-top: 0;
+                margin-left: auto;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Контейнер уведомлений -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Верхняя панель навигации внутри личного кабинета -->
+    <header id="cabinetTopBar" class="top-bar">
+        <div class="top-bar-inner">
+            <a href="index.html" class="back-link">← Повернутися на сайт</a>
+            <a href="index.html#catalog" class="shop-link">🍯 Продовжити покупки</a>
+        </div>
+    </header>
+
     <!-- ================= АВТОРИЗАЦІЯ / РЕЄСТРАЦІЯ ================= -->
     <div id="authWrapper" class="auth-wrapper">
         <div class="auth-container">
+            <a href="index.html" class="auth-home-link">← Повернутися на головну сторінку</a>
             <h1 id="authTitle">🔐 Вхід в акаунт</h1>
-            
-            <!-- Форма Входу -->
+
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Телефон або Email:</label>
@@ -139,10 +592,10 @@
                     <input type="password" id="loginPass" class="form-control" required placeholder="Ваш пароль">
                 </div>
                 <button type="submit" class="btn">Увійти в акаунт 🐝</button>
-                
+
                 <div class="divider">або</div>
-                
-                <button type="button" class="btn btn-google" onclick="loginWithGoogle()">
+
+                <button type="button" class="btn-google" onclick="loginWithGoogle()">
                     <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.19-1.84H9v3.48h4.84c-.21 1.12-.84 2.07-1.79 2.71v2.25h2.9c1.7-1.57 2.69-3.88 2.69-6.6z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.25c-.81.54-1.84.86-3.06.86-2.34 0-4.32-1.58-5.03-3.71H.96v2.33C2.46 15.83 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.97 10.72c-.18-.54-.28-1.12-.28-1.72s.1-1.18.28-1.72V4.95H.96C.35 6.18 0 7.55 0 9s.35 2.82.96 4.05l3.01-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.59C13.47.89 11.43 0 9 0 5.48 0 2.46 2.17.96 4.95l3.01 2.33c.71-2.13 2.69-3.7 5.03-3.7z"/></svg>
                     Увійти через Google
                 </button>
@@ -152,7 +605,6 @@
                 </div>
             </form>
 
-            <!-- Форма Реєстрації -->
             <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
                 <div class="form-group">
                     <label>Телефон або Email:</label>
@@ -163,10 +615,10 @@
                     <input type="password" id="regPass" class="form-control" required placeholder="Мінімум 4 символи">
                 </div>
                 <button type="submit" class="btn">Зареєструватися 🍯</button>
-                
+
                 <div class="divider">або</div>
-                
-                <button type="button" class="btn btn-google" onclick="loginWithGoogle()">
+
+                <button type="button" class="btn-google" onclick="loginWithGoogle()">
                     <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.19-1.84H9v3.48h4.84c-.21 1.12-.84 2.07-1.79 2.71v2.25h2.9c1.7-1.57 2.69-3.88 2.69-6.6z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.25c-.81.54-1.84.86-3.06.86-2.34 0-4.32-1.58-5.03-3.71H.96v2.33C2.46 15.83 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.97 10.72c-.18-.54-.28-1.12-.28-1.72s.1-1.18.28-1.72V4.95H.96C.35 6.18 0 7.55 0 9s.35 2.82.96 4.05l3.01-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.59C13.47.89 11.43 0 9 0 5.48 0 2.46 2.17.96 4.95l3.01 2.33c.71-2.13 2.69-3.7 5.03-3.7z"/></svg>
                     Увійти через Google
                 </button>
@@ -178,9 +630,8 @@
         </div>
     </div>
 
-    <!-- ================= ОСОБИСТИЙ КАБІНЕТ (DASHBOARD) ================= -->
+    <!-- ================= ОСОБИСТИЙ КАБІНЕТ ================= -->
     <div id="dashboardWrapper" class="dashboard-wrapper">
-        <!-- Боковое меню -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h2>🐝 Медова Пасіка</h2>
@@ -195,10 +646,7 @@
             </ul>
         </aside>
 
-        <!-- Область контента -->
         <main class="content-area">
-            
-            <!-- Вкладка: Профиль -->
             <div id="tab-profile" class="tab-content active">
                 <div class="card">
                     <h2>✨ Ваші дані</h2>
@@ -213,14 +661,13 @@
                         </div>
                         <div class="form-group">
                             <label>Адреса доставки:</label>
-                            <input type="text" id="profAddress" class="form-control" placeholder="м. Одеса, Нова Пошта №5">
+                            <input type="text" id="profAddress" class="form-control" placeholder="смт Захарівка або Нова Пошта">
                         </div>
                         <button type="submit" class="btn">Зберегти зміни 💾</button>
                     </form>
                 </div>
             </div>
 
-            <!-- Вкладка: Заказы -->
             <div id="tab-orders" class="tab-content">
                 <div class="card">
                     <h2>📦 Історія замовлень</h2>
@@ -228,7 +675,6 @@
                 </div>
             </div>
 
-            <!-- Вкладка: Избранное -->
             <div id="tab-wishlist" class="tab-content">
                 <div class="card">
                     <h2>💛 Список бажань</h2>
@@ -236,7 +682,6 @@
                 </div>
             </div>
 
-            <!-- Вкладка: Настройки (Пароль) -->
             <div id="tab-settings" class="tab-content">
                 <div class="card" id="passwordChangeCard">
                     <h2>🔐 Зміна пароля</h2>
@@ -253,7 +698,6 @@
                     </form>
                 </div>
             </div>
-
         </main>
     </div>
 
@@ -263,28 +707,50 @@
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let currentUser = null;
-        try { currentUser = JSON.parse(localStorage.getItem('medova_current_user')) || null; } catch(e) { currentUser = null; }
-
-        // --- Управление вкладками ---
-        function switchTab(tabId, element) {
-            // Скрыть все вкладки
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            // Убрать активный класс у всех кнопок меню
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            
-            // Показать нужную вкладку и подсветить кнопку
-            document.getElementById('tab-' + tabId).classList.add('active');
-            if(element) element.classList.add('active');
+        try {
+            currentUser = JSON.parse(localStorage.getItem('medova_current_user')) || null;
+        } catch (e) {
+            currentUser = null;
         }
 
-        // --- Раскрытие деталей заказа ---
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span>${escapeHtml(message)}</span>
+                <button type="button" class="toast-close" aria-label="Закрити">✕</button>
+            `;
+            toast.querySelector('.toast-close').onclick = () => toast.remove();
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 4000);
+        }
+
+        function escapeHtml(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            if (element) element.classList.add('active');
+        }
+
         function toggleOrderDetails(btn) {
             const details = btn.nextElementSibling;
             details.classList.toggle('show');
             btn.textContent = details.classList.contains('show') ? 'Сховати деталі' : 'Деталі замовлення';
         }
 
-        // --- Авторизация и инициализация ---
         async function checkGoogleAuthRedirect() {
             try {
                 const { data: { session } } = await supabaseClient.auth.getSession();
@@ -299,48 +765,79 @@
                     if (existingUsers && existingUsers.length > 0) {
                         currentUser = existingUsers[0];
                     } else {
-                        const newGoogleUser = { id: 'usr_' + Date.now(), login: googleEmail, pass: 'google_oauth_secure', full_name: googleName, address: '', data: { orders: [], wishlist: [] } };
+                        const newGoogleUser = {
+                            id: 'usr_' + Date.now(),
+                            login: googleEmail,
+                            pass: 'google_oauth_secure',
+                            full_name: googleName,
+                            address: '',
+                            data: { orders: [], wishlist: [] }
+                        };
                         const createRes = await fetch(`${SUPABASE_URL}/rest/v1/users`, {
-                            method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=representation' },
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'apikey': SUPABASE_KEY,
+                                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                                'Prefer': 'return=representation'
+                            },
                             body: JSON.stringify(newGoogleUser)
                         });
                         if (createRes.ok) currentUser = newGoogleUser;
                     }
+
                     if (currentUser) {
                         localStorage.setItem('medova_current_user', JSON.stringify(currentUser));
                         window.history.replaceState({}, document.title, window.location.pathname);
                     }
                 }
-            } catch (err) { console.error("Помилка обробки Google сесії:", err); }
+            } catch (err) {
+                console.error("Помилка обробки Google сесії:", err);
+                showToast("Не вдалося обробити вхід через Google", "error");
+            }
         }
 
         async function loginWithGoogle() {
             try {
-                await supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + window.location.pathname } });
-            } catch (err) { alert("Не вдалося ініціювати вхід через Google."); }
+                await supabaseClient.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: { redirectTo: window.location.origin + window.location.pathname }
+                });
+            } catch (err) {
+                showToast("Не вдалося ініціювати вхід через Google", "error");
+            }
         }
 
         async function initAccountPage() {
             await checkGoogleAuthRedirect();
-            try { currentUser = JSON.parse(localStorage.getItem('medova_current_user')) || null; } catch(e) { currentUser = null; }
+            try {
+                currentUser = JSON.parse(localStorage.getItem('medova_current_user')) || null;
+            } catch (e) {
+                currentUser = null;
+            }
 
             const authWrapper = document.getElementById('authWrapper');
             const dashboardWrapper = document.getElementById('dashboardWrapper');
+            const topBar = document.getElementById('cabinetTopBar');
 
             if (!currentUser) {
-                authWrapper.style.display = 'flex';
-                // Для мобильных flex, для десктопа тоже flex (задано в CSS)
-                dashboardWrapper.style.display = 'none';
+                authWrapper.classList.remove('hidden');
+                dashboardWrapper.classList.remove('active');
+                topBar.classList.remove('active');
             } else {
-                authWrapper.style.display = 'none';
-                dashboardWrapper.style.display = 'flex'; // Показываем dashboard
-                document.getElementById('sidebarUserLogin').innerText = currentUser.login;
+                authWrapper.classList.add('hidden');
+                dashboardWrapper.classList.add('active');
+                topBar.classList.add('active');
+
+                document.getElementById('sidebarUserLogin').textContent = currentUser.login;
                 document.getElementById('profLoginDisplay').value = currentUser.login;
                 document.getElementById('profFullName').value = currentUser.full_name || '';
                 document.getElementById('profAddress').value = currentUser.address || '';
-                
+
                 const passCard = document.getElementById('passwordChangeCard');
-                if (passCard) passCard.style.display = (currentUser.pass === 'google_oauth_secure') ? 'none' : 'block';
+                if (passCard) {
+                    passCard.style.display = (currentUser.pass === 'google_oauth_secure') ? 'none' : 'block';
+                }
 
                 renderWishlist();
                 renderOrders();
@@ -352,9 +849,13 @@
             const loginForm = document.getElementById('loginForm');
             const title = document.getElementById('authTitle');
             if (mode === 'login') {
-                regForm.style.display = 'none'; loginForm.style.display = 'block'; title.innerText = '🔐 Вхід в акаунт';
+                regForm.style.display = 'none';
+                loginForm.style.display = 'block';
+                title.textContent = '🔐 Вхід в акаунт';
             } else {
-                loginForm.style.display = 'none'; regForm.style.display = 'block'; title.innerText = '👤 Реєстрація акаунта';
+                loginForm.style.display = 'none';
+                regForm.style.display = 'block';
+                title.textContent = '👤 Реєстрація акаунта';
             }
         }
 
@@ -362,7 +863,9 @@
             const clean = val.trim();
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const phoneRegex = /^\+?[0-9]{9,15}$/;
-            if (emailRegex.test(clean) || phoneRegex.test(clean.replace(/[\s\-\(\)]/g, ''))) return clean;
+            if (emailRegex.test(clean) || phoneRegex.test(clean.replace(/[\s\-\(\)]/g, ''))) {
+                return clean;
+            }
             return null;
         }
 
@@ -370,92 +873,204 @@
             e.preventDefault();
             const validLogin = validateInput(document.getElementById('regLogin').value);
             const pass = document.getElementById('regPass').value.trim();
-            if (!validLogin) return alert("Введіть коректний номер телефону або Email.");
-            if (pass.length < 4) return alert("Пароль занадто короткий (мінімум 4 символи).");
 
-            const newUserData = { id: 'usr_' + Date.now(), login: validLogin, pass: pass, full_name: '', address: '', data: { orders: [], wishlist: [] } };
+            if (!validLogin) {
+                return showToast("Введіть коректний номер телефону або Email.", "error");
+            }
+            if (pass.length < 4) {
+                return showToast("Пароль занадто короткий (мінімум 4 символи).", "error");
+            }
+
+            const newUserData = {
+                id: 'usr_' + Date.now(),
+                login: validLogin,
+                pass: pass,
+                full_name: '',
+                address: '',
+                data: { orders: [], wishlist: [] }
+            };
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/users`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=representation' },
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'return=representation'
+                    },
                     body: JSON.stringify(newUserData)
                 });
+
                 if (!response.ok) {
                     const err = await response.json();
-                    if (err.code === '23505') { alert("Користувач з таким логіном вже зареєстрований!"); return switchMode('login'); }
-                    throw new Error(err.message);
+                    if (err.code === '23505') {
+                        showToast("Користувач з таким логіном вже зареєстрований. Увійдіть в акаунт.", "info");
+                        switchMode('login');
+                        return;
+                    }
+                    throw new Error(err.message || "Помилка реєстрації");
                 }
+
                 currentUser = newUserData;
                 localStorage.setItem('medova_current_user', JSON.stringify(currentUser));
-                alert("Реєстрація успішна! Ласкаво просимо на пасіку! 🍯");
+                showToast("Реєстрація успішна! Ласкаво просимо на пасіку 🍯", "success");
                 initAccountPage();
-            } catch (err) { alert("Помилка: " + err.message); }
+            } catch (err) {
+                showToast("Помилка: " + err.message, "error");
+            }
         }
 
         async function handleLogin(e) {
             e.preventDefault();
             const validLogin = validateInput(document.getElementById('loginLogin').value);
             const pass = document.getElementById('loginPass').value.trim();
-            if (!validLogin) return alert("Введіть коректний телефон або email.");
+
+            if (!validLogin) {
+                return showToast("Введіть коректний телефон або email.", "error");
+            }
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?login=eq.${encodeURIComponent(validLogin)}&pass=eq.${encodeURIComponent(pass)}`, {
-                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-                });
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/users?login=eq.${encodeURIComponent(validLogin)}&pass=eq.${encodeURIComponent(pass)}`,
+                    {
+                        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                    }
+                );
                 const users = await response.json();
+
                 if (users && users.length > 0) {
                     currentUser = users[0];
                     localStorage.setItem('medova_current_user', JSON.stringify(currentUser));
-                    alert("Вхід успішний! Раді бачити знову! 🐝");
+                    showToast("Вхід успішний! Раді бачити знову 🐝", "success");
                     initAccountPage();
-                } else { alert("Невірний логін або пароль."); }
-            } catch (err) { alert("Помилка зв'язку з базою даних."); }
+                } else {
+                    showToast("Невірний логін або пароль.", "error");
+                }
+            } catch (err) {
+                showToast("Помилка зв'язку з базою даних.", "error");
+            }
         }
 
         async function changePassword(e) {
             e.preventDefault();
-            if (currentUser.pass === 'google_oauth_secure') return alert("Користувачі Google не використовують звичайний пароль.");
+            if (currentUser.pass === 'google_oauth_secure') {
+                return showToast("Для акаунтів Google пароль не використовується.", "info");
+            }
+
             const oldPass = document.getElementById('oldPass').value.trim();
             const newPass = document.getElementById('newPass').value.trim();
-            if (oldPass !== currentUser.pass) return alert("Невірний старий пароль.");
-            if (newPass.length < 4) return alert("Новий пароль занадто короткий.");
+
+            if (oldPass !== currentUser.pass) {
+                return showToast("Невірний старий пароль.", "error");
+            }
+            if (newPass.length < 4) {
+                return showToast("Новий пароль занадто короткий (мінімум 4 символи).", "error");
+            }
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${currentUser.id}`, {
-                    method: 'PATCH', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=representation' },
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(currentUser.id)}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'return=representation'
+                    },
                     body: JSON.stringify({ pass: newPass })
                 });
-                if (!response.ok) throw new Error("Помилка");
+
+                if (!response.ok) throw new Error("Помилка оновлення");
+
                 currentUser.pass = newPass;
                 localStorage.setItem('medova_current_user', JSON.stringify(currentUser));
-                alert("Пароль успішно змінено!");
-                document.getElementById('oldPass').value = ''; document.getElementById('newPass').value = '';
-            } catch (err) { alert("Не вдалося оновити пароль."); }
+                document.getElementById('oldPass').value = '';
+                document.getElementById('newPass').value = '';
+                showToast("Пароль успішно змінено.", "success");
+            } catch (err) {
+                showToast("Не вдалося оновити пароль.", "error");
+            }
         }
 
-        function handleLogout() {
-            currentUser = null; localStorage.removeItem('medova_current_user'); supabaseClient.auth.signOut(); initAccountPage();
+        async function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('medova_current_user');
+            try {
+                await supabaseClient.auth.signOut();
+            } catch (e) {}
+            showToast("Ви вийшли з акаунта.", "info");
+            initAccountPage();
         }
 
         async function saveProfileData(e) {
             e.preventDefault();
             currentUser.full_name = document.getElementById('profFullName').value.trim();
             currentUser.address = document.getElementById('profAddress').value.trim();
+
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${currentUser.id}`, {
-                    method: 'PATCH', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=representation' },
-                    body: JSON.stringify({ full_name: currentUser.full_name, address: currentUser.address, data: currentUser.data })
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(currentUser.id)}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        full_name: currentUser.full_name,
+                        address: currentUser.address,
+                        data: currentUser.data
+                    })
                 });
-                if (!response.ok) throw new Error("Помилка");
+
+                if (!response.ok) throw new Error("Помилка збереження");
+
                 localStorage.setItem('medova_current_user', JSON.stringify(currentUser));
-                alert("Зміни збережено! 🍯");
-            } catch (err) { alert("Не вдалося зберегти зміни."); }
+                showToast("Дані профілю збережено 🍯", "success");
+            } catch (err) {
+                showToast("Не вдалося зберегти зміни.", "error");
+            }
         }
 
         function renderWishlist() {
             const container = document.getElementById('userWishlistList');
-            const wishlist = currentUser.data?.wishlist || [];
-            if (wishlist.length === 0) { container.innerHTML = '<p style="color:#8d6e63">Ваш список бажань поки порожній 🐝</p>'; return; }
-            container.innerHTML = wishlist.map(item => `<div class="wishlist-item"><span class="wishlist-icon">🍯</span> <span>${item}</span></div>`).join('');
+            const wishlist = currentUser?.data?.wishlist || [];
+            if (!wishlist.length) {
+                container.innerHTML = '<p style="color:#8d6e63">Ваш список бажань поки порожній 🐝</p>';
+                return;
+            }
+            container.innerHTML = wishlist
+                .map(item => `<div class="wishlist-item"><span class="wishlist-icon">🍯</span> <span>${escapeHtml(item)}</span></div>`)
+                .join('');
+        }
+
+        function formatOrderItems(items) {
+            let parsed = items;
+            if (typeof items === 'string') {
+                try {
+                    parsed = JSON.parse(items);
+                } catch (e) {
+                    return escapeHtml(items).replace(/\n/g, '<br>');
+                }
+            }
+
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed.map(item => {
+                    if (typeof item === 'string') return `• ${escapeHtml(item)}`;
+                    const title = item.name || item.title || 'Товар';
+                    const qty = item.qty || item.quantity || 1;
+                    const price = item.price ? ` — ${escapeHtml(item.price)} грн` : '';
+                    return `• ${escapeHtml(title)} × ${escapeHtml(qty)}${price}`;
+                }).join('<br>');
+            }
+
+            if (parsed && typeof parsed === 'object') {
+                return Object.entries(parsed)
+                    .map(([k, v]) => `• ${escapeHtml(k)}: ${escapeHtml(v)}`)
+                    .join('<br>');
+            }
+
+            return 'Склад не вказано';
         }
 
         async function renderOrders() {
@@ -464,39 +1079,47 @@
             container.innerHTML = '<p>Завантаження...</p>';
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?phone=eq.${encodeURIComponent(currentUser.login)}&order=created_at.desc`, {
-                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-                });
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/orders?phone=eq.${encodeURIComponent(currentUser.login)}&order=created_at.desc`,
+                    {
+                        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+                    }
+                );
+
+                if (!response.ok) throw new Error("Помилка запиту замовлень");
+
                 const orders = await response.json();
 
-                if (!orders || orders.length === 0) { container.innerHTML = '<p style="color:#8d6e63">У вас поки немає замовлень.</p>'; return; }
+                if (!orders || orders.length === 0) {
+                    container.innerHTML = '<p style="color:#8d6e63">У вас поки немає замовлень.</p>';
+                    return;
+                }
 
-                let html = '';
-                orders.forEach(ord => {
+                container.innerHTML = orders.map(ord => {
                     const date = ord.created_at ? new Date(ord.created_at).toLocaleString('uk-UA') : 'Не вказано';
-                    // Здесь предполагаем, что в ord.items лежит строка или JSON. Если JSON, его можно распарсить.
-                    const itemsDisplay = typeof ord.items === 'string' ? ord.items : JSON.stringify(ord.items);
-                    
-                    html += `
-                    <div class="order-card">
-                        <div class="order-header">
-                            <span class="order-date">📅 ${date}</span>
-                            <span class="status-badge">${ord.status || 'Нове'}</span>
+                    const itemsHtml = formatOrderItems(ord.items);
+                    const deliveryAddr = ord.address || currentUser.address || 'Не вказана';
+
+                    return `
+                        <div class="order-card">
+                            <div class="order-header">
+                                <span class="order-date">📅 ${escapeHtml(date)}</span>
+                                <span class="status-badge">${escapeHtml(ord.status || 'Нове')}</span>
+                            </div>
+                            <div class="order-total">Сума: ${escapeHtml(ord.total_price || 0)} грн</div>
+                            <button type="button" class="btn-details" onclick="toggleOrderDetails(this)">Деталі замовлення</button>
+                            <div class="order-details">
+                                <strong>Склад замовлення:</strong><br>
+                                ${itemsHtml}
+                                <br><br>
+                                <em>Адреса доставки: ${escapeHtml(deliveryAddr)}</em>
+                            </div>
                         </div>
-                        <div class="order-total">Сума: ${ord.total_price || 0} грн</div>
-                        <button class="btn-details" onclick="toggleOrderDetails(this)">Деталі замовлення</button>
-                        <div class="order-details">
-                            <strong>Склад замовлення:</strong><br>
-                            ${itemsDisplay.replace(/\n/g, '<br>')}
-                            <br><br>
-                            <em>Адреса доставки: ${currentUser.address || 'Не вказана'}</em>
-                        </div>
-                    </div>`;
-                });
-                container.innerHTML = html;
+                    `;
+                }).join('');
             } catch (err) {
                 console.error(err);
-                container.innerHTML = '<p style="color:red">Помилка завантаження замовлень.</p>';
+                container.innerHTML = '<p style="color:#c62828">Не вдалося завантажити замовлення.</p>';
             }
         }
 

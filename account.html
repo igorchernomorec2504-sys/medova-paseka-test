@@ -329,8 +329,20 @@ async function registerUser(e) {
     if (!login) return toast('Вкажіть коректний телефон або email', 'err');
     if (pass.length < 4) return toast('Пароль має бути від 4 символів', 'err');
 
-    const body = { id: 'usr_' + Date.now(), login, pass, full_name: '', address: '', data: { orders: [], wishlist: [] } };
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login);
+
     try {
+        if (isEmail) {
+            const { error: authErr } = await sb.auth.signUp({
+                email: login,
+                password: pass
+            });
+            if (authErr && !String(authErr.message || '').toLowerCase().includes('already')) {
+                toast('Помилка надсилання листа: ' + authErr.message, 'err');
+            }
+        }
+
+        const body = { id: 'usr_' + Date.now(), login, pass, full_name: '', address: '', data: { orders: [], wishlist: [] } };
         const res = await fetch(`${SB_URL}/rest/v1/users`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, Prefer: 'return=representation' },
@@ -343,7 +355,7 @@ async function registerUser(e) {
         }
         user = body;
         localStorage.setItem('medova_current_user', JSON.stringify(user));
-        toast('Акаунт створено!', 'ok');
+        toast(isEmail ? 'Акаунт створено! Перевірте пошту' : 'Акаунт створено!', 'ok');
         init();
     } catch (e) { toast('Помилка реєстрації', 'err'); }
 }

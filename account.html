@@ -15,7 +15,6 @@
             --card-shadow: 0 8px 24px rgba(230, 81, 0, 0.08), 0 2px 8px rgba(255, 152, 0, 0.1);
             --text-main: #3e2723;
             --text-secondary: #5d4037;
-            --sidebar-width: 260px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
         
@@ -25,11 +24,12 @@
             color: var(--text-main); 
             min-height: 100vh; 
             font-size: 0.95rem;
+            padding: 20px;
         }
 
-        /* --- Стили для страниц авторизации --- */
+        /* --- Авторизация --- */
         .auth-wrapper {
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
         .auth-container { 
             max-width: 450px; width: 100%; background: #ffffff; border-radius: 24px; 
@@ -37,46 +37,86 @@
         }
         .auth-container h1 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); text-align: center; margin-bottom: 25px; font-size: 1.5rem; }
         
-        /* --- Стили для Личного кабинета (Dashboard) --- */
+        /* --- Личный кабинет --- */
         .dashboard-wrapper {
-            display: none; /* Скрыто по умолчанию */
-            max-width: 1200px; margin: 0 auto; padding: 30px 20px;
-            gap: 30px;
-        }
-        @media (min-width: 768px) {
-            .dashboard-wrapper { display: flex; } /* Показываем как flex только если это dashboard и экран широкий */
+            display: none;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        /* Боковое меню */
-        .sidebar {
-            width: 100%; max-width: var(--sidebar-width); background: #fff; border-radius: 20px;
-            padding: 25px; box-shadow: var(--card-shadow); border: 2px solid #ffecb3;
-            height: fit-content; position: sticky; top: 20px;
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 2px solid #ffecb3;
         }
-        .sidebar-header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px dashed #ffe0b2; }
-        .sidebar-header h2 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); font-size: 1.3rem; margin-bottom: 5px; }
-        .sidebar-header p { font-size: 0.85rem; color: var(--text-secondary); word-break: break-all; }
-        
-        .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .nav-item {
-            padding: 12px 16px; border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--text-secondary);
-            transition: all 0.2s ease; display: flex; align-items: center; gap: 10px;
+        .dashboard-header h1 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); font-size: 1.4rem; margin-bottom: 5px; }
+        .dashboard-header p { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* --- Аккордеон (список) --- */
+        .accordion-item {
+            background: #fff;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--card-shadow);
+            border: 2px solid #ffecb3;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .nav-item:hover { background: var(--light-amber); color: var(--dark-amber); }
-        .nav-item.active { background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%); color: white; box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3); }
-        .nav-item.logout { margin-top: 15px; color: #d32f2f; }
-        .nav-item.logout:hover { background: #ffebee; color: #b71c1c; }
+        .accordion-item:hover {
+            border-color: var(--primary-amber);
+        }
 
-        /* Область контента */
-        .content-area { flex: 1; min-width: 0; }
-        .tab-content { display: none; animation: fadeIn 0.3s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .accordion-header {
+            padding: 18px 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--dark-amber);
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .accordion-header:hover {
+            background: var(--light-amber);
+        }
+        .accordion-header .icon {
+            font-size: 1.3rem;
+            margin-right: 10px;
+        }
+        .accordion-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: #ff9800;
+        }
+        .accordion-item.active .accordion-header .arrow {
+            transform: rotate(180deg);
+        }
+        .accordion-item.active .accordion-header {
+            background: linear-gradient(135deg, #ffb300 0%, #f57c00 100%);
+            color: white;
+        }
+        .accordion-item.active .accordion-header .arrow {
+            color: white;
+        }
 
-        .card { background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: var(--card-shadow); border: 1px solid #ffecb3; }
-        .card h2 { font-family: 'Comfortaa', cursive; color: var(--dark-amber); font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 22px;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+            padding: 20px 22px;
+        }
 
-        /* Формы */
+        /* --- Формы --- */
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--text-secondary); font-size: 0.9rem; }
         .form-control { width: 100%; padding: 12px 16px; border: 2px solid #ffe0b2; border-radius: 12px; font-size: 0.95rem; background: #fffde7; outline: none; transition: all 0.3s ease; }
@@ -95,7 +135,7 @@
         .switch-mode { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666; }
         .switch-mode a { color: var(--dark-amber); font-weight: 700; cursor: pointer; text-decoration: underline; }
 
-        /* Карточки заказов */
+        /* --- Карточки заказов --- */
         .order-card { background: var(--light-amber); border: 1px solid #ffe082; border-radius: 12px; padding: 16px; margin-bottom: 15px; transition: all 0.2s; }
         .order-card:hover { box-shadow: 0 4px 12px rgba(255, 152, 0, 0.15); }
         .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
@@ -107,17 +147,17 @@
         .order-details { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ffcc80; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
         .order-details.show { display: block; animation: fadeIn 0.3s ease; }
 
-        /* Список желаний */
+        /* --- Список желаний --- */
         .wishlist-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: #fff; border-radius: 10px; margin-bottom: 10px; border: 1px solid #ffe0b2; }
         .wishlist-icon { font-size: 1.5rem; }
 
-        /* Адаптив для мобильных */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Адаптив --- */
         @media (max-width: 767px) {
-            .dashboard-wrapper { flex-direction: column; padding: 15px; }
-            .sidebar { position: relative; top: 0; margin-bottom: 20px; }
-            .nav-menu { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
-            .nav-item { white-space: nowrap; font-size: 0.85rem; padding: 10px 14px; }
-            .nav-item.logout { margin-top: 0; margin-left: auto; }
+            body { padding: 10px; }
+            .accordion-header { padding: 15px 18px; font-size: 0.95rem; }
+            .accordion-item.active .accordion-content { padding: 15px 18px; }
         }
     </style>
 </head>
@@ -128,7 +168,6 @@
         <div class="auth-container">
             <h1 id="authTitle">🔐 Вхід в акаунт</h1>
             
-            <!-- Форма Входу -->
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Телефон або Email:</label>
@@ -152,7 +191,6 @@
                 </div>
             </form>
 
-            <!-- Форма Реєстрації -->
             <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
                 <div class="form-group">
                     <label>Телефон або Email:</label>
@@ -178,83 +216,90 @@
         </div>
     </div>
 
-    <!-- ================= ОСОБИСТИЙ КАБІНЕТ (DASHBOARD) ================= -->
+    <!-- ================= ОСОБИСТИЙ КАБІНЕТ (АККОРДЕОН) ================= -->
     <div id="dashboardWrapper" class="dashboard-wrapper">
-        <!-- Боковое меню -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>🐝 Медова Пасіка</h2>
-                <p id="sidebarUserLogin">user@example.com</p>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item active" onclick="switchTab('profile', this)">👤 Мій профіль</li>
-                <li class="nav-item" onclick="switchTab('orders', this)">📦 Мої замовлення</li>
-                <li class="nav-item" onclick="switchTab('wishlist', this)">💛 Список бажань</li>
-                <li class="nav-item" onclick="switchTab('settings', this)">⚙️ Налаштування</li>
-                <li class="nav-item logout" onclick="handleLogout()">🚪 Вийти з акаунта</li>
-            </ul>
-        </aside>
+        
+        <div class="dashboard-header">
+            <h1>🌻 Особистий кабінет</h1>
+            <p id="dashboardUserLogin">user@example.com</p>
+        </div>
 
-        <!-- Область контента -->
-        <main class="content-area">
-            
-            <!-- Вкладка: Профиль -->
-            <div id="tab-profile" class="tab-content active">
-                <div class="card">
-                    <h2>✨ Ваші дані</h2>
-                    <form onsubmit="saveProfileData(event)">
-                        <div class="form-group">
-                            <label>Логін (Телефон / Email):</label>
-                            <input type="text" id="profLoginDisplay" class="form-control" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label>ПІБ:</label>
-                            <input type="text" id="profFullName" class="form-control" placeholder="Іванов Іван Іванович">
-                        </div>
-                        <div class="form-group">
-                            <label>Адреса доставки:</label>
-                            <input type="text" id="profAddress" class="form-control" placeholder="м. Одеса, Нова Пошта №5">
-                        </div>
-                        <button type="submit" class="btn">Зберегти зміни 💾</button>
-                    </form>
-                </div>
+        <!-- Пункт 1: Профиль -->
+        <div class="accordion-item active">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="icon">👤</span> Мій профіль</span>
+                <span class="arrow">▼</span>
             </div>
-
-            <!-- Вкладка: Заказы -->
-            <div id="tab-orders" class="tab-content">
-                <div class="card">
-                    <h2>📦 Історія замовлень</h2>
-                    <div id="userOrdersList">Завантаження замовлень...</div>
-                </div>
+            <div class="accordion-content">
+                <form onsubmit="saveProfileData(event)">
+                    <div class="form-group">
+                        <label>Логін (Телефон / Email):</label>
+                        <input type="text" id="profLoginDisplay" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>ПІБ:</label>
+                        <input type="text" id="profFullName" class="form-control" placeholder="Іванов Іван Іванович">
+                    </div>
+                    <div class="form-group">
+                        <label>Адреса доставки:</label>
+                        <input type="text" id="profAddress" class="form-control" placeholder="м. Одеса, Нова Пошта №5">
+                    </div>
+                    <button type="submit" class="btn">Зберегти зміни 💾</button>
+                </form>
             </div>
+        </div>
 
-            <!-- Вкладка: Избранное -->
-            <div id="tab-wishlist" class="tab-content">
-                <div class="card">
-                    <h2>💛 Список бажань</h2>
-                    <div id="userWishlistList">Ваш список бажань поки порожній.</div>
-                </div>
+        <!-- Пункт 2: Заказы -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="icon">📦</span> Мої замовлення</span>
+                <span class="arrow">▼</span>
             </div>
-
-            <!-- Вкладка: Настройки (Пароль) -->
-            <div id="tab-settings" class="tab-content">
-                <div class="card" id="passwordChangeCard">
-                    <h2>🔐 Зміна пароля</h2>
-                    <form onsubmit="changePassword(event)">
-                        <div class="form-group">
-                            <label>Старий пароль:</label>
-                            <input type="password" id="oldPass" class="form-control" required placeholder="Введіть поточний пароль">
-                        </div>
-                        <div class="form-group">
-                            <label>Новий пароль:</label>
-                            <input type="password" id="newPass" class="form-control" required placeholder="Мінімум 4 символи">
-                        </div>
-                        <button type="submit" class="btn btn-secondary">Змінити пароль 🔑</button>
-                    </form>
-                </div>
+            <div class="accordion-content">
+                <div id="userOrdersList">Натисніть, щоб завантажити замовлення...</div>
             </div>
+        </div>
 
-        </main>
+        <!-- Пункт 3: Избранное -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="icon">💛</span> Список бажань</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="userWishlistList">Ваш список бажань поки порожній.</div>
+            </div>
+        </div>
+
+        <!-- Пункт 4: Настройки (Пароль) -->
+        <div class="accordion-item" id="passwordAccordionItem">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="icon">🔐</span> Зміна пароля</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <form onsubmit="changePassword(event)">
+                    <div class="form-group">
+                        <label>Старий пароль:</label>
+                        <input type="password" id="oldPass" class="form-control" required placeholder="Введіть поточний пароль">
+                    </div>
+                    <div class="form-group">
+                        <label>Новий пароль:</label>
+                        <input type="password" id="newPass" class="form-control" required placeholder="Мінімум 4 символи">
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Змінити пароль 🔑</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Пункт 5: Выход -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="handleLogout()" style="color: #d32f2f;">
+                <span><span class="icon">🚪</span> Вийти з акаунта</span>
+                <span class="arrow">▼</span>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -265,16 +310,18 @@
         let currentUser = null;
         try { currentUser = JSON.parse(localStorage.getItem('medova_current_user')) || null; } catch(e) { currentUser = null; }
 
-        // --- Управление вкладками ---
-        function switchTab(tabId, element) {
-            // Скрыть все вкладки
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            // Убрать активный класс у всех кнопок меню
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        // --- Аккордеон ---
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const isActive = item.classList.contains('active');
             
-            // Показать нужную вкладку и подсветить кнопку
-            document.getElementById('tab-' + tabId).classList.add('active');
-            if(element) element.classList.add('active');
+            // Закрываем все
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+            
+            // Открываем текущий (если он не был активен)
+            if (!isActive) {
+                item.classList.add('active');
+            }
         }
 
         // --- Раскрытие деталей заказа ---
@@ -284,7 +331,7 @@
             btn.textContent = details.classList.contains('show') ? 'Сховати деталі' : 'Деталі замовлення';
         }
 
-        // --- Авторизация и инициализация ---
+        // --- Авторизация ---
         async function checkGoogleAuthRedirect() {
             try {
                 const { data: { session } } = await supabaseClient.auth.getSession();
@@ -326,21 +373,20 @@
 
             const authWrapper = document.getElementById('authWrapper');
             const dashboardWrapper = document.getElementById('dashboardWrapper');
+            const passItem = document.getElementById('passwordAccordionItem');
 
             if (!currentUser) {
                 authWrapper.style.display = 'flex';
-                // Для мобильных flex, для десктопа тоже flex (задано в CSS)
                 dashboardWrapper.style.display = 'none';
             } else {
                 authWrapper.style.display = 'none';
-                dashboardWrapper.style.display = 'flex'; // Показываем dashboard
-                document.getElementById('sidebarUserLogin').innerText = currentUser.login;
+                dashboardWrapper.style.display = 'block';
+                document.getElementById('dashboardUserLogin').innerText = currentUser.login;
                 document.getElementById('profLoginDisplay').value = currentUser.login;
                 document.getElementById('profFullName').value = currentUser.full_name || '';
                 document.getElementById('profAddress').value = currentUser.address || '';
                 
-                const passCard = document.getElementById('passwordChangeCard');
-                if (passCard) passCard.style.display = (currentUser.pass === 'google_oauth_secure') ? 'none' : 'block';
+                if (passItem) passItem.style.display = (currentUser.pass === 'google_oauth_secure') ? 'none' : 'block';
 
                 renderWishlist();
                 renderOrders();
@@ -433,7 +479,9 @@
         }
 
         function handleLogout() {
-            currentUser = null; localStorage.removeItem('medova_current_user'); supabaseClient.auth.signOut(); initAccountPage();
+            if(confirm('Ви впевнені, що хочете вийти?')) {
+                currentUser = null; localStorage.removeItem('medova_current_user'); supabaseClient.auth.signOut(); initAccountPage();
+            }
         }
 
         async function saveProfileData(e) {
@@ -461,7 +509,7 @@
         async function renderOrders() {
             const container = document.getElementById('userOrdersList');
             if (!currentUser || !currentUser.login) return;
-            container.innerHTML = '<p>Завантаження...</p>';
+            container.innerHTML = '<p style="color:#8d6e63">Натисніть "Мої замовлення", щоб завантажити...</p>';
 
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/orders?phone=eq.${encodeURIComponent(currentUser.login)}&order=created_at.desc`, {
@@ -474,7 +522,6 @@
                 let html = '';
                 orders.forEach(ord => {
                     const date = ord.created_at ? new Date(ord.created_at).toLocaleString('uk-UA') : 'Не вказано';
-                    // Здесь предполагаем, что в ord.items лежит строка или JSON. Если JSON, его можно распарсить.
                     const itemsDisplay = typeof ord.items === 'string' ? ord.items : JSON.stringify(ord.items);
                     
                     html += `

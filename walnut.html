@@ -141,15 +141,21 @@
         .benefit-card h3 { font-size: 22px; margin-bottom: 8px; }
         .benefit-card p { font-size: 14px; color: var(--text-muted); }
 
-        /* ===== КОНСУЛЬТАЦИЯ ===== */
-        .consult-box {
+        /* ===== СТАТЬЯ О ГРЕЦКОМ ОРЕХЕ ===== */
+        .article-box {
             background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
             border: 1px solid #FDE68A; border-radius: 24px; padding: 40px;
-            display: grid; grid-template-columns: 1fr 1.1fr; gap: 36px; align-items: center; margin-bottom: 50px;
+            box-shadow: var(--shadow-soft); margin-bottom: 50px;
         }
-        .consult-info h2 { font-size: 34px; margin-bottom: 10px; }
-        .consult-info p { color: var(--text-muted); font-size: 15px; }
-        .consult-form { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 24px; }
+        .article-box h2 { font-size: 34px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+        .article-box p { color: var(--text-muted); font-size: 15px; line-height: 1.75; margin-bottom: 14px; }
+        .article-box p:last-child { margin-bottom: 0; }
+
+        /* ===== МОДАЛКА ===== */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(43, 29, 14, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
+        .modal.active { display: flex; }
+        .modal-box { background: var(--card-bg); border-radius: 24px; padding: 32px; max-width: 480px; width: 92%; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 18px; right: 18px; background: var(--bg); border: 1px solid var(--border); width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; }
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
         .form-group input, .form-group select, .form-group textarea {
@@ -157,25 +163,22 @@
             font-size: 14px; background: var(--bg); outline: none; font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); background: #fff; }
-        .btn-consult {
-            width: 100%; background: #059669; color: #fff; border: none; padding: 13px;
-            border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer;
-        }
-        .btn-consult:hover { background: #047857; }
-
-        /* ===== МОДАЛКА ===== */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(43, 29, 14, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
-        .modal.active { display: flex; }
-        .modal-box { background: var(--card-bg); border-radius: 24px; padding: 32px; max-width: 480px; width: 92%; position: relative; max-height: 90vh; overflow-y: auto; }
-        .close-modal { position: absolute; top: 18px; right: 18px; background: var(--bg); border: 1px solid var(--border); width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; }
         .btn-submit { width: 100%; background: #059669; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; }
         .btn-continue { background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; }
 
-        footer { background: var(--text); color: #A8A29E; padding: 40px 0; text-align: center; font-size: 14px; }
+        footer { background: var(--text); color: #A8A29E; padding: 36px 0; text-align: center; font-size: 14px; margin-top: 20px; }
         footer a { color: var(--accent); text-decoration: none; }
+        .footer-rights { color: #E7E5E4; font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+        .footer-bottom-mark { display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #A8A29E; font-size: 14px; }
+        .footer-circle-s {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px; border-radius: 50%; border: 1px solid currentColor;
+            font-size: 12px; font-weight: 700; line-height: 1;
+        }
 
         @media (max-width: 900px) {
-            .product-hero, .consult-box { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+            .product-hero { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+            .article-box { padding: 26px 20px; }
             .product-gallery { min-height: 260px; }
             .product-info h1 { font-size: 32px; }
             .benefits-grid { grid-template-columns: 1fr; }
@@ -280,30 +283,15 @@
         </div>
     </div>
 
-    <section id="consult" style="padding:0;">
-        <div class="consult-box">
-            <div class="consult-info">
-                <h2 id="cons-title">Консультація бджоляра</h2>
-                <p id="cons-sub">Підкажемо, яке фасування обрати та як краще зберігати медово-горіховий десерт.</p>
-            </div>
-            <div class="consult-form">
-                <form onsubmit="sendConsultToTelegram(event)">
-                    <div class="form-group">
-                        <label id="c-l-name">Ваше ім'я *</label>
-                        <input type="text" id="consName" required placeholder="Іван Іванов">
-                    </div>
-                    <div class="form-group">
-                        <label id="c-l-phone">Номер телефону *</label>
-                        <input type="tel" id="consPhone" required placeholder="+380XXXXXXXXX">
-                    </div>
-                    <div class="form-group">
-                        <label id="c-l-q">Запитання</label>
-                        <textarea id="consQuestion" rows="2" placeholder="Цікавить наявність та фасування..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-consult" id="c-btn">💬 Надіслати запит</button>
-                    <div id="consultStatus" style="margin-top:10px; font-size:13px; font-weight:700; text-align:center;"></div>
-                </form>
-            </div>
+    <section id="article" style="padding:0;">
+        <div class="article-box">
+            <h2 id="art-title">🥜 Чому волоський горіх у меді — такий смачний і корисний?</h2>
+            <p id="art-p1">
+                Волоський горіх у поєднанні з натуральним медом — це приємний, м'який і водночас ситний смак без нудотної солодкості. Хрумкі горіхові ядра гармонійно доповнюють густу медову текстуру, тож ложка такого десерту легко замінює солодощі до чаю чи кави.
+            </p>
+            <p id="art-p2">
+                Окрім чудового смаку, волоський горіх цінують за природний набір вітамінів і поживних речовин: у ньому містяться вітаміни групи B, вітамін E, корисні ненасичені жирні кислоти, антиоксиданти та мінерали. Разом із натуральним медом він допомагає підтримувати бадьорість, працездатність і тонус протягом дня.
+            </p>
         </div>
     </section>
 </div>
@@ -349,7 +337,11 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 Медова Пасіка • <a href="index.html">На головну</a> • <a href="tel:+380968980543">+380 96 898 0543</a></p>
+        <p class="footer-rights" id="ft-rights">Медова пасіка / всі права захищені</p>
+        <div class="footer-bottom-mark">
+            <span class="footer-circle-s" aria-hidden="true">©</span>
+            <span>2026</span>
+        </div>
     </div>
 </footer>
 
@@ -376,8 +368,10 @@
             b1t: "🥜 Добірний горіх", b1d: "Використовуємо відбірні ядра волоського горіха без гіркоти та зайвої вологи.",
             b2t: "🍯 Натуральний мед", b2d: "Без цукру, ароматизаторів та термічної обробки — зберігає корисні властивості.",
             b3t: "⚡ Користь щодня", b3d: "Чудово підходить до чаю, каші, сирників або як корисний перекус для всієї родини.",
-            consTitle: "Консультація бджоляра", consSub: "Підкажемо, яке фасування обрати та як краще зберігати медово-горіховий десерт.",
-            cLName: "Ваше ім'я *", cLPhone: "Номер телефону *", cLQ: "Запитання", cBtn: "💬 Надіслати запит",
+            artTitle: "🥜 Чому волоський горіх у меді — такий смачний і корисний?",
+            artP1: "Волоський горіх у поєднанні з натуральним медом — це приємний, м'який і водночас ситний смак без нудотної солодкості. Хрумкі горіхові ядра гармонійно доповнюють густу медову текстуру, тож ложка такого десерту легко замінює солодощі до чаю чи кави.",
+            artP2: "Окрім чудового смаку, волоський горіх цінують за природний набір вітамінів і поживних речовин: у ньому містяться вітаміни групи B, вітамін E, корисні ненасичені жирні кислоти, антиоксиданти та мінерали. Разом із натуральним медом він допомагає підтримувати бадьорість, працездатність і тонус протягом дня.",
+            ftRights: "Медова пасіка / всі права захищені",
             mTitle: "📋 Кошик замовлення", mTot: "Загальна сума:", mLName: "ПІБ *", mLPhone: "Номер телефону *",
             mLDelivery: "Спосіб доставки *", mDelOptDefault: "Оберіть спосіб доставки",
             mDelOptNP: "Нова Пошта", mDelOptUP: "Укрпошта", mDelOptPickup: "Самовивіз",
@@ -397,8 +391,10 @@
             b1t: "🥜 Отборный орех", b1d: "Используем отборные ядра грецкого ореха без горечи и лишней влаги.",
             b2t: "🍯 Натуральный мед", b2d: "Без сахара, ароматизаторов и термической обработки — сохраняет природную пользу.",
             b3t: "⚡ Польза каждый день", b3d: "Отлично подходит к чаю, каше, сырникам или как полезный перекус для всей семьи.",
-            consTitle: "Консультация пчеловода", consSub: "Подскажем, какую фасовку выбрать и как лучше хранить медово-ореховый десерт.",
-            cLName: "Ваше имя *", cLPhone: "Номер телефона *", cLQ: "Вопрос", cBtn: "💬 Отправить запрос",
+            artTitle: "🥜 Почему грецкий орех в меде — такой вкусный и полезный?",
+            artP1: "Грецкий орех в сочетании с натуральным медом — это приятный, мягкий и при этом сытный вкус без приторной сладости. Хрустящие ядра ореха гармонично дополняют густую медовую текстуру, поэтому ложка такого десерта легко заменяет сладости к чаю или кофе.",
+            artP2: "Помимо отличного вкуса, грецкий орех ценят за природный набор витаминов и питательных веществ: в нем содержатся витамины группы B, витамин E, полезные ненасыщенные жирные кислоты, антиоксиданты и минералы. Вместе с натуральным медом он помогает поддерживать бодрость, работоспособность и тонус в течение дня.",
+            ftRights: "Медовая пасека / все права защищены",
             mTitle: "📋 Корзина заказа", mTot: "Общая сумма:", mLName: "ФИО *", mLPhone: "Номер телефона *",
             mLDelivery: "Способ доставки *", mDelOptDefault: "Выберите способ доставки",
             mDelOptNP: "Новая Почта", mDelOptUP: "Укрпочта", mDelOptPickup: "Самовывоз",
@@ -436,12 +432,10 @@
         document.getElementById('b2-d').textContent = t.b2d;
         document.getElementById('b3-t').textContent = t.b3t;
         document.getElementById('b3-d').textContent = t.b3d;
-        document.getElementById('cons-title').textContent = t.consTitle;
-        document.getElementById('cons-sub').textContent = t.consSub;
-        document.getElementById('c-l-name').textContent = t.cLName;
-        document.getElementById('c-l-phone').textContent = t.cLPhone;
-        document.getElementById('c-l-q').textContent = t.cLQ;
-        document.getElementById('c-btn').textContent = t.cBtn;
+        document.getElementById('art-title').textContent = t.artTitle;
+        document.getElementById('art-p1').textContent = t.artP1;
+        document.getElementById('art-p2').textContent = t.artP2;
+        document.getElementById('ft-rights').textContent = t.ftRights;
         document.getElementById('m-title').textContent = t.mTitle;
         document.getElementById('m-tot').textContent = t.mTot;
         document.getElementById('m-l-name').textContent = t.mLName;
@@ -597,36 +591,6 @@
             localStorage.setItem('medova_cart', JSON.stringify(cart));
             updateCartUI();
             setTimeout(() => { closeModal('orderModal'); statusDiv.textContent = ''; }, 2000);
-        } catch (err) {
-            statusDiv.style.color = '#EF4444';
-            statusDiv.textContent = currentLang === 'uk' ? '❌ Помилка відправки!' : '❌ Ошибка отправки!';
-        }
-    }
-
-    async function sendConsultToTelegram(e) {
-        e.preventDefault();
-        const name = document.getElementById('consName').value.trim();
-        const phone = document.getElementById('consPhone').value.trim();
-        const question = document.getElementById('consQuestion').value.trim();
-        const statusDiv = document.getElementById('consultStatus');
-        statusDiv.style.color = 'var(--primary)';
-        statusDiv.textContent = currentLang === 'uk' ? 'Відправка...' : 'Отправка...';
-
-        try {
-            const text = `<b>💬 Запит на консультацію (Мед з волоським горіхом)</b>\n\n` +
-                         `<b>👤 Ім'я:</b> ${name}\n` +
-                         `<b>📞 Телефон:</b> ${phone}\n` +
-                         `<b>❓ Запитання:</b> ${question || '—'}`;
-            const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
-            });
-            const data = await res.json();
-            if (!data.ok) throw new Error('TG error');
-            statusDiv.style.color = '#059669';
-            statusDiv.textContent = currentLang === 'uk' ? '✅ Запит надіслано!' : '✅ Запрос отправлен!';
-            e.target.reset();
         } catch (err) {
             statusDiv.style.color = '#EF4444';
             statusDiv.textContent = currentLang === 'uk' ? '❌ Помилка відправки!' : '❌ Ошибка отправки!';
